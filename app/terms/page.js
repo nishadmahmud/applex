@@ -74,7 +74,7 @@ export default function TermsPage() {
                 <section>
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Contact</h2>
                     <p className="text-gray-600 leading-relaxed">
-                        If you have any questions about these Terms & Conditions, please contact us at support@pochondoshop.com or visit our Contact Us page.
+                        If you have any questions about these Terms & Conditions, please contact us at support@applex.com or visit our Contact Us page.
                     </p>
                 </section>
             </div>

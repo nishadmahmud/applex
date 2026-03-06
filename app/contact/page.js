@@ -28,7 +28,7 @@ export default function ContactPage() {
                                 {[
                                     { label: 'Address', value: 'Dhaka, Bangladesh', icon: <MapPin className="w-6 h-6" /> },
                                     { label: 'Phone', value: '+880 1234 567890', icon: <Phone className="w-6 h-6" /> },
-                                    { label: 'Email', value: 'support@pochondoshop.com', icon: <Mail className="w-6 h-6" /> },
+                                    { label: 'Email', value: 'support@applex.com', icon: <Mail className="w-6 h-6" /> },
                                     { label: 'Working Hours', value: 'Sat - Thu: 10AM - 8PM', icon: <Clock className="w-6 h-6" /> },
                                 ].map((item, i) => (
                                     <div key={i} className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100">

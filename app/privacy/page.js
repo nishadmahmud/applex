@@ -58,7 +58,7 @@ const sections = [
         content: [
             "You have the right to access, update, or delete your personal information through your account settings.",
             "You may opt out of marketing communications at any time by unsubscribing from our emails.",
-            "You may request a copy of the data we hold about you by contacting us at support@pochondoshop.com.",
+            "You may request a copy of the data we hold about you by contacting us at support@applex.com.",
         ],
     },
     {
@@ -106,8 +106,8 @@ export default function PrivacyPage() {
                     <div className="mt-10 p-5 bg-gray-50 rounded-xl border border-gray-100">
                         <p className="text-sm text-gray-600">
                             If you have any questions about this Privacy Policy, please contact us at{" "}
-                            <a href="/"className="text-brand-purple font-semibold hover:underline">support@pochondoshop.com</a> or call{" "}
-                            <a href="/"className="text-brand-purple font-semibold hover:underline">+880 1714-404100</a>.
+                            <a href="/" className="text-brand-purple font-semibold hover:underline">support@applex.com</a> or call{" "}
+                            <a href="/" className="text-brand-purple font-semibold hover:underline">+880 1714-404100</a>.
                         </p>
                     </div>
                 </div>

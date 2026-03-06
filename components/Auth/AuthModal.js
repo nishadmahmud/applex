@@ -146,7 +146,7 @@ const AuthModal = () => {
                     <p className="text-sm text-gray-500 mb-6">
                         {authModalMode === "login"
                             ? "Sign in to access your account"
-                            : "Join pochondoshop today"}
+                            : "Join applex today"}
                     </p>
 
                     <div className="flex border-b border-gray-200 mb-6">
