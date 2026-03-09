@@ -196,23 +196,23 @@ export default function ProductDetailsPage() {
 
     return (
         <div className="bg-white min-h-screen pb-12">
-            <div className="border-b border-brand-purple/10 bg-gradient-to-r from-brand-purple/5 to-transparent py-4 md:py-6 mb-6 md:mb-10">
+            <div className="bg-white border-b border-gray-100 py-3 md:py-4 mb-6 md:mb-8">
                 <div className="max-w-7xl mx-auto px-4 md:px-6">
-                    <div className="text-[11px] md:text-sm text-gray-500 flex items-center gap-2 font-medium">
-                        <Link href="/" className="hover:text-brand-purple cursor-pointer transition-colors">Home</Link>
-                        <span>/</span>
+                    <div className="text-[10px] md:text-[12px] text-gray-400 flex items-center gap-2 font-black uppercase tracking-widest">
+                        <Link href="/" className="hover:text-blue-600 cursor-pointer transition-colors">Home</Link>
+                        <span className="text-gray-300">/</span>
                         {fromCategory && productData?.category?.name && (
                             <>
                                 <Link
                                     href={`/category/${productData.category.slug}`}
-                                    className="hover:text-brand-purple cursor-pointer transition-colors capitalize"
+                                    className="hover:text-blue-600 cursor-pointer transition-colors"
                                 >
                                     {productData.category.name}
                                 </Link>
-                                <span>/</span>
+                                <span className="text-gray-300">/</span>
                             </>
                         )}
-                        <span className="text-brand-purple font-bold capitalize truncate">{productName}</span>
+                        <span className="text-blue-600 truncate">{productName}</span>
                     </div>
                 </div>
             </div>
@@ -220,9 +220,9 @@ export default function ProductDetailsPage() {
             <div className="max-w-7xl mx-auto px-4 md:px-6">
 
                 {isLoading ? (
-                    <div className="py-20 flex flex-col items-center justify-center">
-                        <div className="w-10 h-10 border-4 border-brand-purple/20 border-t-brand-purple rounded-full animate-spin mb-4"></div>
-                        <p className="text-sm text-gray-500">Loading product details…</p>
+                    <div className="py-32 flex flex-col items-center justify-center">
+                        <div className="w-12 h-12 border-4 border-gray-100 border-t-blue-600 rounded-full animate-spin mb-6"></div>
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Gathering details...</p>
                     </div>
                 ) : error || !productData ? (
                     <div className="py-20 text-center">

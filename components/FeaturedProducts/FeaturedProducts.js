@@ -1,96 +1,63 @@
 "use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { FiArrowRight, FiShoppingCart } from 'react-icons/fi';
-import { useCart } from '../../context/CartContext';
+import { useState } from 'react';
+import { FiArrowRight } from 'react-icons/fi';
+import ProductCard from '../Shared/ProductCard';
 
 export default function FeaturedProducts({ products = [] }) {
-    const { addToCart } = useCart();
-
-    const handleAddToCart = (product) => {
-        addToCart({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.imageUrl,
-        });
-    };
+    const [activeTab, setActiveTab] = useState('For You');
+    const tabs = ['For You', 'Top Ranked', 'Best Sellers', 'Trending'];
 
     return (
-        <section className="w-full bg-white py-12 md:py-16">
+        <section className="w-full bg-white py-10 md:py-14 border-t border-gray-100">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 {/* Section Header */}
-                <div className="flex items-center justify-between mb-8 md:mb-10">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 md:mb-10 border-b border-gray-200 pb-5">
                     <div>
-                        <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Best Sellers</h2>
-                        <p className="text-applex-muted text-sm mt-1">Our most popular devices</p>
+                        <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight uppercase">Discover <span className="text-blue-600 italic">More</span></h2>
                     </div>
-                    <Link href="/category" className="text-applex-cyan hover:text-applex-cyan-dark text-sm font-semibold flex items-center gap-1 transition-colors">
-                        View All <FiArrowRight className="w-4 h-4" />
-                    </Link>
+
+                    {/* Pill Toggles */}
+                    <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+                        {tabs.map((tab) => (
+                            <button
+                                key={tab}
+                                onClick={() => setActiveTab(tab)}
+                                className={`px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab
+                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20'
+                                    : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                                    }`}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Product Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
-                    {products.slice(0, 8).map((product, idx) => (
-                        <div key={product.id} className="group rounded-2xl bg-[#111] border border-gray-800 overflow-hidden hover:border-applex-cyan/50 transition-all duration-300 hover:shadow-xl hover:shadow-applex-cyan/10 flex flex-col relative">
-                            {/* Rank badge */}
-                            {idx < 3 && (
-                                <div className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-white flex items-center justify-center text-[10px] font-black text-[#0a0a0a] shadow-md">
-                                    #{idx + 1}
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+                    {products.slice(0, 10).map((product, idx) => (
+                        <div key={product.id} className="relative">
+                            {/* Rank and Hot badges */}
+                            {idx < 3 ? (
+                                <div className="absolute top-2 left-2 z-20 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-[12px] font-black text-white shadow-lg border-2 border-white">
+                                    {idx + 1}
+                                </div>
+                            ) : (
+                                <div className="absolute top-2 left-2 z-20 bg-red-100/80 backdrop-blur-sm text-red-600 text-[9px] font-black px-2 py-1 rounded-lg border border-red-200 shadow-sm uppercase tracking-tighter">
+                                    Hot
                                 </div>
                             )}
-                            {idx >= 3 && (
-                                <div className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-md bg-orange-500/10 text-orange-400 text-[9px] font-bold">
-                                    🔥 Popular
-                                </div>
-                            )}
-
-                            {/* Image */}
-                            <Link href={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}-${product.id}`}>
-                                <div className="aspect-square relative bg-white p-4">
-                                    <Image
-                                        src={product.imageUrl || "/no-image.svg"}
-                                        alt={product.name}
-                                        fill
-                                        className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
-                                        unoptimized
-                                    />
-                                    {product.discount && (
-                                        <span className="absolute top-3 left-3 bg-red-500 text-white text-[9px] md:text-[10px] font-bold px-2 py-0.5 rounded-md">
-                                            {product.discount}
-                                        </span>
-                                    )}
-                                </div>
-                            </Link>
-
-                            {/* Info */}
-                            <div className="p-3 md:p-4 flex-1 flex flex-col">
-                                <Link href={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}-${product.id}`}>
-                                    <h3 className="text-sm md:text-base font-semibold text-white line-clamp-2 mb-2 leading-tight group-hover:text-applex-cyan transition-colors">
-                                        {product.name}
-                                    </h3>
-                                </Link>
-
-                                <div className="mt-auto flex items-center justify-between gap-2">
-                                    <div className="flex items-baseline gap-1.5 flex-wrap">
-                                        <span className="text-base md:text-lg font-bold text-white">{product.price}</span>
-                                        {product.oldPrice && (
-                                            <span className="text-[10px] md:text-xs text-gray-500 line-through">{product.oldPrice}</span>
-                                        )}
-                                    </div>
-                                    <button
-                                        onClick={() => handleAddToCart(product)}
-                                        className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-applex-cyan/10 hover:bg-applex-cyan text-applex-cyan hover:text-[#0a0a0a] flex items-center justify-center transition-all duration-300 flex-shrink-0"
-                                        aria-label="Add to cart"
-                                    >
-                                        <FiShoppingCart className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                                    </button>
-                                </div>
-                            </div>
+                            <ProductCard product={product} />
                         </div>
                     ))}
+                </div>
+
+                {/* View More Button */}
+                <div className="mt-12 flex justify-center">
+                    <button className="group px-10 py-4 rounded-2xl bg-gray-900 text-white font-black text-xs uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-xl flex items-center gap-3">
+                        Load More <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </button>
                 </div>
             </div>
         </section>

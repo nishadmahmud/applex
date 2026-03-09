@@ -51,31 +51,31 @@ export default function Testimonials() {
                 {/* Section Header */}
                 <div className="text-center mb-8 md:mb-12">
                     <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">What Our Customers Say</h2>
-                    <p className="text-applex-muted text-sm mt-2">Real reviews from verified buyers</p>
+                    <p className="text-gray-500 text-sm mt-2">Real reviews from verified buyers</p>
                 </div>
 
                 {/* Reviews Grid (Desktop) */}
                 <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
                     {reviews.map((review) => (
-                        <div key={review.id} className="rounded-2xl bg-[#111] border border-gray-800 p-5 md:p-6 flex flex-col gap-4 hover:border-applex-cyan/50 hover:shadow-lg hover:shadow-applex-cyan/10 transition-all duration-300">
+                        <div key={review.id} className="rounded-2xl bg-white border border-gray-200 p-5 md:p-6 flex flex-col gap-4 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
                             {/* Stars */}
                             <div className="flex gap-0.5">
                                 {[...Array(5)].map((_, i) => (
                                     <FiStar
                                         key={i}
-                                        className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`}
+                                        className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
                                     />
                                 ))}
                             </div>
 
                             {/* Review */}
-                            <p className="text-sm text-gray-300 leading-relaxed flex-1">&ldquo;{review.review}&rdquo;</p>
+                            <p className="text-sm text-gray-600 leading-relaxed flex-1">&ldquo;{review.review}&rdquo;</p>
 
                             {/* Author */}
-                            <div className="border-t border-gray-800 pt-3 mt-auto">
-                                <p className="text-sm font-bold text-white">{review.name}</p>
-                                <p className="text-xs text-applex-cyan font-semibold">{review.product}</p>
-                                <p className="text-[10px] text-gray-500 mt-1">{review.date}</p>
+                            <div className="border-t border-gray-100 pt-3 mt-auto">
+                                <p className="text-sm font-bold text-gray-900">{review.name}</p>
+                                <p className="text-xs text-blue-600 font-semibold">{review.product}</p>
+                                <p className="text-[10px] text-gray-400 mt-1">{review.date}</p>
                             </div>
                         </div>
                     ))}
@@ -83,28 +83,28 @@ export default function Testimonials() {
 
                 {/* Mobile Carousel */}
                 <div className="md:hidden">
-                    <div className="rounded-2xl bg-[#111] border border-gray-800 p-5 flex flex-col gap-4">
+                    <div className="rounded-2xl bg-white border border-gray-200 p-5 flex flex-col gap-4 shadow-sm">
                         <div className="flex gap-0.5">
                             {[...Array(5)].map((_, i) => (
                                 <FiStar
                                     key={i}
-                                    className={`w-4 h-4 ${i < reviews[activeIndex].rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`}
+                                    className={`w-4 h-4 ${i < reviews[activeIndex].rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
                                 />
                             ))}
                         </div>
-                        <p className="text-sm text-gray-300 leading-relaxed">&ldquo;{reviews[activeIndex].review}&rdquo;</p>
-                        <div className="border-t border-gray-800 pt-3">
-                            <p className="text-sm font-bold text-white">{reviews[activeIndex].name}</p>
-                            <p className="text-xs text-applex-cyan font-semibold">{reviews[activeIndex].product}</p>
+                        <p className="text-sm text-gray-600 leading-relaxed">&ldquo;{reviews[activeIndex].review}&rdquo;</p>
+                        <div className="border-t border-gray-100 pt-3">
+                            <p className="text-sm font-bold text-gray-900">{reviews[activeIndex].name}</p>
+                            <p className="text-xs text-blue-600 font-semibold">{reviews[activeIndex].product}</p>
                         </div>
                     </div>
 
                     <div className="flex items-center justify-center gap-3 mt-4">
-                        <button onClick={prev} className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-applex-cyan/40 transition-colors">
+                        <button onClick={prev} className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-colors shadow-sm">
                             <FiChevronLeft size={18} />
                         </button>
-                        <span className="text-xs text-applex-muted">{activeIndex + 1} / {reviews.length}</span>
-                        <button onClick={next} className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-applex-cyan/40 transition-colors">
+                        <span className="text-xs text-gray-500 font-medium">{activeIndex + 1} / {reviews.length}</span>
+                        <button onClick={next} className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-colors shadow-sm">
                             <FiChevronRight size={18} />
                         </button>
                     </div>

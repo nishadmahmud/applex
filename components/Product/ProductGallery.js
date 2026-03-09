@@ -33,7 +33,7 @@ export default function ProductGallery({ images = [] }) {
                     <button
                         key={idx}
                         onClick={() => setMainImage(img)}
-                        className={`relative w-20 h-20 shrink-0 rounded-xl border-2 overflow-hidden bg-[#f5f5f5] transition-all ${mainImage === img ? 'border-brand-purple' : 'border-transparent hover:border-gray-300'
+                        className={`relative w-20 h-20 shrink-0 rounded-xl border-2 overflow-hidden bg-[#f5f5f5] transition-all ${mainImage === img ? 'border-blue-600 shadow-lg shadow-blue-500/10' : 'border-gray-100 hover:border-gray-300'
                             }`}
                     >
                         <Image

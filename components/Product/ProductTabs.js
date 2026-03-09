@@ -11,26 +11,26 @@ export default function ProductTabs({ description, specifications }) {
             <div className="flex items-center gap-6 md:gap-10 border-b border-gray-200 mb-8">
                 <button
                     onClick={() => setActiveTab('description')}
-                    className={`cursor-pointer pb-4 text-[15px] md:text-[17px] font-bold transition-colors relative ${activeTab === 'description'
-                        ? 'text-[#ff2a3b]'
+                    className={`cursor-pointer pb-4 text-xs font-black uppercase tracking-[0.2em] transition-all relative ${activeTab === 'description'
+                        ? 'text-blue-600'
                         : 'text-gray-400 hover:text-gray-600'
                         }`}
                 >
                     Description
                     {activeTab === 'description' && (
-                        <span className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-[#ff2a3b] rounded-t-lg"></span>
+                        <span className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-blue-600 rounded-full"></span>
                     )}
                 </button>
                 <button
                     onClick={() => setActiveTab('specifications')}
-                    className={`cursor-pointer pb-4 text-[15px] md:text-[17px] font-bold transition-colors relative ${activeTab === 'specifications'
-                        ? 'text-[#ff2a3b]'
+                    className={`cursor-pointer pb-4 text-xs font-black uppercase tracking-[0.2em] transition-all relative ${activeTab === 'specifications'
+                        ? 'text-blue-600'
                         : 'text-gray-400 hover:text-gray-600'
                         }`}
                 >
                     Specifications
                     {activeTab === 'specifications' && (
-                        <span className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-[#ff2a3b] rounded-t-lg"></span>
+                        <span className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-blue-600 rounded-full"></span>
                     )}
                 </button>
             </div>

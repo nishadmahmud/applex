@@ -16,12 +16,12 @@ export default function TrustStats() {
                         const Icon = item.icon;
                         return (
                             <div key={idx} className="flex items-center gap-3 md:gap-4 justify-center md:justify-start group">
-                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-applex-cyan/10 flex items-center justify-center flex-shrink-0 group-hover:bg-applex-cyan/15 transition-colors">
-                                    <Icon className="w-5 h-5 md:w-6 md:h-6 text-applex-cyan" />
+                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-blue-600/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600/15 transition-colors">
+                                    <Icon className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
                                 </div>
                                 <div>
                                     <p className="text-gray-900 text-xs md:text-sm font-bold leading-tight">{item.label}</p>
-                                    <p className="text-applex-muted text-[10px] md:text-xs mt-0.5">{item.sublabel}</p>
+                                    <p className="text-gray-500 text-[10px] md:text-xs mt-0.5">{item.sublabel}</p>
                                 </div>
                             </div>
                         );

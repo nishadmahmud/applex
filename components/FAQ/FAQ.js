@@ -43,7 +43,7 @@ export default function FAQ() {
                 {/* Section Header */}
                 <div className="text-center mb-8 md:mb-12">
                     <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Common Questions</h2>
-                    <p className="text-applex-muted text-sm mt-2">Everything you need to know</p>
+                    <p className="text-gray-500 text-sm mt-2">Everything you need to know</p>
                 </div>
 
                 {/* Accordion */}
@@ -52,20 +52,20 @@ export default function FAQ() {
                         <div
                             key={idx}
                             className={`rounded-xl border transition-all duration-300 ${openIndex === idx
-                                    ? 'bg-white border-applex-cyan/30 shadow-md shadow-applex-cyan/5'
-                                    : 'bg-gray-50 border-gray-200 hover:border-gray-300'
+                                ? 'bg-blue-50/30 border-blue-500/30 shadow-md shadow-blue-500/5'
+                                : 'bg-gray-50 border-gray-200 hover:border-gray-300'
                                 }`}
                         >
                             <button
                                 onClick={() => toggle(idx)}
                                 className="w-full flex items-center justify-between px-5 md:px-6 py-4 md:py-5 text-left"
                             >
-                                <span className={`text-sm md:text-base font-semibold pr-4 transition-colors ${openIndex === idx ? 'text-applex-cyan' : 'text-gray-900'
+                                <span className={`text-sm md:text-base font-semibold pr-4 transition-colors ${openIndex === idx ? 'text-blue-600' : 'text-gray-900'
                                     }`}>
                                     {item.q}
                                 </span>
                                 <FiChevronDown
-                                    className={`w-5 h-5 flex-shrink-0 transition-all duration-300 ${openIndex === idx ? 'rotate-180 text-applex-cyan' : 'text-applex-muted'
+                                    className={`w-5 h-5 flex-shrink-0 transition-all duration-300 ${openIndex === idx ? 'rotate-180 text-blue-600' : 'text-gray-400'
                                         }`}
                                 />
                             </button>
@@ -75,7 +75,7 @@ export default function FAQ() {
                                     }`}
                             >
                                 <div className="px-5 md:px-6 pb-4 md:pb-5">
-                                    <p className="text-sm text-applex-muted leading-relaxed">{item.a}</p>
+                                    <p className="text-sm text-gray-500 leading-relaxed">{item.a}</p>
                                 </div>
                             </div>
                         </div>

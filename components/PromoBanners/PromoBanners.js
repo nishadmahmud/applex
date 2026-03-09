@@ -3,61 +3,63 @@ import Link from 'next/link';
 
 export default function PromoBanners() {
     return (
-        <section className="w-full bg-white py-8 md:py-12">
+        <section className="w-full bg-white py-8 md:py-12 border-t border-gray-100">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
 
-                {/* Banner Container */}
-                <div className="relative rounded-3xl overflow-hidden bg-gray-50 border border-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
 
-                    {/* Decorative Elements */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-applex-cyan/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-                    <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
+                    {/* Banner 1: Super Sale */}
+                    <Link href="/special-offers" className="relative rounded-2xl overflow-hidden group block shadow-sm border border-gray-100">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 opacity-90 transition-opacity group-hover:opacity-100"></div>
 
-                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between p-8 md:p-12 gap-8">
+                        {/* Decorative circles */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-cyan-400/20 rounded-full blur-3xl translate-y-1/4 -translate-x-1/4"></div>
 
-                        {/* Text Content */}
-                        <div className="text-center md:text-left md:max-w-xl">
-                            <span className="inline-block px-3 py-1 bg-white border border-gray-200 text-gray-900 text-xs font-bold rounded-full mb-4 shadow-sm">
-                                Trade-in Offer
+                        <div className="relative z-10 p-8 md:p-10 flex flex-col h-full min-h-[250px] justify-center text-white">
+                            <span className="inline-block px-3 py-1 bg-white/20 uppercase tracking-widest text-[10px] font-bold rounded shadow-sm mb-4 w-fit backdrop-blur-sm border border-white/10">
+                                Super Sale
                             </span>
-                            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 tracking-tight leading-tight">
-                                Upgrade to the latest. <br />
-                                <span className="text-applex-cyan">Save up to ৳35,000.</span>
+                            <h2 className="text-2xl md:text-3xl font-black mb-2 leading-tight">
+                                Top Tech Deals <br />
+                                <span className="text-blue-100">Up to 40% Off</span>
                             </h2>
-                            <p className="text-gray-500 text-base md:text-lg mb-8 leading-relaxed">
-                                Exchange your old smartphone for a brand new one. Get an instant valuation and massive discounts on top brands.
+                            <p className="text-blue-50 text-xs md:text-sm mb-6 max-w-[250px] font-medium leading-relaxed">
+                                Grab the latest laptops, tablets, and smartwatches at unbeatable prices.
                             </p>
 
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                                <Link
-                                    href="/trade-in"
-                                    className="px-8 py-3.5 rounded-full bg-applex-black text-white font-bold hover:bg-gray-800 transition-all shadow-md flex items-center justify-center gap-2 group"
-                                >
-                                    Value My Phone
-                                    <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-                                </Link>
-                                <Link
-                                    href="/how-it-works"
-                                    className="px-8 py-3.5 rounded-full bg-white text-gray-900 border border-gray-200 font-bold hover:bg-gray-50 transition-all shadow-sm flex items-center justify-center"
-                                >
-                                    Learn More
-                                </Link>
-                            </div>
+                            <span className="mt-auto px-6 py-2.5 rounded-full bg-white text-blue-700 font-bold hover:bg-gray-50 transition-all shadow-md w-fit flex items-center gap-2 text-sm">
+                                Shop Deals <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                            </span>
                         </div>
+                    </Link>
 
-                        {/* Visual/Stats */}
-                        <div className="w-full md:w-auto flex-shrink-0 grid grid-cols-2 gap-4">
-                            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center">
-                                <span className="text-3xl font-black text-applex-cyan mb-1">5k+</span>
-                                <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">Phones Traded</span>
-                            </div>
-                            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center">
-                                <span className="text-3xl font-black text-applex-cyan mb-1">2min</span>
-                                <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">Quick Process</span>
-                            </div>
+                    {/* Banner 2: Trade In */}
+                    <Link href="/trade-in" className="relative rounded-2xl overflow-hidden group block shadow-sm border border-gray-100">
+                        <div className="absolute inset-0 bg-gradient-to-br from-orange-500 via-rose-500 to-red-600 opacity-90 transition-opacity group-hover:opacity-100"></div>
+
+                        {/* Decorative circles */}
+                        <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3"></div>
+                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-yellow-400/20 rounded-full blur-3xl translate-y-1/4 -translate-x-1/4"></div>
+
+                        <div className="relative z-10 p-8 md:p-10 flex flex-col h-full min-h-[250px] justify-center text-white">
+                            <span className="inline-block px-3 py-1 bg-white/20 uppercase tracking-widest text-[10px] font-bold rounded shadow-sm mb-4 w-fit backdrop-blur-sm border border-white/10">
+                                Trade-in Offer
+                            </span>
+                            <h2 className="text-2xl md:text-3xl font-black mb-2 leading-tight">
+                                Upgrade Today <br />
+                                <span className="text-red-100">Save up to ৳35k</span>
+                            </h2>
+                            <p className="text-red-50 text-xs md:text-sm mb-6 max-w-[250px] font-medium leading-relaxed">
+                                Exchange your old smartphone for massive discounts on brand new flagship devices.
+                            </p>
+
+                            <span className="mt-auto px-6 py-2.5 rounded-full bg-white text-red-600 font-bold hover:bg-gray-50 transition-all shadow-md w-fit flex items-center gap-2 text-sm">
+                                Value My Phone <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                            </span>
                         </div>
+                    </Link>
 
-                    </div>
                 </div>
 
             </div>

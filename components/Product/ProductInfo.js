@@ -174,48 +174,46 @@ export default function ProductInfo({ product, onVariantImageChange }) {
             {/* Header: Title, Reviews, Share */}
             <div className="flex justify-between items-start mb-2">
                 <div>
-                    <div className="bg-brand-purple/10 text-brand-purple text-xs font-bold px-2.5 py-1 rounded-md inline-block mb-3">
+                    <div className="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1.5 rounded-lg inline-block mb-3 uppercase tracking-widest shadow-sm">
                         In Stock
                     </div>
-                    <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-2">{product.name}</h1>
-
-
+                    <h1 className="text-2xl md:text-3xl font-black text-gray-900 mb-2 tracking-tight">{product.name}</h1>
                 </div>
 
-                <button className="p-2 text-gray-400 hover:text-brand-purple hover:bg-brand-purple/10 rounded-full transition-colors">
+                <button className="p-2.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all border border-transparent hover:border-blue-100">
                     <FiShare2 size={20} />
                 </button>
             </div>
 
             {/* Price section */}
-            <div className="mb-6 pb-6 border-b border-gray-100">
+            <div className="mb-8 pb-8 border-b border-gray-100">
                 <div className="flex items-baseline gap-3">
-                    <span className="text-3xl md:text-4xl font-extrabold text-gray-800">
+                    <span className="text-4xl font-black text-gray-900 tracking-tighter">
                         {displayPrice}
                     </span>
                     {displayOldPrice && (
-                        <span className="text-lg text-gray-400 line-through font-medium">
+                        <span className="text-lg text-gray-400 line-through font-bold">
                             {displayOldPrice}
                         </span>
                     )}
                     {product.discount && (
-                        <span className="text-sm font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-md">
+                        <span className="text-xs font-black text-red-600 bg-red-50 px-3 py-1 rounded-full uppercase tracking-widest">
                             {product.discount}
                         </span>
                     )}
                 </div>
-                <p className="text-xs text-gray-500 mt-1">Price includes VAT</p>
+                <p className="text-[11px] font-bold text-gray-400 mt-2 uppercase tracking-wide">Inclusive of all local taxes</p>
             </div>
 
             {/* Variants */}
             {hasVariants && (
-                <div className="space-y-6 mb-8">
+                <div className="space-y-8 mb-10">
 
                     {/* Colors — use actual color swatches */}
                     {allColors.length > 0 && (
                         <div>
-                            <h3 className="text-sm font-bold text-gray-900 mb-3">
-                                Color: <span className="font-medium text-brand-purple">{selectedColor || ''}</span>
+                            <h3 className="text-xs font-black text-gray-400 mb-4 uppercase tracking-widest">
+                                Pick a Color: <span className="text-blue-600">{selectedColor || ''}</span>
                             </h3>
                             <div className="flex flex-wrap gap-3">
                                 {allColors.map(color => {
@@ -225,17 +223,17 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                                         <button
                                             key={color.name}
                                             onClick={() => setSelectedColor(color.name)}
-                                            className={`cursor-pointer flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border-2 transition-all duration-200 ${isSelected
-                                                ? 'border-brand-purple bg-brand-purple/5 shadow-md shadow-brand-purple/10'
-                                                : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                                            className={`cursor-pointer flex items-center gap-3 px-4 py-3 rounded-2xl border-2 transition-all duration-300 ${isSelected
+                                                ? 'border-blue-600 bg-blue-50/50 shadow-lg shadow-blue-500/10'
+                                                : 'border-gray-100 hover:border-gray-200 bg-white hover:shadow-sm'
                                                 }`}
                                             title={color.name}
                                         >
                                             <span
-                                                className={`w-5 h-5 rounded-full shadow-inner ${isWhite ? 'border border-gray-300' : ''}`}
+                                                className={`w-6 h-6 rounded-full shadow-inner ${isWhite ? 'border border-gray-200' : ''}`}
                                                 style={{ backgroundColor: color.hex }}
                                             />
-                                            <span className={`text-sm font-medium ${isSelected ? 'text-brand-purple' : 'text-gray-600'}`}>
+                                            <span className={`text-sm font-black ${isSelected ? 'text-blue-600' : 'text-gray-600'}`}>
                                                 {color.name}
                                             </span>
                                         </button>
@@ -248,10 +246,10 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                     {/* Storage / Size */}
                     {allStorages.length > 0 && (
                         <div>
-                            <h3 className="text-sm font-bold text-gray-900 mb-3">
-                                Storage: <span className="font-medium text-brand-purple">{selectedStorage || ''}</span>
+                            <h3 className="text-xs font-black text-gray-400 mb-4 uppercase tracking-widest">
+                                Storage: <span className="text-blue-600">{selectedStorage || ''}</span>
                             </h3>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-3">
                                 {allStorages.map(size => {
                                     const isAvailable = availableStorages.includes(size);
                                     const isSelected = selectedStorage === size;
@@ -260,11 +258,11 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                                             key={size}
                                             onClick={() => isAvailable && setSelectedStorage(size)}
                                             disabled={!isAvailable}
-                                            className={`cursor-pointer px-4 py-2.5 rounded-xl text-sm font-semibold border-2 transition-all duration-200 ${isSelected
-                                                ? 'border-brand-purple bg-brand-purple text-white shadow-md shadow-brand-purple/20'
+                                            className={`cursor-pointer px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest border-2 transition-all duration-300 ${isSelected
+                                                ? 'border-blue-600 bg-blue-600 text-white shadow-xl shadow-blue-600/20'
                                                 : isAvailable
-                                                    ? 'border-gray-200 text-gray-600 hover:border-brand-purple/50 hover:shadow-sm'
-                                                    : 'border-gray-100 text-gray-300 cursor-not-allowed bg-gray-50 line-through'
+                                                    ? 'border-gray-100 bg-white text-gray-600 hover:border-blue-600/30 hover:shadow-sm'
+                                                    : 'border-gray-50 text-gray-300 cursor-not-allowed bg-gray-50/50'
                                                 }`}
                                         >
                                             {size}
@@ -278,8 +276,8 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                     {/* Region */}
                     {allRegions.length > 0 && (
                         <div>
-                            <h3 className="text-sm font-bold text-gray-900 mb-3">
-                                Region: <span className="font-medium text-brand-purple">{selectedRegion || ''}</span>
+                            <h3 className="text-xs font-black text-gray-400 mb-4 uppercase tracking-widest">
+                                Region: <span className="text-blue-600">{selectedRegion || ''}</span>
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {allRegions.map(region => {
@@ -290,11 +288,11 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                                             key={region}
                                             onClick={() => isAvailable && setSelectedRegion(region)}
                                             disabled={!isAvailable}
-                                            className={`cursor-pointer px-4 py-2.5 rounded-xl text-sm font-semibold border-2 transition-all duration-200 ${isSelected
-                                                ? 'border-brand-purple text-brand-purple bg-brand-purple/5 shadow-md shadow-brand-purple/10'
+                                            className={`cursor-pointer px-5 py-3 rounded-2xl text-[11px] font-black uppercase tracking-wider border-2 transition-all duration-300 ${isSelected
+                                                ? 'border-blue-600 text-blue-600 bg-blue-50 shadow-md shadow-blue-500/10'
                                                 : isAvailable
-                                                    ? 'border-gray-200 text-gray-600 hover:border-brand-purple/50 hover:shadow-sm'
-                                                    : 'border-gray-100 text-gray-300 cursor-not-allowed bg-gray-50 line-through'
+                                                    ? 'border-gray-100 bg-white text-gray-500 hover:border-blue-600/30 hover:shadow-sm'
+                                                    : 'border-gray-50 text-gray-300 cursor-not-allowed bg-gray-50/50 grayscale'
                                                 }`}
                                         >
                                             {region}
@@ -308,39 +306,45 @@ export default function ProductInfo({ product, onVariantImageChange }) {
             )}
 
             {/* Delivery Est */}
-            <div className="mb-8">
-                <p className="text-sm text-gray-600 font-medium">Estimated delivery: <span className="text-gray-900 font-bold underline decoration-brand-purple cursor-pointer">0-3 days</span></p>
+            <div className="mb-10 p-5 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-between">
+                <div>
+                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">Standard Delivery</span>
+                    <p className="text-sm font-bold text-gray-900">Reach you within <span className="text-blue-600 underline underline-offset-4 decoration-blue-600/30">0-3 business days</span></p>
+                </div>
+                <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
+                    <FiShare2 className="text-blue-600" />
+                </div>
             </div>
 
             {/* Add to Cart / Buy Now */}
-            <div className="flex flex-row items-stretch gap-2 mt-4">
+            <div className="flex flex-row items-stretch gap-3 mt-4">
                 {/* Quantity */}
-                <div className="flex items-center justify-between border-2 border-gray-200 rounded-lg py-1 px-1 w-[100px] shrink-0 bg-white">
+                <div className="flex items-center justify-between border-2 border-gray-100 rounded-2xl py-1 px-1 w-[120px] shrink-0 bg-white shadow-sm">
                     <button
                         onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                        className="cursor-pointer w-8 h-8 flex items-center justify-center text-gray-500 hover:text-brand-purple hover:bg-gray-100 rounded-md transition-colors"
+                        className="cursor-pointer w-10 h-10 flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
                     >
-                        <FiMinus size={14} />
+                        <FiMinus size={16} />
                     </button>
-                    <span className="font-bold text-gray-900 w-6 text-center text-sm">{quantity}</span>
+                    <span className="font-black text-gray-900 w-8 text-center text-sm">{quantity}</span>
                     <button
                         onClick={() => setQuantity(quantity + 1)}
-                        className="cursor-pointer w-8 h-8 flex items-center justify-center text-gray-500 hover:text-brand-purple hover:bg-gray-100 rounded-md transition-colors"
+                        className="cursor-pointer w-10 h-10 flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
                     >
-                        <FiPlus size={14} />
+                        <FiPlus size={16} />
                     </button>
                 </div>
 
                 <button
                     onClick={handleAddToCart}
-                    className="cursor-pointer flex-1 bg-white border-2 border-brand-purple text-brand-purple font-bold py-3 px-2 rounded-lg hover:bg-brand-purple hover:text-white transition-colors text-sm whitespace-nowrap"
+                    className="cursor-pointer flex-1 bg-white border-2 border-blue-600 text-blue-600 font-black py-4 px-2 rounded-2xl hover:bg-blue-50 transition-all text-xs uppercase tracking-[0.1em] shadow-sm"
                 >
                     Add to Cart
                 </button>
 
                 <button
                     onClick={handleAddToCart}
-                    className="cursor-pointer flex-[1.5] bg-brand-purple text-white font-bold py-3 px-2 rounded-lg hover:opacity-90 shadow-lg shadow-brand-purple/30 transition-all text-sm whitespace-nowrap"
+                    className="cursor-pointer flex-[1.5] bg-blue-600 text-white font-black py-4 px-2 rounded-2xl hover:bg-blue-700 shadow-xl shadow-blue-600/30 transition-all text-xs uppercase tracking-[0.2em]"
                 >
                     Buy Now
                 </button>

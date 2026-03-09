@@ -1,5 +1,4 @@
 import Hero from "../components/Hero/Hero";
-import TrustStats from "../components/TrustStats/TrustStats";
 import ShopCategories from "../components/ShopCategories/ShopCategories";
 import NewArrivals from "../components/NewArrivals/NewArrivals";
 import PromoBanners from "../components/PromoBanners/PromoBanners";
@@ -10,21 +9,156 @@ import FAQ from "../components/FAQ/FAQ";
 import BlogTips from "../components/BlogTips/BlogTips";
 import CTABanner from "../components/CTABanner/CTABanner";
 
-// When .env is configured, uncomment these imports:
-// import {
-//   getSlidersFromServer,
-//   getCategoriesFromServer,
-//   getNewArrivalsFromServer,
-//   getProducts,
-//   getBlogs,
-//   getBannerFromServer,
-//   getBestDealsFromServer,
-//   getBestSellersFromServer
-// } from "../lib/api";
+import {
+  getSlidersFromServer,
+  getCategoriesFromServer,
+  getNewArrivalsFromServer,
+  getBlogs,
+  getBannerFromServer,
+  getBestDealsFromServer,
+  getBestSellersFromServer
+} from "../lib/api";
 
 export default async function Home() {
+  // Fetch API Data safely
+  const [
+    slidersRes,
+    bannersRes,
+    categoriesRes,
+    newArrivalsRes,
+    bestSellersRes,
+    bestDealsRes,
+    blogsRes
+  ] = await Promise.all([
+    getSlidersFromServer().catch(() => ({ success: false, data: [] })),
+    getBannerFromServer().catch(() => ({ success: false, data: [] })),
+    getCategoriesFromServer().catch(() => ({ success: false, data: [] })),
+    getNewArrivalsFromServer().catch(() => ({ success: false, data: [] })),
+    getBestSellersFromServer().catch(() => ({ success: false, data: [] })),
+    getBestDealsFromServer().catch(() => ({ success: false, data: [] })),
+    getBlogs().catch(() => ({ success: false, data: [] }))
+  ]);
+
   // ═══════════════════════════════════════════
-  // DUMMY DATA — Replace with API calls when .env is ready
+  // API DATA MAPPING
+  // ═══════════════════════════════════════════
+
+  const mapProductData = (p) => {
+    const basePrice = Number(p.retails_price || p.price || 0);
+    const discountValue = Number(p.discount || 0);
+    const discountType = String(p.discount_type || '').toLowerCase();
+    const hasDiscount = discountValue > 0 && discountType !== '0';
+
+    const price = hasDiscount
+      ? discountType === 'percentage'
+        ? Math.max(0, Math.round(basePrice * (1 - discountValue / 100)))
+        : Math.max(0, basePrice - discountValue)
+      : basePrice;
+
+    const discountLabel = hasDiscount
+      ? discountType === 'percentage'
+        ? `-${discountValue}%`
+        : `৳ ${discountValue.toLocaleString('en-IN')}`
+      : null;
+
+    // Prioritize image_path or image_paths[0] for real products, fallback to image_url (which might be a placeholder)
+    const imageUrl =
+      p.image_path ||
+      (Array.isArray(p.image_paths) && p.image_paths.length > 0 ? p.image_paths[0] : null) ||
+      p.image_url ||
+      '/no-image.svg';
+
+    const mapped = {
+      id: p.id,
+      name: p.name,
+      price: `৳ ${price.toLocaleString('en-IN')}`,
+      oldPrice: hasDiscount ? `৳ ${basePrice.toLocaleString('en-IN')}` : null,
+      discount: discountLabel,
+      imageUrl: imageUrl,
+      brand: p.brands?.name || p.brand_name || '',
+      categoryName: p.category_name || 'Others',
+    };
+
+    // Also inject properties specifically needed by BestDeals component to prevent "missing alt" errors
+    mapped.title = mapped.name;
+    mapped.description = `${mapped.brand} • ${mapped.categoryName}`;
+    mapped.badge = hasDiscount ? 'SALE' : null;
+    mapped.link = `/product/${mapped.name.toLowerCase().replace(/\s+/g, '-')}-${mapped.id}`;
+    if (hasDiscount) {
+      mapped.savings = `Save ৳ ${(basePrice - price).toLocaleString('en-IN')}`;
+    }
+
+    return mapped;
+  };
+
+  const mapCategoryData = (c) => ({
+    ...c,
+    image: c.image_url || c.image_path || c.image || '/no-image.svg',
+  });
+
+  const mapSliderData = (s) => {
+    if (Array.isArray(s.image_path) && s.image_path.length > 0) {
+      return s.image_path.map((imgUrl, idx) => ({
+        id: `${s.id}-${idx}`,
+        image: imgUrl || '/no-image.svg',
+        title: s.title || s.name || 'Featured Item',
+        subtitle: s.subtitle || s.description || 'Discover our top picks',
+        link: s.link || '#',
+      }));
+    }
+    return [{
+      id: s.id,
+      image: s.image_url || s.image_path || s.image || '/no-image.svg',
+      title: s.title || s.name || 'Featured Item',
+      subtitle: s.subtitle || s.description || 'Discover our top picks',
+      link: s.link || '#',
+    }];
+  };
+
+  const mapBannerData = (b) => ({
+    ...b,
+    image: b.image_url || b.image_path || b.image || '/no-image.svg',
+    link: b.link || '#',
+  });
+
+  const extractDataArray = (res, specificKey) => {
+    if (!res) return null;
+    if (specificKey && Array.isArray(res[specificKey]) && res[specificKey].length > 0) return res[specificKey];
+    if (Array.isArray(res.data) && res.data.length > 0) return res.data;
+    if (res.data && Array.isArray(res.data.data) && res.data.data.length > 0) return res.data.data;
+    if (Array.isArray(res) && res.length > 0) return res;
+    return null;
+  };
+
+  // Extract data from response or default to null to trigger dummy data fallback
+  const rawSliders = extractDataArray(slidersRes, 'sliders');
+  const apiSliders = rawSliders ? rawSliders.flatMap(mapSliderData) : null;
+
+  const rawBanners = extractDataArray(bannersRes, 'banners');
+  const apiBanners = rawBanners ? rawBanners.map(mapBannerData) : null;
+
+  const rawCategories = extractDataArray(categoriesRes);
+  const apiCategories = rawCategories ? rawCategories.map(mapCategoryData) : null;
+
+  const rawNewArrivals = extractDataArray(newArrivalsRes);
+  const apiNewArrivals = rawNewArrivals ? rawNewArrivals.map(mapProductData) : null;
+
+  const rawBestSellers = extractDataArray(bestSellersRes);
+  const apiBestSellers = rawBestSellers ? rawBestSellers.map(mapProductData) : null;
+
+  const rawBestDeals = extractDataArray(bestDealsRes);
+  const apiBestDeals = rawBestDeals ? rawBestDeals.map(mapProductData) : null;
+
+  const blogsDataArray = Array.isArray(blogsRes?.data) ? blogsRes.data : (blogsRes?.data?.data || []);
+  const apiBlogs = blogsDataArray.length > 0 ? blogsDataArray.map(b => ({
+    ...b,
+    image: b.image_path || b.image || '/no-image.svg',
+    excerpt: b.excerpt || b.short_description || '',
+    readTime: b.readTime || '5 min read',
+  })) : null;
+
+  // ═══════════════════════════════════════════
+  // DUMMY DATA FALLBACKS
   // ═══════════════════════════════════════════
 
   const heroSlides = [
@@ -309,18 +443,17 @@ export default async function Home() {
   ];
 
   return (
-    <>
-      <Hero slides={heroSlides} banners={homeBanners} />
-      <TrustStats />
-      <ShopCategories categories={categories} flashSaleProducts={flashSaleProducts} />
-      <NewArrivals products={newArrivals} />
+    <div className="bg-gray-50/50">
+      <Hero slides={apiSliders || heroSlides} banners={apiBanners || homeBanners} />
+      <ShopCategories categories={apiCategories || categories} flashSaleProducts={apiBestDeals?.slice(0, 4) || apiNewArrivals?.slice(0, 4) || flashSaleProducts} />
+      <BestDeals deals={apiBestDeals || bestDealsCards} />
+      <NewArrivals products={apiNewArrivals || newArrivals} />
       <PromoBanners />
-      <FeaturedProducts products={featuredProducts} />
-      <BestDeals deals={bestDealsCards} />
+      <FeaturedProducts products={apiBestSellers || featuredProducts} />
       <BlogTips posts={blogPosts} />
-      <CTABanner />
       <Testimonials />
       <FAQ />
-    </>
+      <CTABanner />
+    </div>
   );
 }

@@ -9,25 +9,38 @@ export const metadata = {
 };
 
 export default async function BlogPage() {
-    let blogPosts = [];
-
-    try {
-        const res = await getBlogs();
-        if (res?.success && Array.isArray(res?.data)) {
-            blogPosts = res.data.map(b => ({
-                id: b.id,
-                title: b.title,
-                excerpt: b.content ? b.content.replace(/<[^>]+>/g, '').substring(0, 160) + '...' : 'Read our latest insights...',
-                date: new Date(b.created_at || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-                category: b.category_id || 'Tech News',
-                readTime: '5 min read',
-                image: b.image || "/images/blog-fallback.jpg",
-                slug: b.title ? b.title.toLowerCase().replace(/\s+/g, '-') : String(b.id)
-            }));
+    const blogPosts = [
+        {
+            id: 1,
+            title: "iPhone 16 Pro Max vs Samsung Galaxy S25 Ultra: Which One Wins?",
+            excerpt: "We compare the two flagship titans head-to-head across camera, performance, battery, and value for money...",
+            date: "March 5, 2026",
+            category: "Comparison",
+            readTime: "7 min read",
+            image: "/no-image.svg",
+            slug: "iphone-16-vs-samsung-s25"
+        },
+        {
+            id: 2,
+            title: "Top 5 Budget Phones Under ৳30,000 in 2026",
+            excerpt: "Looking for the best value? Here are our top picks for budget-friendly smartphones that don't compromise...",
+            date: "March 3, 2026",
+            category: "Buying Guide",
+            readTime: "5 min read",
+            image: "/no-image.svg",
+            slug: "top-5-budget-phones-2026"
+        },
+        {
+            id: 3,
+            title: "How to Spot Fake Phones: A Complete Guide",
+            excerpt: "Protect yourself from counterfeit devices. Learn the telltale signs of fake smartphones and how to verify authenticity...",
+            date: "February 28, 2026",
+            category: "Tips",
+            readTime: "4 min read",
+            image: "/no-image.svg",
+            slug: "how-to-spot-fake-phones"
         }
-    } catch (error) {
-        console.error("Failed to fetch blogs:", error);
-    }
+    ];
 
     return (
         <div className="bg-white min-h-screen">
@@ -35,12 +48,12 @@ export default async function BlogPage() {
             <div className="bg-gray-50 py-8 border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-6">
                     <nav className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                        <Link href="/" className="hover:text-brand-purple transition-colors">Home</Link>
+                        <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
                         <FiChevronRight size={14} />
-                        <span className="text-brand-purple font-bold">Blog</span>
+                        <span className="text-blue-600 font-bold">Blog</span>
                     </nav>
                     <h1 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
-                        Latest Tech <span className="text-brand-purple">Insights</span>
+                        Latest Tech <span className="text-blue-600">Insights</span>
                     </h1>
                     <p className="mt-4 text-gray-600 max-w-2xl text-lg">
                         Stay ahead of the curve with our expert guides, product comparisons, and deep dives into the world of premium electronics.
@@ -56,7 +69,7 @@ export default async function BlogPage() {
                             <Link
                                 href={`/blog/${post.slug || post.id}`}
                                 key={post.id}
-                                className="group flex flex-col bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl hover:border-brand-purple/20 transition-all duration-500"
+                                className="group flex flex-col bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl hover:border-blue-500/20 transition-all duration-500"
                             >
                                 <div className="w-full aspect-[16/10] relative overflow-hidden bg-gray-100">
                                     <Image
@@ -67,23 +80,23 @@ export default async function BlogPage() {
                                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                                     />
                                     <div className="absolute top-4 left-4">
-                                        <span className="bg-white/90 backdrop-blur-md text-brand-purple text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+                                        <span className="bg-white/90 backdrop-blur-md text-blue-600 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
                                             {post.category}
                                         </span>
                                     </div>
                                 </div>
                                 <div className="p-8 flex flex-col flex-grow">
                                     <div className="flex items-center gap-4 text-xs font-bold text-gray-400 mb-4 uppercase tracking-widest">
-                                        <span className="flex items-center gap-1.5"><FiCalendar className="text-brand-purple" /> {post.date}</span>
-                                        <span className="flex items-center gap-1.5"><FiClock className="text-brand-purple" /> {post.readTime}</span>
+                                        <span className="flex items-center gap-1.5"><FiCalendar className="text-blue-600" /> {post.date}</span>
+                                        <span className="flex items-center gap-1.5"><FiClock className="text-blue-600" /> {post.readTime}</span>
                                     </div>
-                                    <h3 className="font-black text-gray-900 text-xl mb-4 leading-snug group-hover:text-brand-purple transition-colors">
+                                    <h3 className="font-black text-gray-900 text-xl mb-4 leading-snug group-hover:text-blue-600 transition-colors">
                                         {post.title}
                                     </h3>
                                     <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
                                         {post.excerpt}
                                     </p>
-                                    <div className="mt-auto pt-6 border-t border-gray-50 flex items-center gap-2 text-brand-purple font-black text-sm uppercase tracking-wider group-hover:gap-3 transition-all">
+                                    <div className="mt-auto pt-6 border-t border-gray-50 flex items-center gap-2 text-blue-600 font-black text-sm uppercase tracking-wider group-hover:gap-3 transition-all">
                                         Read Story <FiChevronRight />
                                     </div>
                                 </div>

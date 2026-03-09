@@ -55,7 +55,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} font-sans antialiased bg-white text-gray-900 pb-16 md:pb-0`}
+        className={`${inter.variable} font-sans antialiased bg-gray-50 text-gray-900 pb-16 md:pb-0`}
       >
         <Providers>
           <Header categories={categories} />
