@@ -59,9 +59,9 @@ export default function Footer() {
                                 <Image
                                     src="/Applex Logo.svg"
                                     alt="Applex Logo"
-                                    width={200}
-                                    height={56}
-                                    className="h-12 md:h-14 w-auto object-contain brightness-0 invert"
+                                    width={280}
+                                    height={80}
+                                    className="h-16 md:h-20 w-auto object-contain brightness-0 invert"
                                     unoptimized
                                 />
                             </Link>

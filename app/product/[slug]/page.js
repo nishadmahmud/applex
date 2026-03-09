@@ -233,7 +233,7 @@ export default function ProductDetailsPage() {
                         {/* 2-Column Top Layout */}
                         <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
                             {/* Col 1: Gallery */}
-                            <div className="w-full md:w-1/2 lg:w-[40%] shrink-0">
+                            <div className="w-full md:w-1/2 lg:w-[45%] shrink-0 md:sticky md:top-32 self-start">
                                 <ProductGallery images={galleryImages} />
                             </div>
 

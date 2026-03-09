@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from 'react';
-import { FiShare2, FiMinus, FiPlus } from 'react-icons/fi';
+import { FiShare2, FiMinus, FiPlus, FiCheck } from 'react-icons/fi';
 import { FaStar } from 'react-icons/fa';
 import { useCart } from '../../context/CartContext';
 
@@ -171,38 +171,85 @@ export default function ProductInfo({ product, onVariantImageChange }) {
 
     return (
         <div className="flex flex-col">
-            {/* Header: Title, Reviews, Share */}
-            <div className="flex justify-between items-start mb-2">
+            {/* Header: Brand, Title, Reviews, Share */}
+            <div className="flex justify-between items-start mb-6">
                 <div>
-                    <div className="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1.5 rounded-lg inline-block mb-3 uppercase tracking-widest shadow-sm">
-                        In Stock
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="bg-blue-600 text-white text-[9px] font-black px-2 py-1 rounded-md uppercase tracking-widest shadow-sm">
+                            In Stock
+                        </div>
+                        {product.brands?.name && (
+                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">
+                                {product.brands.name}
+                            </span>
+                        )}
                     </div>
-                    <h1 className="text-2xl md:text-3xl font-black text-gray-900 mb-2 tracking-tight">{product.name}</h1>
+
+                    <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-3 tracking-tight leading-tight">
+                        {product.name}
+                    </h1>
+
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-1">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <FaStar key={star} className="text-yellow-400 w-3 h-3" />
+                            ))}
+                            <span className="text-xs font-black text-gray-900 ml-1">4.9</span>
+                        </div>
+                        <div className="w-1 h-1 bg-gray-300 rounded-full" />
+                        <span className="text-xs font-bold text-blue-600 hover:underline cursor-pointer">
+                            128 Reviews
+                        </span>
+                    </div>
                 </div>
 
-                <button className="p-2.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all border border-transparent hover:border-blue-100">
+                <button className="p-3 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all border border-gray-100 shadow-sm">
                     <FiShare2 size={20} />
                 </button>
             </div>
 
             {/* Price section */}
             <div className="mb-8 pb-8 border-b border-gray-100">
-                <div className="flex items-baseline gap-3">
-                    <span className="text-4xl font-black text-gray-900 tracking-tighter">
-                        {displayPrice}
-                    </span>
-                    {displayOldPrice && (
-                        <span className="text-lg text-gray-400 line-through font-bold">
-                            {displayOldPrice}
+                <div className="flex items-center gap-4 mb-2">
+                    <div className="flex items-baseline gap-3">
+                        <span className="text-4xl font-black text-gray-900 tracking-tighter">
+                            {displayPrice}
                         </span>
-                    )}
+                        {displayOldPrice && (
+                            <span className="text-lg text-gray-400 line-through font-bold">
+                                {displayOldPrice}
+                            </span>
+                        )}
+                    </div>
                     {product.discount && (
-                        <span className="text-xs font-black text-red-600 bg-red-50 px-3 py-1 rounded-full uppercase tracking-widest">
+                        <span className="text-xs font-black text-white bg-red-600 px-3 py-1 rounded-full uppercase tracking-widest shadow-lg shadow-red-500/20">
                             {product.discount}
                         </span>
                     )}
                 </div>
-                <p className="text-[11px] font-bold text-gray-400 mt-2 uppercase tracking-wide">Inclusive of all local taxes</p>
+                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wide">Inclusive of all local taxes</p>
+            </div>
+
+            {/* Core Highlights */}
+            <div className="mb-10">
+                <h3 className="text-xs font-black text-gray-900 mb-4 uppercase tracking-widest flex items-center gap-2">
+                    <div className="w-1 h-3 bg-blue-600 rounded-full" /> Key Highlights
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6">
+                    {[
+                        "Genuine Global / Official Product",
+                        "Secured and Sealed Box",
+                        "Cash on Delivery Available",
+                        "7 Days Replacement Warranty"
+                    ].map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2.5 group">
+                            <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center shrink-0 group-hover:bg-blue-600 transition-colors">
+                                <FiCheck className="text-blue-600 w-3 h-3 font-bold group-hover:text-white" />
+                            </div>
+                            <span className="text-[13px] font-bold text-gray-600">{feature}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {/* Variants */}

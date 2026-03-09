@@ -15,9 +15,9 @@ export default function ProductGallery({ images = [] }) {
     }, [images]);
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col md:flex-row-reverse gap-4 lg:gap-6">
             {/* Main Image Container */}
-            <div className="w-full aspect-square relative bg-[#f5f5f5] rounded-2xl border border-gray-100 overflow-hidden flex items-center justify-center p-4">
+            <div className="flex-1 aspect-square relative bg-[#f5f5f5] rounded-2xl border border-gray-100 overflow-hidden flex items-center justify-center p-4">
                 <Image
                     src={mainImage}
                     alt="Product Image"
@@ -27,13 +27,13 @@ export default function ProductGallery({ images = [] }) {
                 />
             </div>
 
-            {/* Thumbnail Strip */}
-            <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+            {/* Thumbnail Strip (Left on Desktop, Bottom on Mobile) */}
+            <div className="flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-y-auto pb-2 md:pb-0 no-scrollbar shrink-0 md:w-20 lg:w-24">
                 {imageArray.map((img, idx) => (
                     <button
                         key={idx}
                         onClick={() => setMainImage(img)}
-                        className={`relative w-20 h-20 shrink-0 rounded-xl border-2 overflow-hidden bg-[#f5f5f5] transition-all ${mainImage === img ? 'border-blue-600 shadow-lg shadow-blue-500/10' : 'border-gray-100 hover:border-gray-300'
+                        className={`relative w-16 h-16 md:w-full aspect-square shrink-0 rounded-xl border-2 overflow-hidden bg-[#f5f5f5] transition-all ${mainImage === img ? 'border-blue-600' : 'border-gray-100 hover:border-gray-300'
                             }`}
                     >
                         <Image

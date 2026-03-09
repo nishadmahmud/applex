@@ -144,29 +144,26 @@ export default function Header({ categories = [] }) {
         </div>
 
         {/* MAIN TOP BAR (Dark Bluish) */}
-        <div className="bg-[#111827] py-1.5 md:py-2 px-4 md:px-8">
+        <div className="bg-[#111827] py-2 md:py-3 px-4 md:px-8">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-6 md:gap-10">
 
-            {/* Logo & Mobile Menu */}
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <button onClick={() => setIsSidebarOpen(true)} className="md:hidden p-1 text-white" aria-label="Menu">
-                <FiMenu className="w-5 h-5" />
-              </button>
-              <Link href="/" aria-label="Applex Home">
+            {/* Logo */}
+            <div className="flex items-center flex-shrink-0 order-1 md:order-none">
+              <Link href="/" aria-label="Applex Home" className="relative z-50 md:-mt-9 md:-mb-2 transition-transform hover:scale-105 duration-300">
                 <Image
                   src="/Applex Logo.svg"
                   alt="Applex Logo"
-                  width={160}
-                  height={40}
-                  className="h-8 md:h-10 w-auto object-contain brightness-0 invert"
+                  width={300}
+                  height={100}
+                  className="h-10 md:h-22 w-auto object-contain brightness-0 invert"
                   unoptimized
                   priority
                 />
               </Link>
             </div>
 
-            {/* Main Search Bar (Desktop - Pill Shaped) */}
-            <div className="hidden md:block flex-1 max-w-2xl relative">
+            {/* Main Search Bar (Middle on Mobile) */}
+            <div className="flex-1 max-w-2xl relative order-2 mx-1 md:mx-0 md:order-none">
               <form onSubmit={handleSearchSubmit} className="flex relative w-full bg-white rounded-full items-center p-1 overflow-hidden shadow-inner">
                 <input
                   type="text"
@@ -220,9 +217,9 @@ export default function Header({ categories = [] }) {
               )}
             </div>
 
-            {/* Actions (White text on black bg) */}
-            <div className="flex items-center justify-end gap-5 flex-shrink-0 text-white">
-              <button onClick={handleUserClick} className="flex items-center gap-2 hover:text-blue-400 transition-colors group text-left" aria-label="Account">
+            {/* Actions & Menu (Right on Mobile) */}
+            <div className="flex items-center justify-end gap-3 md:gap-5 flex-shrink-0 text-white order-3 md:order-none">
+              <button onClick={handleUserClick} className="hidden md:flex items-center gap-2 hover:text-blue-400 transition-colors group text-left" aria-label="Account">
                 <div className="w-7 h-7 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 group-hover:bg-gray-700 transition-colors">
                   <FiUser className="w-3.5 h-3.5" />
                 </div>
@@ -238,7 +235,7 @@ export default function Header({ categories = [] }) {
                 </div>
               </Link>
 
-              <button onClick={openCart} className="flex items-center gap-2 hover:text-blue-400 transition-colors relative" aria-label="Cart">
+              <button onClick={openCart} className="hidden md:flex items-center gap-2 hover:text-blue-400 transition-colors relative" aria-label="Cart">
                 <div className="relative w-7 h-7 flex items-center justify-center">
                   <FiShoppingCart className="w-5 h-5" />
                   {cartCount > 0 && (
@@ -249,24 +246,14 @@ export default function Header({ categories = [] }) {
                 </div>
                 <span className="text-[12px] font-bold hidden xl:block">Cart</span>
               </button>
+
+              {/* Mobile Menu Button (Hamburger at far right) */}
+              <button onClick={() => setIsSidebarOpen(true)} className="md:hidden p-1 text-white flex-shrink-0 ml-1" aria-label="Menu">
+                <FiMenu className="w-6 h-6" />
+              </button>
             </div>
           </div>
 
-          {/* Mobile Search Bar (Below Logo on Mobile) */}
-          <div className="md:hidden mt-2 relative">
-            <form onSubmit={handleSearchSubmit} className="flex relative w-full bg-white rounded-full items-center p-0.5 overflow-hidden shadow-inner">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search products..."
-                className="w-full pl-4 pr-2 py-1 text-[12px] text-gray-900 outline-none bg-transparent"
-              />
-              <button type="submit" className="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0 ml-1">
-                <FiSearch className="w-3.5 h-3.5" />
-              </button>
-            </form>
-          </div>
         </div>
 
         {/* BOTTOM BAR (Dark Category Strip) */}
