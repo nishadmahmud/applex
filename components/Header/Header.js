@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX, FiChevronRight, FiHeart, FiHeadphones, FiTruck } from 'react-icons/fi';
+import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX, FiChevronRight, FiHeart, FiHeadphones, FiTruck, FiFileText } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { searchProducts } from '../../lib/api';
@@ -33,7 +33,7 @@ export default function Header({ categories = [] }) {
     { name: "Accessories", slug: "accessories" },
   ];
 
-  const displayCategories = (categories && categories.length > 0 ? categories : defaultCategories).slice(0, 9);
+  const displayCategories = categories && categories.length > 0 ? categories : defaultCategories;
 
   const handleUserClick = () => {
     if (user) {
@@ -44,6 +44,11 @@ export default function Header({ categories = [] }) {
   };
 
   const closeSidebar = () => setIsSidebarOpen(false);
+
+  const [expandedMobileCategory, setExpandedMobileCategory] = useState(null);
+  const toggleMobileCategory = (catId) => {
+    setExpandedMobileCategory(prev => prev === catId ? null : catId);
+  };
 
   // ── Search Logic ──
   const runSearch = async (q) => {
@@ -138,7 +143,7 @@ export default function Header({ categories = [] }) {
         <div className="bg-[#111827] text-[11px] text-gray-300 py-1 px-4 md:px-8 border-b border-gray-800/50 hidden md:block">
           <div className="max-w-7xl mx-auto flex justify-end gap-6 font-medium">
             <Link href="/contact" className="hover:text-white transition-colors flex items-center gap-1.5"><FiHeadphones className="text-[#facc15]" /> Contact Us</Link>
-            <Link href="/blogs" className="hover:text-white transition-colors flex items-center gap-1.5"><FiSearch className="text-green-500" /> Blogs</Link>
+            <Link href="/blogs" className="hover:text-white transition-colors flex items-center gap-1.5"><FiFileText className="text-blue-400" /> Blogs</Link>
             <Link href="/track-order" className="hover:text-white transition-colors flex items-center gap-1.5"><FiTruck className="text-purple-400" /> Track Order</Link>
           </div>
         </div>
@@ -261,39 +266,90 @@ export default function Header({ categories = [] }) {
           <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center h-10">
 
             {/* All Categories Dropdown Trigger */}
-            <div className="flex items-center px-4 font-bold cursor-pointer transition-all gap-2 text-white border-r border-gray-800 pr-6 mr-6 hover:text-blue-400 group">
+            <div className="flex items-center px-4 font-bold cursor-pointer transition-all gap-2 text-white border-r border-gray-800 pr-6 mr-6 hover:text-blue-400 group relative py-3">
               <FiMenu size={18} className="group-hover:text-blue-400" />
               <span className="text-xs tracking-wider uppercase">ALL CATEGORIES</span>
+              
+              {/* All Categories Dropdown */}
+              <div className="absolute top-full left-0 w-64 bg-white border border-gray-100 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 rounded-b-lg py-2 flex flex-col">
+                <div className="max-h-[70vh] overflow-y-auto overflow-x-hidden">
+                  {displayCategories.map((cat, idx) => (
+                    <div key={cat.id || idx} className="group/item relative">
+                      <Link
+                        href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="flex items-center justify-between px-5 py-3 text-[13px] font-semibold text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                      >
+                        {cat.name}
+                        {cat.sub_category && cat.sub_category.length > 0 && (
+                          <FiChevronRight size={14} className="text-gray-400" />
+                        )}
+                      </Link>
+                      
+                      {/* Subcategories Flyout */}
+                      {cat.sub_category && cat.sub_category.length > 0 && (
+                        <div className="absolute top-0 left-full w-56 bg-white border border-gray-100 shadow-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-200 z-[100] rounded-lg py-2 flex flex-col pt-0">
+                          <div className="absolute -left-2 top-0 bottom-0 w-2 bg-transparent"></div> {/* Invisible bridge to prevent hover loss */}
+                          {cat.sub_category.map(sub => (
+                            <Link 
+                              key={sub.id} 
+                              href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`} 
+                              className="px-5 py-2.5 text-[13px] font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Horizontal Links */}
-            <nav className="flex-1 flex items-center overflow-x-auto no-scrollbar">
-              {/* Categories in Middle area */}
-              <div className="flex items-center gap-8">
-                {displayCategories.slice(0, 6).map((cat, idx) => (
-                  <Link
-                    key={cat.id || idx}
-                    href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="text-xs font-semibold text-gray-400 hover:text-white whitespace-nowrap transition-colors hidden lg:block"
-                  >
-                    {cat.name}
-                  </Link>
+            <nav className="flex-1 flex items-center overflow-x-auto no-scrollbar scroll-smooth pr-6">
+              <div className="flex items-center gap-6 md:gap-8 min-w-max">
+                {displayCategories.map((cat, idx) => (
+                  <div key={cat.id || idx} className="relative group/nav py-3 h-full hidden lg:block">
+                    <Link
+                      href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="text-xs font-semibold text-gray-400 hover:text-white whitespace-nowrap transition-colors flex items-center gap-1"
+                    >
+                      {cat.name}
+                    </Link>
+                    {/* Subcategories Dropdown */}
+                    {cat.sub_category && cat.sub_category.length > 0 && (
+                      <div className="absolute top-full left-0 w-48 pt-0 opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all z-50">
+                        <div className="bg-white border border-gray-100 shadow-xl rounded-b-lg py-2 flex flex-col relative">
+                          <div className="absolute -top-4 left-0 right-0 h-4 bg-transparent"></div>
+                          {cat.sub_category.map(sub => (
+                            <Link 
+                              key={sub.id} 
+                              href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`} 
+                              className="px-4 py-2.5 text-[13px] font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors whitespace-normal"
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
-
-              {/* Flash Sale & Offer on Far Right */}
-              <div className="flex items-center gap-8 ml-auto">
-                <Link href="/special-offers" className="text-xs font-bold text-gray-200 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors">
-                  <span className="text-yellow-400 text-base">⚡</span> Flash Deals
-                </Link>
-                <Link href="/brand-offers" className="text-xs font-bold text-gray-200 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors">
-                  <span className="text-red-500 text-base">🎁</span> Offer
-                </Link>
-              </div>
             </nav>
+
+            {/* Flash Sale & Offer on Far Right */}
+            <div className="flex items-center gap-8 ml-auto">
+              <Link href="/special-offers" className="text-xs font-bold text-gray-200 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors">
+                <span className="text-yellow-400 text-base">⚡</span> Flash Deals
+              </Link>
+              <Link href="/offers" className="text-xs font-bold text-gray-200 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors">
+                <span className="text-red-500 text-base">🎁</span> Offer
+              </Link>
+            </div>
           </div>
         </div>
-
       </header>
 
       {/* ═══════════════════════════════════════════════════ */}
@@ -320,14 +376,42 @@ export default function Header({ categories = [] }) {
             <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Categories</h4>
             <div className="border border-gray-100 rounded-lg overflow-hidden">
               {displayCategories.map((cat, idx) => (
-                <Link
-                  key={cat.id || idx}
-                  href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
-                  onClick={closeSidebar}
-                  className="flex items-center justify-between px-4 py-3 text-[14px] text-gray-700 font-medium border-b border-gray-100 last:border-0 hover:bg-gray-50 hover:text-blue-600"
-                >
-                  {cat.name} <FiChevronRight size={16} className="text-gray-400" />
-                </Link>
+                <div key={cat.id || idx} className="border-b border-gray-100 last:border-0">
+                  <div className="flex items-center justify-between px-4 py-3 text-[14px] text-gray-700 font-medium hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                    <Link
+                      href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      onClick={closeSidebar}
+                      className="flex-1"
+                    >
+                      {cat.name}
+                    </Link>
+                    {cat.sub_category && cat.sub_category.length > 0 ? (
+                      <button 
+                        onClick={(e) => { e.preventDefault(); toggleMobileCategory(cat.id || idx); }}
+                        className="p-1 -mr-1 text-gray-400 hover:text-blue-600"
+                      >
+                        <FiChevronRight size={16} className={`transform transition-transform ${expandedMobileCategory === (cat.id || idx) ? 'rotate-90' : ''}`} />
+                      </button>
+                    ) : (
+                      <FiChevronRight size={16} className="text-gray-400" />
+                    )}
+                  </div>
+                  
+                  {cat.sub_category && cat.sub_category.length > 0 && expandedMobileCategory === (cat.id || idx) && (
+                    <div className="bg-gray-50/50 px-4 py-2 border-t border-gray-100/50 flex flex-col gap-1">
+                      {cat.sub_category.map(sub => (
+                        <Link 
+                          key={sub.id} 
+                          href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`}
+                          onClick={closeSidebar}
+                          className="py-2 text-[13px] text-gray-600 hover:text-blue-600 pl-3 border-l-[3px] border-gray-200 hover:border-blue-600 transition-colors"
+                        >
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           </div>

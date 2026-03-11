@@ -3,6 +3,7 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import MobileBottomNav from "../components/MobileBottomNav/MobileBottomNav";
 import Providers from "../components/Providers";
+import { getCategoriesFromServer } from "../lib/api";
 import "./globals.css";
 
 const inter = Inter({
@@ -42,7 +43,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const categories = [
+  let categories = [
     { id: 1, name: "iPhone", slug: "iphone" },
     { id: 2, name: "Samsung", slug: "samsung" },
     { id: 3, name: "OnePlus", slug: "oneplus" },
@@ -51,6 +52,17 @@ export default async function RootLayout({ children }) {
     { id: 6, name: "Tablets", slug: "tablets" },
     { id: 7, name: "Accessories", slug: "accessories" },
   ];
+
+  try {
+    const res = await getCategoriesFromServer();
+    const data = res?.data || (Array.isArray(res) ? res : null);
+    const catList = Array.isArray(data) ? data : (Array.isArray(data?.data) ? data.data : null);
+    if (catList && catList.length > 0) {
+      categories = catList;
+    }
+  } catch (error) {
+    console.error("Failed to fetch categories:", error);
+  }
 
   return (
     <html lang="en">

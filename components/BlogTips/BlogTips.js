@@ -14,7 +14,7 @@ export default function BlogTips({ posts = [] }) {
                         <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Tech Insights</h2>
                         <p className="text-gray-500 text-sm mt-1">Reviews, guides & expert tips</p>
                     </div>
-                    <Link href="/blog" className="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center gap-1 transition-colors">
+                    <Link href="/blogs" className="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center gap-1 transition-colors">
                         All Posts <FiArrowRight className="w-4 h-4" />
                     </Link>
                 </div>

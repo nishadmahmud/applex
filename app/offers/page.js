@@ -1,0 +1,180 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FiClock, FiTag, FiChevronRight, FiShoppingBag } from 'react-icons/fi';
+import { getCampaigns } from '../../lib/api';
+
+export default function OffersPage() {
+    const [campaigns, setCampaigns] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchOffers() {
+            try {
+                const res = await getCampaigns();
+                // Based on provided structure: res.success, res.campaigns.data
+                if (res?.success && res.campaigns?.data) {
+                    setCampaigns(res.campaigns.data);
+                } else if (res?.data) {
+                    setCampaigns(res.data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch offers:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchOffers();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen bg-gray-50 pb-20">
+            {/* Header / Hero - Minimalist Slim Banner */}
+            <div className="bg-[#111827] py-4 md:py-6 relative overflow-hidden border-b border-gray-800">
+                <div className="absolute top-0 right-0 w-1/4 h-full bg-blue-600/10 blur-[80px] -rotate-12 translate-x-1/2"></div>
+                <div className="max-w-7xl mx-auto px-6 relative z-10 flex items-center justify-between">
+                    <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
+                        <h1 className="text-xl md:text-3xl font-black text-white tracking-tight">
+                            Special <span className="text-blue-500">Campaigns</span>
+                        </h1>
+                        <span className="hidden md:block w-px h-6 bg-gray-800"></span>
+                        <p className="text-gray-400 text-xs md:text-sm font-medium">
+                            Exclusive deals and grand opening celebrations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 md:mt-10 space-y-12">
+                {campaigns.length > 0 ? (
+                    campaigns.map((campaign) => (
+                        <div key={campaign.id} className="space-y-8">
+                            {/* Campaign Banner Card */}
+                            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-blue-900/10 border border-white">
+                                <div className="aspect-[21/9] md:aspect-[25/7] relative">
+                                    <Image 
+                                        src={campaign.bg_image || "/no-image.svg"} 
+                                        alt={campaign.name}
+                                        fill
+                                        className="object-cover"
+                                        unoptimized
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent flex items-center">
+                                        <div className="p-8 md:p-16 max-w-2xl">
+                                            <div className="flex items-center gap-2 mb-4">
+                                                <span className="px-3 py-1 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">Active Campaign</span>
+                                                {campaign.end_at && (
+                                                    <span className="flex items-center gap-1.5 text-white/90 text-xs font-bold bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 uppercase tracking-wider">
+                                                        <FiClock className="w-3.5 h-3.5" /> Ends: {new Date(campaign.end_at).toLocaleDateString()}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">{campaign.name}</h2>
+                                            <p className="text-gray-200 text-sm md:text-lg mb-8 leading-relaxed line-clamp-3 font-medium">
+                                                {campaign.description}
+                                            </p>
+                                            {campaign.button_text && (
+                                                <Link 
+                                                    href={campaign.link || "#"} 
+                                                    className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-black rounded-2xl hover:bg-blue-50 transition-all shadow-xl shadow-black/20 group"
+                                                >
+                                                    {campaign.button_text} <FiChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Campaign Products Grid */}
+                            <div className="space-y-6">
+                                <div className="flex items-center justify-between px-2">
+                                    <h3 className="text-xl md:text-2xl font-black text-gray-900 flex items-center gap-3">
+                                        <FiTag className="text-blue-600" /> Featured Products
+                                    </h3>
+                                    <span className="text-gray-500 text-sm font-bold uppercase tracking-wider">{campaign.products?.length || 0} Deals</span>
+                                </div>
+
+                                <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+                                    {campaign.products?.map((product) => (
+                                        <Link 
+                                            key={product.id} 
+                                            href={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}-${product.id}`}
+                                            className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:border-blue-600/30 hover:shadow-2xl hover:shadow-blue-600/5 transition-all flex flex-col"
+                                        >
+                                            <div className="aspect-square relative overflow-hidden bg-white p-4">
+                                                <Image 
+                                                    src={product.image_path || "/no-image.svg"} 
+                                                    alt={product.name}
+                                                    fill
+                                                    className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
+                                                    unoptimized
+                                                />
+                                                {product.discount > 0 && (
+                                                    <div className="absolute top-4 left-4 z-10">
+                                                        <span className="px-3 py-1 bg-red-500 text-white text-[10px] font-black rounded-lg shadow-lg">
+                                                            SAVE ৳{product.discount}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="p-4 md:p-6 flex flex-col flex-1 border-t border-gray-50/50">
+                                                <div className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1.5 opacity-80">
+                                                    {product.brands?.name || "Premium Deal"}
+                                                </div>
+                                                <h4 className="text-sm md:text-base font-bold text-gray-900 mb-3 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors">
+                                                    {product.name}
+                                                </h4>
+                                                <div className="mt-auto pt-2 flex items-center justify-between">
+                                                    <div className="flex flex-col">
+                                                        <span className="text-lg font-black text-gray-900 leading-none">
+                                                            ৳{(product.retails_price - (product.discount || 0)).toLocaleString()}
+                                                        </span>
+                                                        {product.discount > 0 && (
+                                                            <span className="text-[11px] text-gray-400 line-through mt-1">
+                                                                ৳{product.retails_price.toLocaleString()}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all shadow-inner">
+                                                        <FiShoppingBag size={18} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div className="text-center py-24 bg-white rounded-[3rem] border border-dashed border-gray-200">
+                        <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <FiTag size={40} className="text-gray-300" />
+                        </div>
+                        <h3 className="text-2xl font-black text-gray-900">No active campaigns right now</h3>
+                        <p className="text-gray-500 mt-3 font-medium max-w-md mx-auto">
+                            Check back soon for exciting new offers, grand opening celebrations, and exclusive deals!
+                        </p>
+                        <Link 
+                            href="/" 
+                            className="mt-8 inline-block px-8 py-3 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20"
+                        >
+                            Back to Home
+                        </Link>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}

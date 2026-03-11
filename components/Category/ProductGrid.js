@@ -31,8 +31,8 @@ export default function ProductGrid({
                         key={brand}
                         onClick={() => onSelectBrand && onSelectBrand(brand)}
                         className={`px-4 md:px-6 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-colors border ${activeBrand === brand
-                            ? 'bg-brand-purple text-white border-brand-purple shadow-md shadow-brand-purple/20'
-                            : 'bg-white text-gray-700 border-gray-200 hover:border-brand-purple hover:text-brand-purple'
+                            ? 'bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-600/20'
+                            : 'bg-white text-gray-700 border-gray-200 hover:border-blue-600 hover:text-blue-600'
                             }`}
                     >
                         {brand}
@@ -64,7 +64,7 @@ export default function ProductGrid({
                     {/* Mobile Filter Button */}
                     <button
                         onClick={onOpenFilter}
-                        className="lg:hidden flex items-center justify-center gap-1.5 bg-brand-purple text-white border-0 py-[9px] px-4 rounded-lg shadow-md shadow-brand-purple/20 hover:bg-[#7b3ba8] shrink-0 text-xs md:text-sm font-bold transition-all"
+                        className="lg:hidden flex items-center justify-center gap-1.5 bg-blue-600 text-white border-0 py-[9px] px-4 rounded-lg shadow-md shadow-blue-600/20 hover:bg-blue-700 shrink-0 text-xs md:text-sm font-bold transition-all"
                     >
                         <FiFilter size={15} />
                         <span>Filter</span>

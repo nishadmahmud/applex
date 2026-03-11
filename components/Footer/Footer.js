@@ -86,48 +86,49 @@ export default function Footer() {
                             <Link href="/track-order" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Track Order</Link>
                             <Link href="/refund" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Returns & Refunds</Link>
                             <Link href="/warranty" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Warranty Policy</Link>
-                            <Link href="/faq" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">FAQs</Link>
                             <Link href="/contact" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Contact Us</Link>
                         </div>
 
                         {/* Col 3: About Applex */}
                         <div className="flex flex-col gap-4">
-                            <h3 className="text-[15px] font-bold text-white uppercase tracking-wider mb-2">About Applex</h3>
-                            <Link href="/about" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Our Story</Link>
-                            <Link href="/careers" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Careers</Link>
+                            <h3 className="text-[15px] font-bold text-white uppercase tracking-wider mb-2">Company</h3>
+                            <Link href="/about" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">About Us</Link>
+                            <Link href="/blogs" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Latest Blogs</Link>
                             <Link href="/terms" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Terms & Conditions</Link>
                             <Link href="/privacy" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Privacy Policy</Link>
-                            <Link href="/flash-sale" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Campaigns</Link>
                         </div>
 
-                        {/* Col 4: Newsletter/App */}
+                        {/* Col 4: Offers & Shop */}
                         <div className="flex flex-col gap-4">
-                            <h3 className="text-[15px] font-bold text-white uppercase tracking-wider mb-2">Download App</h3>
-                            <div className="bg-gray-800 rounded p-4 border border-gray-700">
-                                <p className="text-[12px] mb-3 leading-snug">Get access to exclusive mobile-only deals and early sales.</p>
-                                <div className="space-y-2">
-                                    <button className="w-full py-2 bg-gray-900 hover:bg-black text-white rounded text-[12px] font-bold border border-gray-600 transition-colors">App Store</button>
-                                    <button className="w-full py-2 bg-gray-900 hover:bg-black text-white rounded text-[12px] font-bold border border-gray-600 transition-colors">Google Play</button>
-                                </div>
-                            </div>
+                            <h3 className="text-[15px] font-bold text-white uppercase tracking-wider mb-2">Shop Now</h3>
+                            <Link href="/offers" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Campaigns</Link>
+                            <Link href="/special-offers" className="text-[13px] hover:text-white transition-colors hover:translate-x-1 duration-200">Special Deals</Link>
                         </div>
+                    </div>
+                </div>
 
+                {/* Full-width Payment Logo Section */}
+                <div className="border-t border-gray-800/50 bg-[#0c121e]">
+                    <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 flex flex-col items-center gap-5">
+                        <span className="text-[10px] uppercase text-gray-500 font-bold tracking-[0.2em]">Safe & Secure Payments Partner</span>
+                        <div className="w-full relative h-12 md:h-18 flex items-center justify-center">
+                            <Image 
+                                src="https://securepay.sslcommerz.com/public/image/SSLCommerz-Pay-With-logo-All-Size-03.png" 
+                                alt="SSLCommerz Payment Methods" 
+                                fill
+                                className="object-contain brightness-110 contrast-110"
+                                unoptimized
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* ── BOTTOM STRIP (Darker) ── */}
-            <div className="bg-[#030712] border-t border-gray-800">
-                <div className="max-w-7xl mx-auto px-4 md:px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] text-gray-500">
-                    <p>&copy; {new Date().getFullYear()} Applex Electronics Ltd. All rights reserved.</p>
-
-                    {/* Payment Badges */}
-                    <div className="flex items-center gap-3 text-gray-600">
-                        <span className="mr-2 uppercase tracking-wides text-[10px] font-bold">Safe Payments</span>
-                        <FaCcVisa className="w-8 h-8 hover:text-white transition-colors" />
-                        <FaCcMastercard className="w-8 h-8 hover:text-white transition-colors" />
-                        <FaCcPaypal className="w-8 h-8 hover:text-white transition-colors" />
-                        <FaApplePay className="w-8 h-8 hover:text-white transition-colors" />
+            <div className="bg-[#030712]">
+                <div className="max-w-7xl mx-auto px-4 md:px-8 py-5 text-center">
+                    <div className="text-[11px] text-gray-600 font-medium">
+                        <p>&copy; {new Date().getFullYear()} Applex Electronics Ltd. All rights reserved.</p>
                     </div>
                 </div>
             </div>

@@ -44,12 +44,12 @@ export default function CartSidebar() {
                 {/* Header */}
                 <div className="flex items-center justify-between p-5 border-b border-gray-100 bg-white z-10">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-purple-50 rounded-full flex items-center justify-center text-brand-purple">
+                        <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
                             <FiShoppingBag size={20} />
                         </div>
                         <div>
                             <h2 className="text-xl font-extrabold text-gray-900">Your Cart</h2>
-                            <p className="text-xs text-brand-purple font-bold uppercase tracking-wider">{cartItems.length} {cartItems.length === 1 ? 'Item' : 'Items'}</p>
+                            <p className="text-xs text-blue-600 font-bold uppercase tracking-wider">{cartItems.length} {cartItems.length === 1 ? 'Item' : 'Items'}</p>
                         </div>
                     </div>
                     <button
@@ -64,7 +64,7 @@ export default function CartSidebar() {
                 <div className="flex-1 overflow-y-auto p-5 bg-gray-50/50">
                     {cartItems.length === 0 ? (
                         <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
-                            <div className="w-24 h-24 bg-purple-50 rounded-full flex items-center justify-center text-brand-purple/30 mb-2">
+                            <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center text-blue-600/30 mb-2">
                                 <FiShoppingBag size={48} />
                             </div>
                             <h3 className="text-lg font-bold text-gray-900">Your cart is empty</h3>
@@ -127,7 +127,7 @@ export default function CartSidebar() {
 
                                             {/* Price and Quantity row */}
                                             <div className="flex items-end justify-between mt-3">
-                                                <div className="font-extrabold text-brand-purple text-sm relative top-1">
+                                                <div className="font-extrabold text-blue-600 text-sm relative top-1">
                                                     ৳{(item.numericPrice * item.quantity).toLocaleString()}
                                                 </div>
 
@@ -169,14 +169,9 @@ export default function CartSidebar() {
 
                         <p className="text-xs text-gray-400 mb-5 text-center">Shipping and discount warnings calculated at checkout.</p>
 
-                        <div className="grid grid-cols-2 gap-3">
-                            <Link href="/"onClick={closeCart} className="w-full">
-                                <button className="w-full py-3.5 px-4 bg-gray-50 hover:bg-gray-100 text-gray-900 font-bold rounded-xl transition-colors border border-gray-200">
-                                    View Cart
-                                </button>
-                            </Link>
-                            <Link href="/"onClick={closeCart} className="w-full">
-                                <button className="w-full py-3.5 px-4 bg-brand-purple hover:bg-[#7b3ba8] text-white font-bold rounded-xl shadow-lg shadow-brand-purple/20 transition-all flex items-center justify-center gap-2">
+                        <div className="flex flex-col gap-3">
+                            <Link href="/checkout" onClick={closeCart} className="w-full">
+                                <button className="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/20 transition-all flex items-center justify-center gap-2">
                                     Checkout Now
                                 </button>
                             </Link>

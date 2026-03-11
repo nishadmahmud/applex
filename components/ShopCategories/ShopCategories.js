@@ -114,11 +114,11 @@ export default function ShopCategories({ categories = [], flashSaleProducts = []
 
                                         <div className="space-y-1.5">
                                             <div className="flex justify-between items-center text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
-                                                <span>Sold: {Math.floor(Math.random() * 30) + 5}</span>
-                                                <span className="text-red-600">Only {Math.floor(Math.random() * 10) + 2} Left</span>
+                                                <span>Sold: {Math.floor((idx * 13) % 30) + 5}</span>
+                                                <span className="text-red-600">Only {Math.floor((idx * 7) % 10) + 2} Left</span>
                                             </div>
                                             <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                                                <div className="bg-red-500 h-1.5 rounded-full" style={{ width: `${Math.floor(Math.random() * 40) + 50}%` }}></div>
+                                                <div className="bg-red-500 h-1.5 rounded-full" style={{ width: `${Math.floor((idx * 17) % 40) + 50}%` }}></div>
                                             </div>
                                         </div>
                                     </div>

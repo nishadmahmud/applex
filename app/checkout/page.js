@@ -298,7 +298,7 @@ export default function CheckoutPage() {
                         Add some products to your cart before checking out.
                     </p>
                     <Link
-                        href="/" className="mt-6 inline-block rounded-xl bg-brand-purple px-8 py-3.5 text-white font-bold hover:bg-[#7b3ba8] transition-colors shadow-lg shadow-brand-purple/20"
+                        href="/" className="mt-6 inline-block rounded-xl bg-blue-600 px-8 py-3.5 text-white font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20"
                     >
                         Continue Shopping
                     </Link>
@@ -662,7 +662,7 @@ export default function CheckoutPage() {
                                     type="submit"
                                     form="checkout-form"
                                     disabled={isSubmitting}
-                                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-purple px-6 py-4 text-sm font-extrabold text-white shadow-lg shadow-brand-purple/20 transition-all hover:bg-[#7b3ba8] hover:translate-y-[-1px] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
+                                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-4 text-sm font-extrabold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700 hover:translate-y-[-1px] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
                                 >
                                     {isSubmitting ? (
                                         <>
