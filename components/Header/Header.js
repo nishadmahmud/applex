@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX, FiChevronRight, FiHeart, FiHeadphones, FiTruck, FiFileText, FiCopy } from 'react-icons/fi';
+import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX, FiChevronRight, FiHeart, FiHeadphones, FiTruck, FiFileText, FiCopy, FiZap, FiInfo } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { useCompare } from '../../context/CompareContext';
@@ -394,53 +394,129 @@ export default function Header({ categories = [] }) {
 
         {/* Header */}
         <div className="p-4 bg-gray-900 border-b border-gray-800 flex items-center justify-between">
-          <Image src="/Applex Logo.svg" alt="Applex Logo" width={110} height={28} className="h-6 w-auto object-contain brightness-0 invert" unoptimized />
-          <button onClick={closeSidebar} className="text-gray-400 hover:text-white p-1"><FiX size={20} /></button>
+          <Image
+            src="/Applex Logo.svg"
+            alt="Applex Logo"
+            width={160}
+            height={40}
+            className="h-10 w-auto object-contain brightness-0 invert"
+            unoptimized
+          />
+          <button onClick={closeSidebar} className="text-gray-400 hover:text-white p-1">
+            <FiX size={22} />
+          </button>
         </div>
 
         {/* Links */}
         <div className="flex-1 overflow-y-auto">
-          <div className="p-4">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Categories</h4>
-            <div className="border border-gray-100 rounded-lg overflow-hidden">
-              {displayCategories.map((cat, idx) => (
-                <div key={cat.id || idx} className="border-b border-gray-100 last:border-0">
-                  <div className="flex items-center justify-between px-4 py-3 text-[14px] text-gray-700 font-medium hover:bg-gray-50 hover:text-blue-600 transition-colors">
-                    <Link
-                      href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
-                      onClick={closeSidebar}
-                      className="flex-1"
-                    >
-                      {cat.name}
-                    </Link>
-                    {cat.sub_category && cat.sub_category.length > 0 ? (
-                      <button 
-                        onClick={(e) => { e.preventDefault(); toggleMobileCategory(cat.id || idx); }}
-                        className="p-1 -mr-1 text-gray-400 hover:text-blue-600"
+          <div className="p-4 space-y-6">
+            <div>
+              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Categories</h4>
+              <div className="border border-gray-100 rounded-lg overflow-hidden">
+                {displayCategories.map((cat, idx) => (
+                  <div key={cat.id || idx} className="border-b border-gray-100 last:border-0">
+                    <div className="flex items-center justify-between px-4 py-3 text-[14px] text-gray-700 font-medium hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                      <Link
+                        href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
+                        onClick={closeSidebar}
+                        className="flex-1"
                       >
-                        <FiChevronRight size={16} className={`transform transition-transform ${expandedMobileCategory === (cat.id || idx) ? 'rotate-90' : ''}`} />
-                      </button>
-                    ) : (
-                      <FiChevronRight size={16} className="text-gray-400" />
-                    )}
-                  </div>
-                  
-                  {cat.sub_category && cat.sub_category.length > 0 && expandedMobileCategory === (cat.id || idx) && (
-                    <div className="bg-gray-50/50 px-4 py-2 border-t border-gray-100/50 flex flex-col gap-1">
-                      {cat.sub_category.map(sub => (
-                        <Link 
-                          key={sub.id} 
-                          href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`}
-                          onClick={closeSidebar}
-                          className="py-2 text-[13px] text-gray-600 hover:text-blue-600 pl-3 border-l-[3px] border-gray-200 hover:border-blue-600 transition-colors"
+                        {cat.name}
+                      </Link>
+                      {cat.sub_category && cat.sub_category.length > 0 ? (
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleMobileCategory(cat.id || idx);
+                          }}
+                          className="p-1 -mr-1 text-gray-400 hover:text-blue-600"
                         >
-                          {sub.name}
-                        </Link>
-                      ))}
+                          <FiChevronRight
+                            size={16}
+                            className={`transform transition-transform ${
+                              expandedMobileCategory === (cat.id || idx) ? "rotate-90" : ""
+                            }`}
+                          />
+                        </button>
+                      ) : (
+                        <FiChevronRight size={16} className="text-gray-400" />
+                      )}
                     </div>
-                  )}
-                </div>
-              ))}
+
+                    {cat.sub_category &&
+                      cat.sub_category.length > 0 &&
+                      expandedMobileCategory === (cat.id || idx) && (
+                        <div className="bg-gray-50/50 px-4 py-2 border-t border-gray-100/50 flex flex-col gap-1">
+                          {cat.sub_category.map((sub) => (
+                            <Link
+                              key={sub.id}
+                              href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`}
+                              onClick={closeSidebar}
+                              className="py-2 text-[13px] text-gray-600 hover:text-blue-600 pl-3 border-l-[3px] border-gray-200 hover:border-blue-600 transition-colors"
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Other Links */}
+            <div>
+              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Quick Links</h4>
+              <div className="flex flex-col gap-1">
+                <Link
+                  href="/track-order"
+                  onClick={closeSidebar}
+                  className="px-3 py-2 rounded text-[13px] text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors flex items-center gap-2"
+                >
+                  <FiTruck className="w-4 h-4 text-blue-500" />
+                  <span>Track Order</span>
+                </Link>
+                <Link
+                  href="/compare"
+                  onClick={closeSidebar}
+                  className="px-3 py-2 rounded text-[13px] text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors flex items-center gap-2"
+                >
+                  <FiCopy className="w-4 h-4 text-blue-500" />
+                  <span>Compare Phones</span>
+                </Link>
+                <Link
+                  href="/special-offers"
+                  onClick={closeSidebar}
+                  className="px-3 py-2 rounded text-[13px] text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors flex items-center gap-2"
+                >
+                  <FiZap className="w-4 h-4 text-red-500" />
+                  <span>Flash Deals & Offers</span>
+                </Link>
+                <Link
+                  href="/blogs"
+                  onClick={closeSidebar}
+                  className="px-3 py-2 rounded text-[13px] text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors flex items-center gap-2"
+                >
+                  <FiFileText className="w-4 h-4 text-purple-500" />
+                  <span>Blogs</span>
+                </Link>
+                <Link
+                  href="/about"
+                  onClick={closeSidebar}
+                  className="px-3 py-2 rounded text-[13px] text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors flex items-center gap-2"
+                >
+                  <FiInfo className="w-4 h-4 text-gray-500" />
+                  <span>About Us</span>
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={closeSidebar}
+                  className="px-3 py-2 rounded text-[13px] text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors flex items-center gap-2"
+                >
+                  <FiHeadphones className="w-4 h-4 text-green-500" />
+                  <span>Contact Us</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

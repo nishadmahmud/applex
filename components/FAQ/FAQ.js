@@ -38,22 +38,22 @@ export default function FAQ() {
     };
 
     return (
-        <section className="w-full bg-white py-12 md:py-16">
+        <section className="w-full bg-blue-50/40 py-12 md:py-16">
             <div className="max-w-3xl mx-auto px-4 md:px-8">
                 {/* Section Header */}
                 <div className="text-center mb-8 md:mb-12">
-                    <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Common Questions</h2>
-                    <p className="text-gray-500 text-sm mt-2">Everything you need to know</p>
+                    <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">Common Questions</h2>
+                    <p className="text-gray-400 text-sm mt-1">Everything you need to know</p>
                 </div>
 
                 {/* Accordion */}
-                <div className="space-y-2 md:space-y-3">
+                <div className="space-y-2">
                     {FAQ_ITEMS.map((item, idx) => (
                         <div
                             key={idx}
                             className={`rounded-xl border transition-all duration-300 ${openIndex === idx
-                                ? 'bg-blue-50/30 border-blue-500/30 shadow-md shadow-blue-500/5'
-                                : 'bg-gray-50 border-gray-200 hover:border-gray-300'
+                                ? 'bg-white border-blue-200 shadow-md shadow-blue-500/5'
+                                : 'bg-white border-gray-100 hover:border-gray-200'
                                 }`}
                         >
                             <button
@@ -65,7 +65,7 @@ export default function FAQ() {
                                     {item.q}
                                 </span>
                                 <FiChevronDown
-                                    className={`w-5 h-5 flex-shrink-0 transition-all duration-300 ${openIndex === idx ? 'rotate-180 text-blue-600' : 'text-gray-400'
+                                    className={`w-5 h-5 shrink-0 transition-all duration-300 ${openIndex === idx ? 'rotate-180 text-blue-600' : 'text-gray-400'
                                         }`}
                                 />
                             </button>

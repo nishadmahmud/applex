@@ -13,13 +13,14 @@ import { useCart } from '../../context/CartContext';
 
 export default function MobileBottomNav() {
     const pathname = usePathname();
-    const { cartCount } = useCart();
+    const { cartCount, openCart } = useCart();
 
     const navItems = [
         { icon: FiHome, label: 'Home', path: '/' },
         { icon: FiGrid, label: 'Categories', path: '/categories' },
         { icon: FiHeart, label: 'Wishlist', path: '/wishlist' },
-        { icon: FiShoppingCart, label: 'Cart', path: '/cart', badge: cartCount },
+        // Cart will open the cart sidebar/modal instead of navigating
+        { icon: FiShoppingCart, label: 'Cart', path: null, badge: cartCount },
         { icon: FiUser, label: 'Profile', path: '/profile' },
     ];
 
@@ -28,15 +29,15 @@ export default function MobileBottomNav() {
             <div className="flex justify-around items-center h-[60px] px-2">
                 {navItems.map((item) => {
                     const Icon = item.icon;
-                    const isActive = pathname === item.path || (item.path !== '/' && pathname.startsWith(item.path));
+                    const isActive = item.path
+                        ? pathname === item.path || (item.path !== '/' && pathname.startsWith(item.path))
+                        : false;
 
-                    return (
-                        <Link
-                            key={item.label}
-                            href={item.path}
-                            className={`flex flex-col items-center justify-center w-full h-full relative ${isActive ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900'} transition-colors`}
-                        >
-                            {/* Active Top Border */}
+                    // Cart item: open cart modal instead of navigation
+                    const isCart = item.label === 'Cart';
+
+                    const commonInner = (
+                        <>
                             {isActive && (
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-blue-600 rounded-b" />
                             )}
@@ -55,6 +56,29 @@ export default function MobileBottomNav() {
                             <span className={`text-[10px] font-semibold ${isActive ? 'text-blue-600' : 'text-gray-500'}`}>
                                 {item.label}
                             </span>
+                        </>
+                    );
+
+                    if (isCart) {
+                        return (
+                            <button
+                                key={item.label}
+                                type="button"
+                                onClick={openCart}
+                                className="flex flex-col items-center justify-center w-full h-full relative text-gray-500 hover:text-gray-900 transition-colors"
+                            >
+                                {commonInner}
+                            </button>
+                        );
+                    }
+
+                    return (
+                        <Link
+                            key={item.label}
+                            href={item.path || '/'}
+                            className={`flex flex-col items-center justify-center w-full h-full relative ${isActive ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900'} transition-colors`}
+                        >
+                            {commonInner}
                         </Link>
                     );
                 })}

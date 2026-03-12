@@ -14,6 +14,7 @@ import {
     Truck,
     User,
     Phone,
+    CheckCircle2,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import AddressSelect from "../../components/Checkout/AddressSelect";
@@ -312,12 +313,65 @@ export default function CheckoutPage() {
             <div className="pt-0 lg:pt-8 pb-[120px] md:pb-12">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-                    {/* Page Header */}
-                    <div className="mb-6 md:mb-8 pt-6 md:pt-0">
-                        <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">Checkout</h1>
-                        <p className="mt-1 text-sm text-gray-500">
-                            Complete your order by providing delivery and payment details.
-                        </p>
+                    {/* Page Header + Progress */}
+                    <div className="mb-6 md:mb-8 pt-6 md:pt-0 space-y-4">
+                        <div>
+                            <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">Checkout</h1>
+                            <p className="mt-1 text-sm text-gray-500">
+                                Complete your order in a few simple steps.
+                            </p>
+                        </div>
+
+                        {/* Step progress */}
+                        <div className="rounded-2xl border border-gray-100 bg-white px-4 py-3 md:px-6 md:py-4 shadow-sm">
+                            <ol className="flex flex-col gap-3 text-xs md:text-sm md:flex-row md:items-center md:justify-between">
+                                <li className="flex items-center gap-3">
+                                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-white font-bold text-xs">
+                                        01
+                                    </div>
+                                    <div>
+                                        <p className="font-extrabold text-gray-900 tracking-wide uppercase">
+                                            Shopping Cart
+                                        </p>
+                                        <p className="text-[11px] text-gray-500">
+                                            Manage your items list
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <div className="hidden md:block h-px flex-1 bg-gradient-to-r from-gray-200 via-blue-200 to-gray-200 mx-4" />
+
+                                <li className="flex items-center gap-3">
+                                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-white font-bold text-xs">
+                                        02
+                                    </div>
+                                    <div>
+                                        <p className="font-extrabold text-gray-900 tracking-wide uppercase">
+                                            Checkout Details
+                                        </p>
+                                        <p className="text-[11px] text-gray-500">
+                                            Delivery & payment info
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <div className="hidden md:block h-px flex-1 bg-gradient-to-r from-gray-200 via-blue-200 to-gray-200 mx-4" />
+
+                                <li className="flex items-center gap-3">
+                                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 text-gray-400 font-bold text-xs">
+                                        03
+                                    </div>
+                                    <div>
+                                        <p className="font-extrabold text-gray-400 tracking-wide uppercase">
+                                            Order Complete
+                                        </p>
+                                        <p className="text-[11px] text-gray-400">
+                                            Review your order
+                                        </p>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
                     </div>
 
                     <div className="flex flex-col gap-6 lg:gap-8 lg:grid lg:grid-cols-[1.5fr_1fr]">
@@ -531,7 +585,12 @@ export default function CheckoutPage() {
                                         <div key={`${item.id}-${item.variantKey}-${index}`} className="flex gap-3">
                                             <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
                                                 <Image
-                                                    src={item.images?.[0] || item.imageUrl || "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400"}
+                                                    src={
+                                                        item.images?.[0] ||
+                                                        item.imageUrl ||
+                                                        item.image ||
+                                                        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400"
+                                                    }
                                                     alt={item.name}
                                                     fill
                                                     unoptimized
@@ -685,6 +744,9 @@ export default function CheckoutPage() {
                                     Secure checkout · SSL encrypted
                                 </div>
                             </section>
+
+                            {/* Mobile spacer so checkout button is not hidden behind bottom nav */}
+                            <div className="h-20 md:hidden" />
 
                             {/* Delivery Partners */}
                             <div className="flex justify-center items-center gap-6">

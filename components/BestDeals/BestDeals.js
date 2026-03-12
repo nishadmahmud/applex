@@ -1,91 +1,85 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FiArrowRight, FiClock, FiTag } from 'react-icons/fi';
+import { FiArrowRight, FiClock } from 'react-icons/fi';
 
 export default function BestDeals({ deals = [] }) {
     return (
-        <section className="w-full bg-orange-50/50 py-10 md:py-14 border-t border-orange-100">
+        <section className="w-full bg-blue-50/40 py-10 md:py-14">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 {/* Section Header */}
                 <div className="flex items-center justify-between mb-8 md:mb-10">
-                    <div className="flex items-center gap-3">
-                        <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight flex items-center gap-2">
-                            <span className="text-orange-600">Big</span> Saves
+                    <div>
+                        <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">
+                            Big Saves
                         </h2>
-                        <div className="hidden md:flex items-center gap-1.5 px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold">
-                            <FiClock className="w-3.5 h-3.5" /> Ends in: 12h 45m
+                        <div className="flex items-center gap-1.5 text-xs text-gray-400 font-medium mt-1">
+                            <FiClock className="w-3 h-3" /> Ends in: <span className="text-red-500 font-bold">12h 45m</span>
                         </div>
                     </div>
-                    <Link href="/special-offers" className="text-orange-600 hover:text-orange-800 text-sm font-semibold flex items-center gap-1 transition-colors">
+                    <Link href="/special-offers" className="text-blue-600 hover:text-blue-700 text-sm font-semibold flex items-center gap-1 transition-colors">
                         View All <FiArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
 
                 {/* Deal Cards */}
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                     {deals.map((deal) => (
-                        <div key={deal.id} className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg border border-orange-100 hover:border-orange-300 transition-all duration-300">
+                        <div key={deal.id} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
 
-                            {/* Image Section - Left */}
-                            <Link href={deal.link || "#"} className="relative w-full h-48 bg-gray-50 flex-shrink-0 flex items-center justify-center p-6">
+                            <Link href={deal.link || "#"} className="relative w-full h-44 md:h-52 bg-gray-50 shrink-0 flex items-center justify-center p-4 md:p-6">
                                 <Image
                                     src={deal.imageUrl || "/no-image.svg"}
                                     alt={deal.title}
                                     fill
-                                    className="object-contain p-6 group-hover:scale-110 transition-transform duration-500 mix-blend-multiply"
+                                    className="object-contain p-4 md:p-6 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
                                     unoptimized
                                 />
-                                {/* Discount tag over image */}
                                 {deal.badge && (
-                                    <div className="absolute top-3 left-3 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold uppercase shadow-sm">
+                                    <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase z-10">
                                         {deal.badge}
                                     </div>
                                 )}
                             </Link>
 
-                            {/* Details Section - Right */}
-                            <div className="p-6 md:p-8 flex-1 flex flex-col justify-center bg-gradient-to-br from-white to-orange-50/30">
-
+                            <div className="p-4 md:p-5 flex-1 flex flex-col">
                                 <Link href={deal.link || "#"} className="mb-2 block">
-                                    <h3 className="text-xl md:text-2xl font-black text-gray-900 leading-tight group-hover:text-orange-600 transition-colors line-clamp-2">
+                                    <h3 className="text-sm md:text-base font-bold text-gray-900 leading-tight group-hover:text-blue-600 transition-colors line-clamp-2">
                                         {deal.title}
                                     </h3>
                                 </Link>
 
-                                <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+                                <p className="text-xs text-gray-400 mb-3 line-clamp-2 hidden md:block">
                                     {deal.description}
                                 </p>
 
-                                <div className="mt-auto pt-2 border-t border-gray-100 flex items-end justify-between">
+                                <div className="mt-auto flex items-end justify-between gap-2">
                                     <div>
                                         {deal.oldPrice && (
-                                            <div className="text-sm text-gray-400 line-through mb-0.5">
+                                            <div className="text-[11px] text-gray-400 line-through mb-0.5">
                                                 {deal.oldPrice}
                                             </div>
                                         )}
-                                        <div className="text-2xl md:text-3xl font-black text-red-600 flex items-baseline gap-1">
+                                        <div className="text-lg md:text-xl font-black text-gray-900">
                                             {deal.price}
                                         </div>
                                     </div>
 
-                                    <Link href={deal.link || "#"} className="px-5 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-md shadow-red-500/20 transition-all flex items-center justify-center">
+                                    <Link href={deal.link || "#"} className="px-3 md:px-4 py-2 rounded-lg bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20">
                                         Grab Deal
                                     </Link>
                                 </div>
 
-                                {/* Progress Bar */}
                                 {deal.savings && (
-                                    <div className="mt-5">
-                                        <div className="flex justify-between text-[10px] font-bold text-gray-500 uppercase mb-1.5">
-                                            <span>Already Sold: {Math.floor(Math.random() * 80) + 20}%</span>
-                                            <span className="text-orange-600 px-1.5 py-0.5 rounded bg-orange-100">Hot</span>
+                                    <div className="mt-3 pt-3 border-t border-gray-100">
+                                        <div className="flex justify-between text-[9px] font-medium text-gray-400 uppercase mb-1">
+                                            <span>Sold: {Math.floor(Math.random() * 80) + 20}%</span>
+                                            <span className="text-red-500 font-bold">Hot</span>
                                         </div>
-                                        <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
-                                            <div className="bg-gradient-to-r from-orange-400 to-red-500 h-1.5 rounded-full" style={{ width: `${Math.floor(Math.random() * 60) + 30}%` }}></div>
+                                        <div className="w-full bg-gray-100 rounded-full h-1 overflow-hidden">
+                                            <div className="bg-blue-500 h-1 rounded-full" style={{ width: `${Math.floor(Math.random() * 60) + 30}%` }}></div>
                                         </div>
                                     </div>
                                 )}
-
                             </div>
                         </div>
                     ))}

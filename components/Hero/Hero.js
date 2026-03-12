@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FiChevronLeft, FiChevronRight, FiArrowRight } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiArrowRight, FiShield, FiTruck, FiRefreshCcw, FiCreditCard } from 'react-icons/fi';
 
 export default function Hero({ slides = [], banners = [] }) {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -57,12 +57,12 @@ export default function Hero({ slides = [], banners = [] }) {
     const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
 
     return (
-        <div className="w-full bg-gray-50 pt-4 pb-2 md:pt-6 md:pb-6">
-            <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="w-full bg-gray-50 pt-4 pb-4 md:pt-6 md:pb-6">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-4 md:space-y-5">
                 <div className="flex flex-col lg:flex-row gap-4 h-full">
 
                     {/* ── LEFT: MAIN SLIDER ── */}
-                    <div className="w-full lg:w-[73%] relative h-[250px] sm:h-[350px] md:h-[450px] rounded-lg overflow-hidden shadow-sm group bg-white border border-gray-200">
+                    <div className="w-full lg:w-[73%] relative h-[250px] sm:h-[350px] md:h-[450px] rounded-2xl overflow-hidden shadow-sm group bg-white border border-gray-200">
                         {/* Slides */}
                         {activeSlides.map((slide, idx) => (
                             <div
@@ -155,7 +155,7 @@ export default function Hero({ slides = [], banners = [] }) {
                     <div className="hidden lg:flex w-[27%] flex-col gap-4 h-[450px]">
                         {banners.length >= 2 ? (
                             <>
-                                <Link href={banners[0].link || "#"} className="flex-1 relative rounded-lg overflow-hidden group shadow-sm bg-white border border-gray-200 block">
+                                <Link href={banners[0].link || "#"} className="flex-1 relative rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
                                     {banners[0].image && banners[0].image !== "/no-image.svg" ? (
                                         <Image
                                             src={banners[0].image}
@@ -174,7 +174,7 @@ export default function Hero({ slides = [], banners = [] }) {
                                 </Link>
 
                                 {/* Banner 2 */}
-                                <Link href={banners[1].link || "#"} className="flex-1 relative rounded-lg overflow-hidden group shadow-sm bg-white border border-gray-200 block">
+                                <Link href={banners[1].link || "#"} className="flex-1 relative rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
                                     {banners[1].image && banners[1].image !== "/no-image.svg" ? (
                                         <Image
                                             src={banners[1].image}
@@ -199,6 +199,36 @@ export default function Hero({ slides = [], banners = [] }) {
                         )}
                     </div>
 
+                </div>
+
+                {/* Trust / USP strip */}
+                <div className="rounded-2xl border border-gray-100 bg-white/80 backdrop-blur-sm shadow-sm px-4 py-3 md:px-6 md:py-3">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-[11px] md:text-xs font-semibold text-gray-600">
+                        <div className="flex items-center gap-2">
+                            <div className="h-7 w-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                <FiShield className="w-3.5 h-3.5" />
+                            </div>
+                            <span>100% genuine products</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="h-7 w-7 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                                <FiTruck className="w-3.5 h-3.5" />
+                            </div>
+                            <span>Fast, safe delivery</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="h-7 w-7 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
+                                <FiRefreshCcw className="w-3.5 h-3.5" />
+                            </div>
+                            <span>Easy warranty support</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="h-7 w-7 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
+                                <FiCreditCard className="w-3.5 h-3.5" />
+                            </div>
+                            <span>Secure payment options</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -93,7 +93,12 @@ export default function CartSidebar() {
                                         {/* Image */}
                                         <div className="w-20 h-20 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-100 relative">
                                             <Image
-                                                src={item.images?.[0] || item.imageUrl || "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400"}
+                                                src={
+                                                    item.images?.[0] ||
+                                                    item.imageUrl ||
+                                                    item.image ||
+                                                    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400"
+                                                }
                                                 alt={item.name}
                                                 fill
                                                 unoptimized
@@ -161,7 +166,7 @@ export default function CartSidebar() {
 
                 {/* Footer / Checkout */}
                 {cartItems.length > 0 && (
-                    <div className="p-5 bg-white border-t border-gray-100 shadow-[0_-10px_30px_rgba(0,0,0,0.03)] z-10">
+                    <div className="pt-5 pb-24 md:pb-5 px-5 bg-white border-t border-gray-100 shadow-[0_-10px_30px_rgba(0,0,0,0.03)] z-10">
                         <div className="flex justify-between items-center mb-4">
                             <span className="text-gray-500 font-medium">Subtotal <span className="text-xs ml-1">(incl. VAT)</span></span>
                             <span className="text-xl font-extrabold text-gray-900">৳{cartTotal.toLocaleString()}</span>

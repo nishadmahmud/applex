@@ -77,6 +77,7 @@ export default async function Home() {
       imageUrl: imageUrl,
       brand: p.brands?.name || p.brand_name || '',
       categoryName: p.category_name || 'Others',
+      hasVariants: p.have_variant === 1 || (Array.isArray(p.imeis) && p.imeis.length > 0),
     };
 
     // Also inject properties specifically needed by BestDeals component to prevent "missing alt" errors
