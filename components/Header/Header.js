@@ -4,9 +4,10 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX, FiChevronRight, FiHeart, FiHeadphones, FiTruck, FiFileText } from 'react-icons/fi';
+import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX, FiChevronRight, FiHeart, FiHeadphones, FiTruck, FiFileText, FiCopy } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
+import { useCompare } from '../../context/CompareContext';
 import { searchProducts } from '../../lib/api';
 
 export default function Header({ categories = [] }) {
@@ -21,6 +22,7 @@ export default function Header({ categories = [] }) {
 
   const { cartCount, openCart } = useCart();
   const { user, openAuthModal } = useAuth();
+  const { count: compareCount } = useCompare();
   const router = useRouter();
 
   const defaultCategories = [
@@ -92,10 +94,15 @@ export default function Header({ categories = [] }) {
           (Array.isArray(p.image_paths) && p.image_paths[0]) || '/no-image.svg';
 
         return {
-          id: p.id, name: p.name, price: `৳ ${price.toLocaleString('en-IN')}`,
+          id: p.id,
+          name: p.name,
+          price: `৳ ${price.toLocaleString('en-IN')}`,
           oldPrice: hasDiscount ? `৳ ${basePrice.toLocaleString('en-IN')}` : null,
-          discount: discountLabel, imageUrl,
-          brand: p.brands?.name || '', categoryName: p.category?.name || 'Others',
+          discount: discountLabel,
+          imageUrl,
+          brand: p.brands?.name || '',
+          categoryName: p.category?.name || 'Others',
+          raw: p,
         };
       });
 
@@ -140,17 +147,26 @@ export default function Header({ categories = [] }) {
       <header className="w-full sticky top-0 z-50 flex flex-col">
 
         {/* ── ALERTS / MINI TOP BAR (Dark Bluish) ── */}
-        <div className="bg-[#111827] text-[11px] text-gray-300 py-1 px-4 md:px-8 border-b border-gray-800/50 hidden md:block">
-          <div className="max-w-7xl mx-auto flex justify-end gap-6 font-medium">
-            <Link href="/contact" className="hover:text-white transition-colors flex items-center gap-1.5"><FiHeadphones className="text-[#facc15]" /> Contact Us</Link>
-            <Link href="/blogs" className="hover:text-white transition-colors flex items-center gap-1.5"><FiFileText className="text-blue-400" /> Blogs</Link>
-            <Link href="/track-order" className="hover:text-white transition-colors flex items-center gap-1.5"><FiTruck className="text-purple-400" /> Track Order</Link>
+        <div className="bg-[#111827] text-[11px] text-gray-300 py-1 border-b border-gray-800/50 hidden md:block">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-end gap-6 font-medium">
+            <Link href="/contact" className="hover:text-white transition-colors flex items-center gap-1.5">
+              <FiHeadphones className="text-[#facc15]" /> Contact Us
+            </Link>
+            <Link href="/blogs" className="hover:text-white transition-colors flex items-center gap-1.5">
+              <FiFileText className="text-blue-400" /> Blogs
+            </Link>
+            <Link href="/track-order" className="hover:text-white transition-colors flex items-center gap-1.5">
+              <FiTruck className="text-purple-400" /> Track Order
+            </Link>
+            <Link href="/compare" className="hover:text-white transition-colors flex items-center gap-1.5">
+              <FiCopy className="text-blue-300" /> Compare
+            </Link>
           </div>
         </div>
 
         {/* MAIN TOP BAR (Dark Bluish) */}
-        <div className="bg-[#111827] py-2 md:py-3 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-6 md:gap-10">
+        <div className="bg-[#111827] py-2 md:py-3">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between gap-6 md:gap-10">
 
             {/* Logo */}
             <div className="flex items-center flex-shrink-0 order-1 md:order-none">
@@ -210,9 +226,21 @@ export default function Header({ categories = [] }) {
                       </div>
                       <div className="w-2/3 p-4 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-3">
                         {filteredSearchResults.map(product => (
-                          <Link key={product.id} href={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}-${product.id}`} onClick={closeSearchModal} className="group flex flex-row items-center gap-3 p-2 rounded hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-colors">
-                            <div className="w-12 h-12 relative bg-white border border-gray-100 rounded flex-shrink-0"><Image src={product.imageUrl} alt={product.name} fill className="object-contain p-1" unoptimized /></div>
-                            <div className="flex-1 min-w-0"><h4 className="text-[12px] text-gray-800 truncate group-hover:text-blue-600">{product.name}</h4><p className="text-[12px] font-bold text-gray-900">{product.price}</p></div>
+                          <Link
+                            key={product.id}
+                            href={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}-${product.id}`}
+                            onClick={closeSearchModal}
+                            className="group flex flex-row items-center gap-3 p-2 rounded hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-colors"
+                          >
+                            <div className="w-12 h-12 relative bg-white border border-gray-100 rounded shrink-0">
+                              <Image src={product.imageUrl} alt={product.name} fill className="object-contain p-1" unoptimized />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-[12px] text-gray-800 truncate group-hover:text-blue-600">
+                                {product.name}
+                              </h4>
+                              <p className="text-[12px] font-bold text-gray-900">{product.price}</p>
+                            </div>
                           </Link>
                         ))}
                       </div>

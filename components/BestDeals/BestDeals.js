@@ -22,12 +22,12 @@ export default function BestDeals({ deals = [] }) {
                 </div>
 
                 {/* Deal Cards */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     {deals.map((deal) => (
-                        <div key={deal.id} className="group flex flex-col sm:flex-row bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg border border-orange-100 hover:border-orange-300 transition-all duration-300">
+                        <div key={deal.id} className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg border border-orange-100 hover:border-orange-300 transition-all duration-300">
 
                             {/* Image Section - Left */}
-                            <Link href={deal.link || "#"} className="relative w-full sm:w-2/5 h-48 sm:h-auto bg-gray-50 flex-shrink-0 flex items-center justify-center p-6">
+                            <Link href={deal.link || "#"} className="relative w-full h-48 bg-gray-50 flex-shrink-0 flex items-center justify-center p-6">
                                 <Image
                                     src={deal.imageUrl || "/no-image.svg"}
                                     alt={deal.title}
