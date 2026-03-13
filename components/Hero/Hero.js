@@ -62,7 +62,7 @@ export default function Hero({ slides = [], banners = [] }) {
                 <div className="flex flex-col lg:flex-row gap-4 h-full">
 
                     {/* ── LEFT: MAIN SLIDER ── */}
-                    <div className="w-full lg:w-[73%] relative h-[250px] sm:h-[350px] md:h-[450px] rounded-2xl overflow-hidden shadow-sm group bg-white border border-gray-200">
+                    <div className="w-full lg:w-[73%] relative aspect-[24/10] rounded-2xl overflow-hidden shadow-sm group bg-white border border-gray-200">
                         {/* Slides */}
                         {activeSlides.map((slide, idx) => (
                             <div
@@ -70,20 +70,18 @@ export default function Hero({ slides = [], banners = [] }) {
                                 className={`absolute inset-0 transition-opacity duration-700 ease-in-out h-full w-full ${idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
                                     } ${slide.bgColor || 'bg-white'}`}
                             >
-                                {/* Full Background Image */}
+                                {/* Full Background Image & Clickable Link */}
                                 {slide.image && slide.image !== "/no-image.svg" && (
-                                    <div className="absolute inset-0 z-0">
+                                    <Link href={slide.link || "/"} className="absolute inset-0 z-0">
                                         <Image
                                             src={slide.image}
-                                            alt={slide.title}
+                                            alt={slide.title || "Hero Slide"}
                                             fill
                                             className="object-cover object-center"
                                             unoptimized
                                             priority={idx === 0}
                                         />
-                                        {/* Optional dark gradient overlay so text is readable if image is bright */}
-                                        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
-                                    </div>
+                                    </Link>
                                 )}
 
                                 {/* Fallback Background */}
@@ -92,32 +90,6 @@ export default function Hero({ slides = [], banners = [] }) {
                                         <span className="bg-white px-2 py-1 rounded">No Image provided</span>
                                     </div>
                                 )}
-
-                                {/* Slide Content Container */}
-                                <div className="absolute inset-0 flex items-center px-6 md:px-12 z-10 w-full h-full">
-                                    <div className="w-full md:w-2/3 lg:w-1/2 flex flex-col items-start">
-                                        {slide.badge && (
-                                            <span className="inline-block px-2.5 py-1 mb-2 md:mb-4 text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-red-600 bg-red-100 rounded-sm">
-                                                {slide.badge}
-                                            </span>
-                                        )}
-
-                                        <h1 className={`text-xl sm:text-3xl md:text-[2.75rem] font-black mb-2 md:mb-4 leading-tight tracking-tight ${slide.image && slide.image !== "/no-image.svg" ? 'text-white' : (slide.textColor || 'text-gray-900')}`}>
-                                            {slide.title}
-                                        </h1>
-
-                                        <p className={`text-xs sm:text-sm md:text-base font-medium mb-4 md:mb-8 line-clamp-2 md:line-clamp-none ${slide.image && slide.image !== "/no-image.svg" ? 'text-gray-200' : 'text-gray-600'} `}>
-                                            {slide.subtitle}
-                                        </p>
-
-                                        <Link
-                                            href={slide.link || "/"}
-                                            className="px-6 py-3 md:px-8 md:py-3.5 bg-blue-600 text-white rounded-md font-bold text-xs md:text-sm flex items-center gap-2 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20"
-                                        >
-                                            {slide.cta || "Shop Now"}
-                                        </Link>
-                                    </div>
-                                </div>
                             </div>
                         ))}
 
@@ -152,7 +124,7 @@ export default function Hero({ slides = [], banners = [] }) {
                     </div>
 
                     {/* ── RIGHT: SIDE PROMO BANNERS ── */}
-                    <div className="hidden lg:flex w-[27%] flex-col gap-4 h-[450px]">
+                    <div className="hidden lg:flex w-[27%] flex-col gap-4">
                         {banners.length >= 2 ? (
                             <>
                                 <Link href={banners[0].link || "#"} className="flex-1 relative rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
