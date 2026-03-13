@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
 
     if (!productId || !Number.isFinite(productId) || productId <= 0) {
         return {
-            title: 'Product Not Found | Applex Electronics',
+            title: 'Product Not Found | Applex',
         };
     }
 
@@ -26,14 +26,14 @@ export async function generateMetadata({ params }) {
 
         if (!product || !product.id) {
             return {
-                title: 'Product Not Found | Applex Electronics',
+                title: 'Product Not Found | Applex',
             };
         }
 
-        const title = `${product.name} - Applex Electronics`;
+        const title = `${product.name} - Applex`;
         const description = product.description
             ? product.description.replace(/<[^>]+>/g, '').substring(0, 150) + '...'
-            : `Buy ${product.name} at the best price in Bangladesh from Applex Electronics.`;
+            : `Buy ${product.name} at the best price in Bangladesh from Applex.`;
 
         const images =
             (Array.isArray(product.images) && product.images.length > 0 && product.images) ||
@@ -69,7 +69,7 @@ export async function generateMetadata({ params }) {
     } catch (error) {
         console.error('Failed to generate metadata for product:', error);
         return {
-            title: 'Product Details | Applex Electronics',
+            title: 'Product Details | Applex',
         };
     }
 }

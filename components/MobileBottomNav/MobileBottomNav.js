@@ -11,19 +11,32 @@ import {
 } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
+import { useAuth } from '../../context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function MobileBottomNav() {
     const pathname = usePathname();
     const { cartCount, openCart } = useCart();
     const { wishlistCount } = useWishlist();
+    const { user, openAuthModal } = useAuth();
+    const router = useRouter();
+
+    const handleProfileClick = (e) => {
+        e.preventDefault();
+        if (user) {
+            router.push('/profile');
+        } else {
+            openAuthModal('login');
+        }
+    };
 
     const navItems = [
         { icon: FiHome, label: 'Home', path: '/' },
         { icon: FiGrid, label: 'Categories', path: '/categories' },
         { icon: FiHeart, label: 'Wishlist', path: '/wishlist', badge: wishlistCount },
-        // Cart will open the cart sidebar/modal instead of navigating
+        // Cart and Profile will handle their own clicks
         { icon: FiShoppingCart, label: 'Cart', path: null, badge: cartCount },
-        { icon: FiUser, label: 'Profile', path: '/profile' },
+        { icon: FiUser, label: 'Profile', path: null },
     ];
 
     return (
@@ -35,17 +48,17 @@ export default function MobileBottomNav() {
                         ? pathname === item.path || (item.path !== '/' && pathname.startsWith(item.path))
                         : false;
 
-                    // Cart item: open cart modal instead of navigation
                     const isCart = item.label === 'Cart';
+                    const isProfile = item.label === 'Profile';
 
                     const commonInner = (
                         <>
-                            {isActive && (
+                            {(isActive || (isProfile && pathname === '/profile')) && (
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-blue-600 rounded-b" />
                             )}
 
                             <div className="relative mb-1 mt-1">
-                                <Icon className={`w-5 h-5 ${isActive ? 'fill-blue-50' : ''}`} strokeWidth={isActive ? 2.5 : 2} />
+                                <Icon className={`w-5 h-5 ${(isActive || (isProfile && pathname === '/profile')) ? 'fill-blue-50' : ''}`} strokeWidth={(isActive || (isProfile && pathname === '/profile')) ? 2.5 : 2} />
 
                                 {/* Badge */}
                                 {item.badge > 0 && (
@@ -61,13 +74,13 @@ export default function MobileBottomNav() {
                         </>
                     );
 
-                    if (isCart) {
+                    if (isCart || isProfile) {
                         return (
                             <button
                                 key={item.label}
                                 type="button"
-                                onClick={openCart}
-                                className="flex flex-col items-center justify-center w-full h-full relative text-gray-500 hover:text-gray-900 transition-colors"
+                                onClick={isCart ? openCart : handleProfileClick}
+                                className={`flex flex-col items-center justify-center w-full h-full relative ${(isActive || (isProfile && pathname === '/profile')) ? 'text-blue-600' : 'text-gray-500 hover:text-gray-900'} transition-colors`}
                             >
                                 {commonInner}
                             </button>

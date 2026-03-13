@@ -1,6 +1,6 @@
 export const metadata = {
-    title: 'Terms & Conditions | Applex Electronics',
-    description: 'Read our terms and conditions, privacy policy, and usage guidelines for Applex Electronics.',
+    title: 'Terms & Conditions | Applex',
+    description: 'Read our terms and conditions, privacy policy, and usage guidelines for Applex.',
 };
 
 export default function TermsPage() {
@@ -19,7 +19,7 @@ export default function TermsPage() {
                 <section>
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">1. General Terms</h2>
                     <p className="text-gray-600 leading-relaxed">
-                        By accessing and placing an order with Applex Electronics, you confirm that you agree to and are bound by the terms and conditions contained herein. These terms apply to the entire website and any email or other communication between you and Applex Electronics.
+                        By accessing and placing an order with Applex, you confirm that you agree to and are bound by the terms and conditions contained herein. These terms apply to the entire website and any email or other communication between you and Applex.
                     </p>
                 </section>
 
@@ -60,21 +60,21 @@ export default function TermsPage() {
                 <section>
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Intellectual Property</h2>
                     <p className="text-gray-600 leading-relaxed">
-                        All content on this website, including but not limited to text, images, graphics, logos, and software, is the property of Applex Electronics or its content suppliers and is protected by intellectual property laws.
+                        All content on this website, including but not limited to text, images, graphics, logos, and software, is the property of Applex or its content suppliers and is protected by intellectual property laws.
                     </p>
                 </section>
 
                 <section>
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Limitation of Liability</h2>
                     <p className="text-gray-600 leading-relaxed">
-                        Applex Electronics shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our services or products purchased through our platform.
+                        Applex shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our services or products purchased through our platform.
                     </p>
                 </section>
 
                 <section>
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Contact</h2>
                     <p className="text-gray-600 leading-relaxed">
-                        If you have any questions about these Terms & Conditions, please contact us at support@applex.com or visit our Contact Us page.
+                        If you have any questions about these Terms & Conditions, please visit our Contact Us page.
                     </p>
                 </section>
             </div>

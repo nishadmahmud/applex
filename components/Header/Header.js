@@ -172,13 +172,13 @@ export default function Header({ categories = [] }) {
 
             {/* Logo */}
             <div className="flex items-center flex-shrink-0 order-1 md:order-none">
-              <Link href="/" aria-label="Applex Home" className="relative z-50 md:-mt-9 md:-mb-2 transition-transform hover:scale-105 duration-300">
+              <Link href="/" aria-label="Applex Home" className="relative z-50 -mt-2 -mb-1 md:-mt-9 md:-mb-2 transition-transform hover:scale-105 duration-300">
                 <Image
                   src="/Applex Logo.svg"
                   alt="Applex Logo"
                   width={300}
                   height={100}
-                  className="h-10 md:h-22 w-auto object-contain brightness-0 invert"
+                  className="h-20 md:h-22 w-auto object-contain brightness-0 invert"
                   unoptimized
                   priority
                 />
