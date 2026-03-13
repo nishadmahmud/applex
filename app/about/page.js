@@ -121,6 +121,33 @@ export default function AboutPage() {
                     </div>
                 </section>
 
+                {/* Dedicated Team Section */}
+                <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className="relative order-2 lg:order-1 group">
+                        <div className="absolute -inset-4 bg-gradient-to-tr from-brand-purple/20 to-blue-600/20 rounded-[2.5rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-700"></div>
+                        <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-[3/4] max-h-[600px] lg:max-h-none">
+                            <Image
+                                src="/employe.jpeg"
+                                alt="Applex Team Expert"
+                                fill
+                                className="object-cover transform group-hover:scale-105 transition duration-700"
+                            />
+                        </div>
+                    </div>
+                    <div className="space-y-6 order-1 lg:order-2">
+                        <div className="inline-block p-3 bg-blue-50 rounded-2xl text-blue-600 mb-2">
+                            <span className="text-sm font-bold tracking-wider uppercase">EXPERT SUPPORT</span>
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">Expert Support, Genuine Care</h2>
+                        <p className="text-gray-600 text-lg leading-relaxed">
+                            Our team is the heart of Applex. We don't just know gadgets; we understand how they fit into your life. Every member of our staff is trained to provide expert advice, ensuring you make the best choice for your needs.
+                        </p>
+                        <p className="text-gray-600 text-lg leading-relaxed">
+                            Whether it's choosing your first smartwatch or setting up a professional workstation, we're here to guide you with technical expertise and a friendly smile.
+                        </p>
+                    </div>
+                </section>
+
                 {/* Core Values / Features Grid */}
                 <section className="py-12">
                     <div className="text-center mb-16">

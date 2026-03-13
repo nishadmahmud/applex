@@ -15,6 +15,7 @@ import {
     User,
     Phone,
     CheckCircle2,
+    ArrowRight,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import AddressSelect from "../../components/Checkout/AddressSelect";
@@ -49,6 +50,7 @@ export default function CheckoutPage() {
     const [appliedCoupon, setAppliedCoupon] = useState(null);
     const [couponLoading, setCouponLoading] = useState(false);
     const [couponError, setCouponError] = useState("");
+    const [isAccepted, setIsAccepted] = useState(false);
 
     const formRef = useRef(null);
 
@@ -198,6 +200,11 @@ export default function CheckoutPage() {
             return;
         }
 
+        if (!isAccepted) {
+            toast.error("Please accept the Terms, Warranty, and Refund Policy to proceed.");
+            return;
+        }
+
         const phoneRegex = /^01[3-9]\d{8}$/;
         if (!phoneRegex.test(formData.phone)) {
             toast.error("Please enter a valid 11-digit Bangladeshi phone number");
@@ -309,178 +316,138 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            <div className="pt-0 lg:pt-8 pb-[120px] md:pb-12">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-                    {/* Page Header + Progress */}
-                    <div className="mb-6 md:mb-8 pt-6 md:pt-0 space-y-4">
+        <div className="min-h-screen bg-gray-50/50 pb-20">
+            {/* Simple Premium Header */}
+            <div className="bg-white border-b border-gray-100 py-6 md:py-10">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div>
-                            <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900">Checkout</h1>
-                            <p className="mt-1 text-sm text-gray-500">
-                                Complete your order in a few simple steps.
-                            </p>
+                            <h1 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Checkout</h1>
+                            <p className="text-gray-500 font-medium mt-1">Review your details and complete your purchase</p>
                         </div>
-
-                        {/* Step progress */}
-                        <div className="rounded-2xl border border-gray-100 bg-white px-4 py-3 md:px-6 md:py-4 shadow-sm">
-                            <ol className="flex flex-col gap-3 text-xs md:text-sm md:flex-row md:items-center md:justify-between">
-                                <li className="flex items-center gap-3">
-                                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-white font-bold text-xs">
-                                        01
-                                    </div>
-                                    <div>
-                                        <p className="font-extrabold text-gray-900 tracking-wide uppercase">
-                                            Shopping Cart
-                                        </p>
-                                        <p className="text-[11px] text-gray-500">
-                                            Manage your items list
-                                        </p>
-                                    </div>
-                                </li>
-
-                                <div className="hidden md:block h-px flex-1 bg-gradient-to-r from-gray-200 via-blue-200 to-gray-200 mx-4" />
-
-                                <li className="flex items-center gap-3">
-                                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-white font-bold text-xs">
-                                        02
-                                    </div>
-                                    <div>
-                                        <p className="font-extrabold text-gray-900 tracking-wide uppercase">
-                                            Checkout Details
-                                        </p>
-                                        <p className="text-[11px] text-gray-500">
-                                            Delivery & payment info
-                                        </p>
-                                    </div>
-                                </li>
-
-                                <div className="hidden md:block h-px flex-1 bg-gradient-to-r from-gray-200 via-blue-200 to-gray-200 mx-4" />
-
-                                <li className="flex items-center gap-3">
-                                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 text-gray-400 font-bold text-xs">
-                                        03
-                                    </div>
-                                    <div>
-                                        <p className="font-extrabold text-gray-400 tracking-wide uppercase">
-                                            Order Complete
-                                        </p>
-                                        <p className="text-[11px] text-gray-400">
-                                            Review your order
-                                        </p>
-                                    </div>
-                                </li>
-                            </ol>
+                        <div className="flex items-center gap-2 text-xs font-black text-purple-600 uppercase tracking-widest bg-purple-50 px-4 py-2 rounded-full w-fit">
+                            <Shield className="w-4 h-4" /> Secure Checkout
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div className="flex flex-col gap-6 lg:gap-8 lg:grid lg:grid-cols-[1.5fr_1fr]">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 mt-8 md:mt-12">
+                {/* ═══ Progress Tracker ═══ */}
+                <div className="mb-10 bg-white rounded-3xl p-5 md:p-8 shadow-sm border border-gray-100">
+                    <ol className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 relative">
+                        {/* Step 1 */}
+                        <li className="flex items-center gap-4 relative z-10">
+                            <div className="flex-shrink-0 w-12 h-12 bg-green-500 text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-green-500/20">
+                                <CheckCircle2 className="w-6 h-6 stroke-[3]" />
+                            </div>
+                            <div>
+                                <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Step 01</h3>
+                                <p className="font-black text-gray-900 uppercase tracking-tight text-sm">Shopping Cart</p>
+                            </div>
+                        </li>
 
-                        {/* ═══ Left Column: Forms ═══ */}
-                        <div className="space-y-6">
+                        {/* Step 2 (Active) */}
+                        <li className="flex items-center gap-4 relative z-10">
+                            <div className="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-lg shadow-purple-600/30 ring-4 ring-purple-100">
+                                02
+                            </div>
+                            <div>
+                                <h3 className="text-[10px] font-black text-brand-purple uppercase tracking-widest leading-none mb-1">Step 02</h3>
+                                <p className="font-black text-gray-900 uppercase tracking-tight text-sm">Checkout Details</p>
+                            </div>
+                        </li>
 
-                            {/* ── Delivery Information ── */}
-                            <section className="rounded-2xl border border-gray-100 bg-white p-5 md:p-6 shadow-sm">
-                                <div className="mb-5 flex items-center gap-3 border-b border-gray-100 pb-4">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-50 text-brand-purple">
-                                        <MapPin className="h-5 w-5" />
+                        {/* Step 3 */}
+                        <li className="flex items-center gap-4 relative z-10 opacity-60">
+                            <div className="flex-shrink-0 w-12 h-12 bg-gray-200 text-gray-600 rounded-2xl flex items-center justify-center font-black text-xl">
+                                03
+                            </div>
+                            <div>
+                                <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Step 03</h3>
+                                <p className="font-black text-gray-900 uppercase tracking-tight text-sm">Order Complete</p>
+                            </div>
+                        </li>
+
+                        {/* Desktop Connector Lines */}
+                        <div className="hidden md:block absolute top-5 left-[15%] right-[15%] h-0.5 bg-gray-100 -z-0">
+                            <div className="absolute top-0 left-0 w-[50%] h-full bg-gradient-to-r from-green-500 to-purple-600"></div>
+                        </div>
+                    </ol>
+                </div>
+
+                <div className="flex flex-col lg:grid lg:grid-cols-[1fr_400px] gap-8 xl:gap-12">
+                    
+                    {/* ═══ Main Checkout Flow ═══ */}
+                    <div className="space-y-8">
+                        
+                        {/* Step 1: Shipping Details */}
+                        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+                            <div className="p-6 md:p-10">
+                                <div className="flex items-center gap-5 mb-10">
+                                    <div className="flex-shrink-0 w-12 h-12 bg-gray-900 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-lg shadow-gray-900/20">
+                                        1
                                     </div>
                                     <div>
-                                        <h2 className="font-bold text-gray-900">
-                                            Delivery Address
-                                        </h2>
-                                        <p className="text-xs text-gray-500">
-                                            Where should we send your order?
-                                        </p>
+                                        <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Shipping Information</h2>
+                                        <div className="h-1 w-12 bg-purple-600 rounded-full mt-1"></div>
                                     </div>
                                 </div>
 
-                                <form
-                                    id="checkout-form"
-                                    ref={formRef}
-                                    onSubmit={handleSubmit}
-                                    className="space-y-5"
-                                >
-                                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                                        {/* Full Name */}
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-gray-700">
-                                                Full Name
-                                            </label>
-                                            <div className="relative">
-                                                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                                    <User className="h-4 w-4 text-gray-400" />
-                                                </div>
-                                                <input
-                                                    required
-                                                    type="text"
-                                                    name="firstName"
-                                                    value={formData.firstName}
-                                                    onChange={handleChange}
-                                                    className="block w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-brand-purple focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-purple"
-                                                    placeholder="Your full name"
-                                                    style={{ fontSize: '16px' }}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        {/* Phone Number */}
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-gray-700">
-                                                Phone Number <span className="text-red-500">*</span>
-                                            </label>
-                                            <div className="relative">
-                                                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                                    <Phone className="h-4 w-4 text-gray-400" />
-                                                </div>
-                                                <input
-                                                    required
-                                                    type="tel"
-                                                    name="phone"
-                                                    value={formData.phone}
-                                                    onChange={handleChange}
-                                                    className="block w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-brand-purple focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-purple"
-                                                    placeholder="01XXXXXXXXX"
-                                                    style={{ fontSize: '16px' }}
-                                                />
-                                            </div>
-                                            {formData.phone && !/^01[3-9]\d{8}$/.test(formData.phone) && (
-                                                <p className="text-xs text-red-500">
-                                                    Invalid phone number format.
-                                                </p>
-                                            )}
-                                            <p className="text-xs text-gray-400 mt-0.5">
-                                                Format: 01XXXXXXXXX (11 digits)
-                                            </p>
+                                <form id="checkout-form" ref={formRef} onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-black text-gray-900 uppercase tracking-wider ml-1">Full Name</label>
+                                        <div className="relative group">
+                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-brand-purple transition-colors" />
+                                            <input
+                                                required
+                                                type="text"
+                                                name="firstName"
+                                                value={formData.firstName}
+                                                onChange={handleChange}
+                                                placeholder="e.g. Abdullah Al Mamun"
+                                                className="w-full bg-gray-50 border-2 border-transparent rounded-[1.25rem] py-4 pl-12 pr-4 text-gray-900 font-medium focus:bg-white focus:border-brand-purple focus:outline-none transition-all"
+                                                style={{ fontSize: '16px' }}
+                                            />
                                         </div>
                                     </div>
 
-                                    {/* Email (Optional) */}
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-gray-700">
-                                            Email <span className="text-gray-400 font-normal">(Optional)</span>
-                                        </label>
-                                        <div className="relative">
-                                            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400">
-                                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                                </svg>
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-black text-gray-900 uppercase tracking-wider ml-1">Phone Number</label>
+                                        <div className="relative group">
+                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-brand-purple transition-colors" />
+                                            <input
+                                                required
+                                                type="tel"
+                                                name="phone"
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                                placeholder="01XXXXXXXXX"
+                                                className={`w-full bg-gray-50 border-2 rounded-[1.25rem] py-4 pl-12 pr-4 text-gray-900 font-medium focus:bg-white focus:outline-none transition-all ${formData.phone && !/^01[3-9]\d{8}$/.test(formData.phone) ? "border-red-200 focus:border-red-400" : "border-transparent focus:border-brand-purple"}`}
+                                                style={{ fontSize: '16px' }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="md:col-span-2 space-y-3">
+                                        <label className="text-sm font-black text-gray-900 uppercase tracking-wider ml-1">Email (Optional)</label>
+                                        <div className="relative group">
+                                            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-brand-purple transition-colors">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                             </div>
                                             <input
                                                 type="email"
                                                 name="email"
                                                 value={formData.email}
                                                 onChange={handleChange}
-                                                className="block w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-brand-purple focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-purple"
-                                                placeholder="email@example.com"
+                                                placeholder="your@email.com"
+                                                className="w-full bg-gray-50 border-2 border-transparent rounded-[1.25rem] py-4 pl-12 pr-4 text-gray-900 font-medium focus:bg-white focus:border-brand-purple focus:outline-none transition-all"
                                                 style={{ fontSize: '16px' }}
                                             />
                                         </div>
                                     </div>
 
-                                    {/* Address Select (District -> Area) */}
-                                    <div className="space-y-2">
+                                    <div className="md:col-span-2">
                                         <AddressSelect
                                             selectedDistrict={selectedDistrict}
                                             setSelectedDistrict={setSelectedDistrict}
@@ -489,286 +456,150 @@ export default function CheckoutPage() {
                                         />
                                     </div>
 
-                                    {/* Detailed Address */}
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-gray-700">
-                                            Detailed Address
-                                        </label>
+                                    <div className="md:col-span-2 space-y-3">
+                                        <label className="text-sm font-black text-gray-900 uppercase tracking-wider ml-1">Detailed Address</label>
                                         <textarea
                                             required
                                             name="address"
                                             rows={3}
                                             value={formData.address}
                                             onChange={handleChange}
-                                            className="block w-full rounded-xl border border-gray-200 bg-gray-50 py-3 px-4 text-sm text-gray-900 placeholder:text-gray-400 focus:border-brand-purple focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-purple resize-none"
-                                            placeholder="Street address, house number, landmarks..."
+                                            placeholder="House no, Flat, Road, Landmark..."
+                                            className="w-full bg-gray-50 border-2 border-transparent rounded-[1.5rem] p-5 text-gray-900 font-medium focus:bg-white focus:border-brand-purple focus:outline-none transition-all resize-none"
                                             style={{ fontSize: '16px' }}
                                         />
                                     </div>
                                 </form>
-                            </section>
-
-                            {/* ── Payment Method ── */}
-                            <section className="rounded-2xl border border-gray-100 bg-white p-5 md:p-6 shadow-sm">
-                                <div className="mb-5 flex items-center gap-3 border-b border-gray-100 pb-4">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-50 text-green-600">
-                                        <CreditCard className="h-5 w-5" />
-                                    </div>
-                                    <div>
-                                        <h2 className="font-bold text-gray-900">
-                                            Payment Method
-                                        </h2>
-                                        <p className="text-xs text-gray-500">
-                                            Select how you want to pay
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                    {/* Cash on Delivery */}
-                                    <label
-                                        className={`relative flex cursor-pointer rounded-xl border-2 p-4 transition-all hover:border-brand-purple ${paymentMethod === "Cash"
-                                            ? "border-brand-purple bg-purple-50/50 ring-1 ring-brand-purple"
-                                            : "border-gray-200"
-                                            }`}
-                                    >
-                                        <input
-                                            type="radio"
-                                            name="paymentMethod"
-                                            value="Cash"
-                                            className="sr-only"
-                                            checked={paymentMethod === "Cash"}
-                                            onChange={(e) => setPaymentMethod(e.target.value)}
-                                        />
-                                        <div className="flex flex-1 flex-col">
-                                            <span className="flex items-center gap-2 font-bold text-gray-900">
-                                                <Truck className="h-4 w-4 text-brand-purple" />
-                                                Cash on Delivery
-                                            </span>
-                                            <span className="mt-1 text-xs text-gray-500">
-                                                Pay when you receive
-                                            </span>
-                                        </div>
-                                        {paymentMethod === "Cash" && (
-                                            <div className="absolute right-4 top-4">
-                                                <div className="h-3 w-3 rounded-full bg-brand-purple" />
-                                            </div>
-                                        )}
-                                    </label>
-
-                                    {/* Online Payment (Coming Soon) */}
-                                    <label className="relative flex cursor-not-allowed rounded-xl border-2 border-gray-100 p-4 opacity-50">
-                                        <div className="flex flex-1 flex-col">
-                                            <span className="flex items-center gap-2 font-bold text-gray-400">
-                                                <CreditCard className="h-4 w-4" />
-                                                Online Payment
-                                            </span>
-                                            <span className="mt-1 text-xs text-gray-400">
-                                                Coming soon
-                                            </span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </section>
+                            </div>
                         </div>
 
-                        {/* ═══ Right Column: Order Summary ═══ */}
-                        <div className="h-fit space-y-6 lg:sticky lg:top-24">
-                            <section className="rounded-2xl border border-gray-100 bg-white p-5 md:p-6 shadow-sm">
-                                <h2 className="mb-5 font-extrabold text-gray-900 text-lg">
-                                    Order Summary
-                                </h2>
+                        {/* Step 2: Payment Method */}
+                        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+                            <div className="p-6 md:p-10">
+                                <div className="flex items-center gap-5 mb-10">
+                                    <div className="flex-shrink-0 w-12 h-12 bg-gray-900 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-lg shadow-gray-900/20">
+                                        2
+                                    </div>
+                                    <div>
+                                        <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Payment Method</h2>
+                                        <div className="h-1 w-12 bg-purple-600 rounded-full mt-1"></div>
+                                    </div>
+                                </div>
 
-                                {/* Cart Items */}
-                                <div className="mb-5 max-h-[300px] space-y-4 overflow-y-auto pr-1">
-                                    {cartItems.map((item, index) => (
-                                        <div key={`${item.id}-${item.variantKey}-${index}`} className="flex gap-3">
-                                            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
-                                                <Image
-                                                    src={
-                                                        item.imageUrl ||
-                                                        item.images?.[0] ||
-                                                        item.image ||
-                                                        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400"
-                                                    }
-                                                    alt={item.name}
-                                                    fill
-                                                    unoptimized
-                                                    className="object-cover"
-                                                />
-                                            </div>
-                                            <div className="flex flex-1 flex-col justify-between">
-                                                <div className="flex justify-between">
-                                                    <h3 className="line-clamp-1 text-sm font-bold text-gray-900 pr-2">
-                                                        {item.name}
-                                                    </h3>
-                                                    <p className="text-sm font-extrabold text-brand-purple whitespace-nowrap">
-                                                        {formatPrice(item.numericPrice * item.quantity)}
-                                                    </p>
-                                                </div>
-                                                <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
-                                                    <span>Qty: {item.quantity}</span>
-                                                    {item.variants?.storage && (
-                                                        <>
-                                                            <span>·</span>
-                                                            <span>{item.variants.storage}</span>
-                                                        </>
-                                                    )}
-                                                    {item.variants?.colors?.name && (
-                                                        <>
-                                                            <span>·</span>
-                                                            <span className="flex items-center gap-1">
-                                                                <span className="w-2 h-2 rounded-full inline-block" style={{ backgroundColor: item.variants.colors.hex }}></span>
-                                                                {item.variants.colors.name}
-                                                            </span>
-                                                        </>
-                                                    )}
-                                                </div>
-                                            </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <label className={`group relative flex items-center p-6 rounded-3xl border-2 transition-all cursor-pointer ${paymentMethod === "Cash" ? "border-brand-purple bg-purple-50/30" : "border-gray-100 bg-gray-50/50 hover:border-gray-200"}`}>
+                                        <input type="radio" name="paymentMethod" value="Cash" checked={paymentMethod === "Cash"} onChange={(e) => setPaymentMethod(e.target.value)} className="sr-only" />
+                                        <div className={`w-6 h-6 rounded-full border-2 mr-4 flex items-center justify-center transition-all ${paymentMethod === "Cash" ? "border-purple-600 bg-purple-600" : "border-gray-300"}`}>
+                                            {paymentMethod === "Cash" && <div className="w-2 h-2 rounded-full bg-white"></div>}
                                         </div>
-                                    ))}
-                                </div>
-
-                                {/* Price Breakdown */}
-                                <div className="mb-5 space-y-3 border-t border-gray-100 pt-4">
-                                    <div className="flex justify-between text-sm text-gray-600">
-                                        <span>Subtotal</span>
-                                        <span className="font-medium">{formatPrice(subTotal)}</span>
-                                    </div>
-                                    <div className="flex justify-between text-sm text-gray-600">
-                                        <span>Delivery ({
-                                            selectedCity ? (selectedCity === "Demra" || selectedCity?.includes("Savar") || selectedDistrict === "Gazipur" || selectedCity?.includes("Keraniganj"))
-                                                ? "Special Area"
-                                                : selectedDistrict === "Dhaka"
-                                                    ? "Inside Dhaka"
-                                                    : "Outside Dhaka"
-                                                : "Select Area"
-                                        })</span>
-                                        <span className="font-medium">{deliveryFee > 0 ? formatPrice(deliveryFee) : "—"}</span>
-                                    </div>
-                                    {couponDiscount > 0 && (
-                                        <div className="flex justify-between text-sm text-green-600 font-medium">
-                                            <span>Coupon Discount</span>
-                                            <span>-{formatPrice(couponDiscount)}</span>
+                                        <div className="flex flex-col">
+                                            <span className="font-black text-gray-900 uppercase tracking-tight">Cash on Delivery</span>
+                                            <span className="text-xs text-gray-500 font-medium mt-0.5">Pay when your order arrives</span>
                                         </div>
-                                    )}
+                                        <Truck className={`ml-auto w-6 h-6 transition-colors ${paymentMethod === "Cash" ? "text-purple-600" : "text-gray-300"}`} />
+                                    </label>
 
-                                    {/* Coupon Input */}
-                                    <div className="pt-2">
-                                        {appliedCoupon ? (
-                                            <div className="flex items-center justify-between rounded-xl border border-green-200 bg-green-50 px-4 py-2.5">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-xs font-bold text-green-700">
-                                                        🎉 {couponCode} applied
-                                                    </span>
-                                                </div>
-                                                <button
-                                                    onClick={handleRemoveCoupon}
-                                                    className="text-xs text-purple-600 hover:underline font-medium"
-                                                >
-                                                    Remove
-                                                </button>
-                                            </div>
-                                        ) : (
-                                            <div className="flex gap-2">
-                                                <input
-                                                    type="text"
-                                                    placeholder="Coupon Code"
-                                                    value={couponCode}
-                                                    onChange={(e) => {
-                                                        setCouponCode(e.target.value.toUpperCase());
-                                                        setCouponError("");
-                                                    }}
-                                                    onKeyDown={(e) => {
-                                                        if (e.key === 'Enter' && !couponLoading && couponCode.trim()) {
-                                                            e.preventDefault();
-                                                            handleApplyCoupon();
-                                                        }
-                                                    }}
-                                                    className={`flex-1 rounded-xl border px-4 py-2.5 text-sm focus:outline-none ${couponError
-                                                        ? "border-red-300 bg-red-50 focus:border-red-500"
-                                                        : "border-gray-200 bg-gray-50 focus:border-brand-purple"
-                                                        }`}
-                                                    style={{ fontSize: '16px' }}
-                                                />
-                                                <button
-                                                    onClick={handleApplyCoupon}
-                                                    disabled={couponLoading}
-                                                    className="rounded-xl bg-brand-purple px-5 py-2.5 text-xs font-bold text-white transition hover:bg-[#7b3ba8] disabled:opacity-50"
-                                                >
-                                                    {couponLoading ? "..." : "Apply"}
-                                                </button>
-                                            </div>
-                                        )}
-                                        {couponError && (
-                                            <p className="mt-1.5 text-xs text-purple-600">{couponError}</p>
-                                        )}
+                                    <div className="group relative flex items-center p-6 rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50/30 opacity-60">
+                                        <div className="w-6 h-6 rounded-full border-2 border-gray-200 mr-4"></div>
+                                        <div className="flex flex-col">
+                                            <span className="font-black text-gray-400 uppercase tracking-tight">Online Payment</span>
+                                            <span className="text-[10px] font-black bg-gray-200 text-gray-500 px-2 py-0.5 rounded-full w-fit mt-1">COMING SOON</span>
+                                        </div>
+                                        <CreditCard className="ml-auto w-6 h-6 text-gray-300" />
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
-                                {/* Grand Total */}
-                                <div className="flex items-center justify-between border-t border-gray-100 pt-4 mb-5">
-                                    <span className="text-base font-extrabold text-gray-900">
-                                        Grand Total
-                                    </span>
-                                    <span className="text-xl font-extrabold text-brand-purple">
-                                        {formatPrice(grandTotal)}
-                                    </span>
+                        {/* Order Confirmation (Mobile Only or Bottom of Flow) */}
+                        <div className="lg:hidden space-y-6">
+                            <div className="bg-gray-900 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-gray-900/30">
+                                <h3 className="text-xl font-black uppercase tracking-tight mb-6 flex items-center justify-between">
+                                    Final Summary
+                                    <span className="text-purple-600 text-2xl">{formatPrice(grandTotal)}</span>
+                                </h3>
+                                <div className="space-y-4 mb-8 text-gray-400 font-medium text-sm">
+                                    <div className="flex justify-between"><span>Subtotal</span><span className="text-white">{formatPrice(subTotal)}</span></div>
+                                    <div className="flex justify-between"><span>Delivery</span><span className="text-white">{formatPrice(deliveryFee)}</span></div>
+                                    {couponDiscount > 0 && <div className="flex justify-between text-green-400"><span>Discount</span><span>-{formatPrice(couponDiscount)}</span></div>}
                                 </div>
-
-                                {/* Submit Button */}
-                                <button
-                                    type="submit"
-                                    form="checkout-form"
-                                    disabled={isSubmitting}
-                                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-4 text-sm font-extrabold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700 hover:translate-y-[-1px] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
-                                >
-                                    {isSubmitting ? (
-                                        <>
-                                            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                                            </svg>
-                                            Placing Order...
-                                        </>
-                                    ) : (
-                                        <>
-                                            Confirm & Place Order
-                                            <Truck className="h-4 w-4" />
-                                        </>
-                                    )}
+                                <button type="submit" form="checkout-form" disabled={isSubmitting} className="w-full py-5 bg-white text-gray-900 rounded-2xl font-black uppercase tracking-widest hover:bg-gray-100 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50">
+                                    {isSubmitting ? "Processing..." : "Confirm My Order"}
+                                    {!isSubmitting && <ArrowRight className="w-5 h-5" />}
                                 </button>
+                            </div>
+                        </div>
+                    </div>
 
-                                <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-400">
-                                    <Shield className="h-3 w-3" />
-                                    Secure checkout · SSL encrypted
-                                </div>
-                            </section>
-
-                            {/* Mobile spacer so checkout button is not hidden behind bottom nav */}
-                            <div className="h-20 md:hidden" />
-
-                            {/* Delivery Partners */}
-                            <div className="flex justify-center items-center gap-6">
-                                <svg viewBox="0 0 120 30" className="h-6 w-auto opacity-50 grayscale transition hover:grayscale-0 hover:opacity-100">
-                                    <text x="0" y="20" fontFamily="sans-serif" fontWeight="900" fontStyle="italic" fontSize="24" fill="#E11220">Pathao</text>
-                                </svg>
-                                <svg viewBox="0 0 110 30" className="h-6 w-auto opacity-50 grayscale transition hover:grayscale-0 hover:opacity-100">
-                                    <text x="0" y="20" fontFamily="sans-serif" fontWeight="900" fontSize="24" fill="#4D148C">Fed</text>
-                                    <text x="42" y="20" fontFamily="sans-serif" fontWeight="900" fontSize="24" fill="#FF6600">Ex</text>
-                                </svg>
-                                <svg viewBox="0 0 80 30" className="h-6 w-auto opacity-50 grayscale transition hover:grayscale-0 hover:opacity-100">
-                                    <text x="0" y="20" fontFamily="sans-serif" fontWeight="900" fontStyle="italic" fontSize="26" fill="#D40511">DHL</text>
-                                </svg>
+                    {/* ═══ Sidebar Summary (Large Screen Only) ═══ */}
+                    <div className="hidden lg:block">
+                        <div className="bg-white rounded-[2.5rem] p-8 shadow-xl shadow-gray-200/50 border border-gray-100 sticky top-24">
+                            <h3 className="text-xl font-black text-gray-900 uppercase tracking-tight mb-8">Order Summary</h3>
+                            
+                            <div className="space-y-5 mb-10 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
+                                {cartItems.map((item, idx) => (
+                                    <div key={idx} className="flex gap-4 group">
+                                        <div className="w-16 h-16 bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden flex-shrink-0 relative">
+                                            <Image src={item.imageUrl || item.image || "/no-image.svg"} alt={item.name} fill className="object-contain p-2 group-hover:scale-110 transition duration-500" unoptimized />
+                                        </div>
+                                        <div className="flex flex-col justify-center min-w-0">
+                                            <h4 className="font-bold text-sm text-gray-900 line-clamp-1">{item.name}</h4>
+                                            <div className="flex items-center gap-2 mt-1">
+                                                <span className="text-[10px] font-black bg-gray-100 px-2 py-0.5 rounded-md text-gray-500 uppercase">x{item.quantity}</span>
+                                                <span className="text-xs font-black text-purple-600">{formatPrice(item.numericPrice * item.quantity)}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
 
-                            <div className="text-center text-xs text-gray-400 pb-4">
-                                <Link href="/" className="hover:underline">Terms</Link> · <Link href="/" className="hover:underline">Privacy</Link>
+                            <div className="space-y-4 mb-8 pt-6 border-t border-gray-50">
+                                <div className="flex justify-between text-sm font-bold text-gray-500">
+                                    <span>Subtotal</span>
+                                    <span className="text-gray-900">{formatPrice(subTotal)}</span>
+                                </div>
+                                <div className="flex justify-between text-sm font-bold text-gray-500">
+                                    <span>Delivery Fee</span>
+                                    <span className="text-gray-900">{formatPrice(deliveryFee)}</span>
+                                </div>
+                                {couponDiscount > 0 && (
+                                    <div className="flex justify-between text-sm font-bold text-green-600">
+                                        <span>Discount</span>
+                                        <span>-{formatPrice(couponDiscount)}</span>
+                                    </div>
+                                )}
+                                <div className="flex justify-between items-center pt-4 border-t-2 border-gray-900 mt-4">
+                                    <span className="text-lg font-black text-gray-900 uppercase">Total Bill</span>
+                                    <span className="text-2xl font-black text-purple-600">{formatPrice(grandTotal)}</span>
+                                </div>
+                            </div>
+
+                            {/* Acceptance Section */}
+                            <div className="mb-6 p-4 bg-green-50 rounded-2xl border border-green-100">
+                                <label className="flex items-start gap-3 cursor-pointer select-none">
+                                    <input type="checkbox" checked={isAccepted} onChange={(e) => setIsAccepted(e.target.checked)} className="mt-1 h-5 w-5 rounded-md border-gray-300 text-purple-600 focus:ring-purple-600 transition-all accent-purple-600 cursor-pointer" />
+                                    <span className="text-[11px] font-medium leading-relaxed text-gray-600">
+                                        I agree to the <Link href="/terms" className="font-extrabold text-purple-600 hover:underline">Terms</Link>, <Link href="/warranty" className="font-extrabold text-purple-600 hover:underline">Warranty</Link> & <Link href="/refund" className="font-extrabold text-purple-600 hover:underline">Refund Policy</Link>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <button type="submit" form="checkout-form" disabled={isSubmitting} className="w-full py-5 bg-gray-900 text-white rounded-[1.5rem] font-black uppercase tracking-widest hover:bg-purple-600 transition-all shadow-xl shadow-gray-900/20 active:scale-95 disabled:opacity-50">
+                                {isSubmitting ? "Processing..." : "Place Order"}
+                            </button>
+                            
+                            <div className="mt-6 flex flex-wrap justify-center gap-3 opacity-40 grayscale">
+                                <span className="text-[10px] font-black border border-gray-400 px-2 py-0.5 rounded tracking-tighter">PATHAO</span>
+                                <span className="text-[10px] font-black border border-gray-400 px-2 py-0.5 rounded tracking-tighter">STEADFAST</span>
+                                <span className="text-[10px] font-black border border-gray-400 px-2 py-0.5 rounded tracking-tighter">REDX</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            {/* Mobile Footer Fix */}
+            <div className="h-10 md:hidden"></div>
         </div>
     );
 }

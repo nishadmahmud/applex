@@ -22,7 +22,7 @@ export default function BestDeals({ deals = [] }) {
                 </div>
 
                 {/* Deal Cards */}
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
                     {deals.map((deal) => (
                         <div key={deal.id} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300">
 
