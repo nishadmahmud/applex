@@ -15,7 +15,7 @@ export default function ShopCategories({ categories = [], flashSaleProducts = []
                         <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">Shop by Brand</h2>
                         <p className="text-gray-400 text-xs md:text-sm mt-1">Find your perfect device</p>
                     </div>
-                    <Link href="/category" className="text-blue-600 hover:text-blue-700 text-sm font-semibold flex items-center gap-1 transition-colors">
+                    <Link href="/categories" className="text-blue-600 hover:text-blue-700 text-sm font-semibold flex items-center gap-1 transition-colors">
                         View All <FiArrowRight className="w-4 h-4" />
                     </Link>
                 </div>

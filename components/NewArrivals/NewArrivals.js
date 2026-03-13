@@ -15,7 +15,7 @@ export default function NewArrivals({ products = [] }) {
                         </div>
                         <p className="text-gray-400 text-xs md:text-sm mt-1">Fresh arrivals, just for you</p>
                     </div>
-                    <Link href="/category" className="text-blue-600 hover:text-blue-700 text-sm font-semibold flex items-center gap-1 transition-colors">
+                    <Link href="/categories" className="text-blue-600 hover:text-blue-700 text-sm font-semibold flex items-center gap-1 transition-colors">
                         View All <FiArrowRight className="w-4 h-4" />
                     </Link>
                 </div>

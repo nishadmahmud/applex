@@ -8,6 +8,7 @@ import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX, FiChevronRight, FiHeart,
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { useCompare } from '../../context/CompareContext';
+import { useWishlist } from '../../context/WishlistContext';
 import { searchProducts } from '../../lib/api';
 
 export default function Header({ categories = [] }) {
@@ -23,6 +24,7 @@ export default function Header({ categories = [] }) {
   const { cartCount, openCart } = useCart();
   const { user, openAuthModal } = useAuth();
   const { count: compareCount } = useCompare();
+  const { wishlistCount } = useWishlist();
   const router = useRouter();
 
   const defaultCategories = [
@@ -262,9 +264,14 @@ export default function Header({ categories = [] }) {
                 </div>
               </button>
 
-              <Link href="/wishlist" className="hidden md:flex items-center justify-center hover:text-blue-400 transition-colors">
-                <div className="w-7 h-7 flex items-center justify-center">
+              <Link href="/wishlist" className="hidden md:flex items-center justify-center hover:text-blue-400 transition-colors relative" title="Wishlist">
+                <div className="w-7 h-7 flex items-center justify-center relative">
                   <FiHeart className="w-5 h-5" />
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[9px] font-bold h-3.5 w-3.5 rounded-full flex items-center justify-center border border-[#111827]">
+                      {wishlistCount}
+                    </span>
+                  )}
                 </div>
               </Link>
 
@@ -393,13 +400,13 @@ export default function Header({ categories = [] }) {
       <div className={`fixed inset-y-0 left-0 w-[280px] bg-white z-[70] transform transition-transform duration-300 ease-in-out flex flex-col md:hidden shadow-2xl ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
 
         {/* Header */}
-        <div className="p-4 bg-gray-900 border-b border-gray-800 flex items-center justify-between">
+        <div className="py-0 px-4 bg-gray-900 border-b border-gray-800 flex items-center justify-between min-h-[70px]">
           <Image
             src="/Applex Logo.svg"
             alt="Applex Logo"
-            width={160}
-            height={40}
-            className="h-10 w-auto object-contain brightness-0 invert"
+            width={240}
+            height={80}
+            className="h-20 w-auto object-contain brightness-0 invert"
             unoptimized
           />
           <button onClick={closeSidebar} className="text-gray-400 hover:text-white p-1">

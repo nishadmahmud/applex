@@ -10,15 +10,17 @@ import {
     FiHeart
 } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
+import { useWishlist } from '../../context/WishlistContext';
 
 export default function MobileBottomNav() {
     const pathname = usePathname();
     const { cartCount, openCart } = useCart();
+    const { wishlistCount } = useWishlist();
 
     const navItems = [
         { icon: FiHome, label: 'Home', path: '/' },
         { icon: FiGrid, label: 'Categories', path: '/categories' },
-        { icon: FiHeart, label: 'Wishlist', path: '/wishlist' },
+        { icon: FiHeart, label: 'Wishlist', path: '/wishlist', badge: wishlistCount },
         // Cart will open the cart sidebar/modal instead of navigating
         { icon: FiShoppingCart, label: 'Cart', path: null, badge: cartCount },
         { icon: FiUser, label: 'Profile', path: '/profile' },

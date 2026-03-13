@@ -2,12 +2,15 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { FiShoppingCart } from 'react-icons/fi';
+import { FiShoppingCart, FiHeart } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
+import { useWishlist } from '../../context/WishlistContext';
 import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 
 export default function ProductCard({ product }) {
     const { addToCart } = useCart();
+    const { isInWishlist, toggleWishlist } = useWishlist();
     const router = useRouter();
 
     const slug = product.name
@@ -51,6 +54,22 @@ export default function ProductCard({ product }) {
                 )}
 
                 <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleWishlist(product);
+                    }}
+                    className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 z-10 ${
+                        isInWishlist(product.id) 
+                        ? 'bg-red-50 text-red-500 shadow-sm border border-red-100' 
+                        : 'bg-white/80 backdrop-blur-sm text-gray-400 hover:text-red-500 border border-transparent shadow-sm'
+                    }`}
+                    title={isInWishlist(product.id) ? "Remove from wishlist" : "Add to wishlist"}
+                >
+                    <FiHeart className={`w-4 h-4 ${isInWishlist(product.id) ? 'fill-red-500' : ''}`} />
+                </button>
+
+                <button
                     onClick={handleAddToCart}
                     className="absolute bottom-3 right-3 w-9 h-9 rounded-lg bg-blue-600 text-white shadow-md shadow-blue-600/20 flex items-center justify-center translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:bg-blue-700"
                     title="Quick Add to Cart"
@@ -76,20 +95,34 @@ export default function ProductCard({ product }) {
                 </div>
 
                 <div className="mt-auto pt-2">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center flex-wrap gap-2 mb-3">
                         <span className="text-[15px] md:text-[17px] font-black text-gray-900 leading-none">
                             {product.price}
                         </span>
                         {product.oldPrice && (
-                            <span className="text-[11px] text-gray-400 line-through">
+                            <span className="text-[11px] text-gray-400 line-through font-medium">
                                 {product.oldPrice}
                             </span>
                         )}
                     </div>
 
+                    {/* Sold Progress Bar */}
+                    <div className="mb-4">
+                        <div className="flex justify-between items-center text-[9px] font-bold text-gray-400 uppercase tracking-tight mb-1.5">
+                            <span>Sold: {useMemo(() => Math.floor(Math.random() * 40) + 60, [])}%</span>
+                            <span className="text-blue-600 font-extrabold">Hot</span>
+                        </div>
+                        <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                            <div 
+                                className="bg-blue-600 h-full rounded-full transition-all duration-1000" 
+                                style={{ width: `${useMemo(() => Math.floor(Math.random() * 40) + 60, [])}%` }}
+                            ></div>
+                        </div>
+                    </div>
+
                     <button
                         onClick={handleAddToCart}
-                        className="md:hidden w-full mt-3 py-2 bg-blue-50 text-blue-600 text-[11px] font-bold uppercase tracking-wider rounded-lg hover:bg-blue-100 transition-colors"
+                        className="md:hidden w-full py-2.5 bg-blue-600 text-white text-[11px] font-bold uppercase tracking-wider rounded-xl hover:bg-blue-700 transition-colors shadow-md shadow-blue-600/10 active:scale-95"
                     >
                         Add to Cart
                     </button>

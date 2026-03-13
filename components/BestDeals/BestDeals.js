@@ -52,34 +52,38 @@ export default function BestDeals({ deals = [] }) {
                                     {deal.description}
                                 </p>
 
-                                <div className="mt-auto flex items-end justify-between gap-2">
-                                    <div>
-                                        {deal.oldPrice && (
-                                            <div className="text-[11px] text-gray-400 line-through mb-0.5">
-                                                {deal.oldPrice}
+                                <div className="mt-auto">
+                                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-4">
+                                        <div className="flex items-center flex-wrap gap-2 leading-none">
+                                            <div className="text-base md:text-xl font-black text-gray-900 leading-none">
+                                                {deal.price}
                                             </div>
-                                        )}
-                                        <div className="text-lg md:text-xl font-black text-gray-900">
-                                            {deal.price}
+                                            {deal.oldPrice && (
+                                                <div className="text-[10px] md:text-[12px] text-gray-400 line-through font-medium">
+                                                    {deal.oldPrice}
+                                                </div>
+                                            )}
                                         </div>
+
+                                        <Link href={deal.link || "#"} className="w-full md:w-auto text-center px-4 py-2.5 md:py-2 rounded-xl bg-blue-600 text-white font-bold text-[11px] md:text-xs hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20 active:scale-95">
+                                            Grab Deal
+                                        </Link>
                                     </div>
 
-                                    <Link href={deal.link || "#"} className="px-3 md:px-4 py-2 rounded-lg bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 transition-colors shadow-sm shadow-blue-600/20">
-                                        Grab Deal
-                                    </Link>
+                                    {/* Sold Progress Bar - Always Visible */}
+                                    <div className="pt-3 border-t border-gray-100">
+                                        <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase mb-1.5">
+                                            <span>Sold: {Math.floor(((deal.id || 0) * 7 + 65) % 35 + 60)}%</span>
+                                            <span className="text-blue-600 font-extrabold">Hot</span>
+                                        </div>
+                                        <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                                            <div 
+                                                className="bg-blue-600 h-full rounded-full transition-all duration-1000" 
+                                                style={{ width: `${Math.floor(((deal.id || 0) * 7 + 65) % 35 + 60)}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                {deal.savings && (
-                                    <div className="mt-3 pt-3 border-t border-gray-100">
-                                        <div className="flex justify-between text-[9px] font-medium text-gray-400 uppercase mb-1">
-                                            <span>Sold: {Math.floor(Math.random() * 80) + 20}%</span>
-                                            <span className="text-red-500 font-bold">Hot</span>
-                                        </div>
-                                        <div className="w-full bg-gray-100 rounded-full h-1 overflow-hidden">
-                                            <div className="bg-blue-500 h-1 rounded-full" style={{ width: `${Math.floor(Math.random() * 60) + 30}%` }}></div>
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         </div>
                     ))}
