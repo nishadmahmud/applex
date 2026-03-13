@@ -1,6 +1,6 @@
 export const metadata = {
-    title: 'Contact Us | Pochondo Shop',
-    description: 'Get in touch with Pochondo Shop. We are here to help you with your tech needs.',
+    title: 'Contact Us | Applex Electronics',
+    description: 'Get in touch with Applex Electronics. We are here to help you with your tech needs.',
 };
 
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
