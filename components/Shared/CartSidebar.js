@@ -94,8 +94,8 @@ export default function CartSidebar() {
                                         <div className="w-20 h-20 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-100 relative">
                                             <Image
                                                 src={
-                                                    item.images?.[0] ||
                                                     item.imageUrl ||
+                                                    item.images?.[0] ||
                                                     item.image ||
                                                     "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400"
                                                 }

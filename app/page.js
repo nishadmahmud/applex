@@ -152,11 +152,10 @@ export default async function Home() {
 
   const blogsDataArray = Array.isArray(blogsRes?.data) ? blogsRes.data : (blogsRes?.data?.data || []);
   const apiBlogs = blogsDataArray.length > 0 ? blogsDataArray.map(b => ({
-    ...b,
-    image: b.image_path || b.image || '/no-image.svg',
-    excerpt: b.excerpt || b.short_description || '',
-    readTime: b.readTime || '5 min read',
-  })) : null;
+    id: b.id,
+    title: b.title,
+    image: b.image || "/no-image.svg",
+  })) : [];
 
   // ═══════════════════════════════════════════
   // DUMMY DATA FALLBACKS
@@ -410,38 +409,6 @@ export default async function Home() {
     },
   ];
 
-  const blogPosts = [
-    {
-      id: 1,
-      title: "iPhone 16 Pro Max vs Samsung Galaxy S25 Ultra: Which One Wins?",
-      excerpt: "We compare the two flagship titans head-to-head across camera, performance, battery, and value for money...",
-      date: "March 5, 2026",
-      category: "Comparison",
-      readTime: "7 min read",
-      image: "/no-image.svg",
-      slug: "iphone-16-vs-samsung-s25",
-    },
-    {
-      id: 2,
-      title: "Top 5 Budget Phones Under ৳30,000 in 2026",
-      excerpt: "Looking for the best value? Here are our top picks for budget-friendly smartphones that don't compromise...",
-      date: "March 3, 2026",
-      category: "Buying Guide",
-      readTime: "5 min read",
-      image: "/no-image.svg",
-      slug: "top-5-budget-phones-2026",
-    },
-    {
-      id: 3,
-      title: "How to Spot Fake Phones: A Complete Guide",
-      excerpt: "Protect yourself from counterfeit devices. Learn the telltale signs of fake smartphones and how to verify authenticity...",
-      date: "February 28, 2026",
-      category: "Tips",
-      readTime: "4 min read",
-      image: "/no-image.svg",
-      slug: "how-to-spot-fake-phones",
-    },
-  ];
 
   return (
     <div className="bg-gray-50/50">
@@ -451,7 +418,7 @@ export default async function Home() {
       <NewArrivals products={apiNewArrivals || newArrivals} />
       <PromoBanners />
       <FeaturedProducts products={apiBestSellers || featuredProducts} />
-      <BlogTips posts={blogPosts} />
+      <BlogTips posts={apiBlogs} />
       <Testimonials />
       <FAQ />
       <CTABanner />

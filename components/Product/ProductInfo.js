@@ -139,34 +139,45 @@ export default function ProductInfo({ product, onVariantImageChange }) {
         return product.oldPrice;
     }, [matchedImei, product]);
 
-    // When color changes, update the gallery images
+    // Memoized variant images based on selected color
+    const currentVariantImages = useMemo(() => {
+        if (!hasVariants || !selectedColor) return null;
+        const colorImeis = imeis.filter(i => i.color === selectedColor && i.image_path);
+        return [...new Set(colorImeis.map(i => i.image_path))].filter(Boolean);
+    }, [hasVariants, selectedColor, imeis]);
+
+    // When color changes, update the gallery images in the parent component
     useEffect(() => {
         if (!onVariantImageChange || !hasVariants) return;
-
-        if (selectedColor) {
-            // Find all unique images from imeis of that color
-            const colorImeis = imeis.filter(i => i.color === selectedColor && i.image_path);
-            const uniqueImages = [...new Set(colorImeis.map(i => i.image_path))];
-
-            if (uniqueImages.length > 0) {
-                onVariantImageChange(uniqueImages);
-            } else {
-                // No IMEI images for this color — fall back to default product images
-                onVariantImageChange(null);
-            }
+        
+        if (currentVariantImages && currentVariantImages.length > 0) {
+            onVariantImageChange(currentVariantImages);
         } else {
+            // No IMEI images for this color — fall back to default product images
             onVariantImageChange(null);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedColor]);
+    }, [currentVariantImages]);
 
     const handleAddToCart = () => {
         const variants = {};
         if (selectedStorage) variants.storage = selectedStorage;
-        if (selectedColor) variants.colors = { name: selectedColor };
+        if (selectedColor) variants.colors = { name: selectedColor, hex: allColors.find(c => c.name === selectedColor)?.hex };
         if (selectedRegion) variants.region = selectedRegion;
 
-        addToCart(product, quantity, Object.keys(variants).length > 0 ? variants : null);
+        // Use the selected variant image if available, otherwise fallback to default product image
+        const currentImageUrl = (currentVariantImages && currentVariantImages.length > 0) 
+            ? currentVariantImages[0] 
+            : (product.images && product.images.length > 0 ? product.images[0] : null);
+
+        addToCart(
+            { 
+                ...product, 
+                imageUrl: currentImageUrl 
+            }, 
+            quantity, 
+            Object.keys(variants).length > 0 ? variants : null
+        );
     };
 
     return (

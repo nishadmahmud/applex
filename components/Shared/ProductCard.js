@@ -105,20 +105,25 @@ export default function ProductCard({ product }) {
                             </span>
                         )}
                     </div>
-
-                    {/* Sold Progress Bar */}
-                    <div className="mb-4">
-                        <div className="flex justify-between items-center text-[9px] font-bold text-gray-400 uppercase tracking-tight mb-1.5">
-                            <span>Sold: {useMemo(() => Math.floor(Math.random() * 40) + 60, [])}%</span>
-                            <span className="text-blue-600 font-extrabold">Hot</span>
-                        </div>
-                        <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                            <div 
-                                className="bg-blue-600 h-full rounded-full transition-all duration-1000" 
-                                style={{ width: `${useMemo(() => Math.floor(Math.random() * 40) + 60, [])}%` }}
-                            ></div>
-                        </div>
-                    </div>
+                    
+                    {/* Deterministic Sold Percentage to avoid hydration mismatch */}
+                    {(() => {
+                        const soldPercentage = Math.floor((((parseInt(String(product.id).replace(/\D/g, '')) || 0) * 7 + 65) % 31) + 65);
+                        return (
+                            <div className="mb-4">
+                                <div className="flex justify-between items-center text-[9px] font-bold text-gray-400 uppercase tracking-tight mb-1.5">
+                                    <span>Sold: {soldPercentage}%</span>
+                                    <span className="text-blue-600 font-extrabold">Hot</span>
+                                </div>
+                                <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                                    <div 
+                                        className="bg-blue-600 h-full rounded-full transition-all duration-1000" 
+                                        style={{ width: `${soldPercentage}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        );
+                    })()}
 
                     <button
                         onClick={handleAddToCart}

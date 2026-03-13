@@ -586,8 +586,8 @@ export default function CheckoutPage() {
                                             <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
                                                 <Image
                                                     src={
-                                                        item.images?.[0] ||
                                                         item.imageUrl ||
+                                                        item.images?.[0] ||
                                                         item.image ||
                                                         "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400"
                                                     }
