@@ -59,10 +59,10 @@ export default function Hero({ slides = [], banners = [] }) {
     return (
         <div className="w-full bg-gray-50 pt-4 pb-4 md:pt-6 md:pb-6">
             <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-4 md:space-y-5">
-                <div className="flex flex-col lg:flex-row gap-4 h-full">
+                <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 h-full">
 
                     {/* ── LEFT: MAIN SLIDER ── */}
-                    <div className="w-full lg:w-[73%] relative aspect-[24/10] rounded-2xl overflow-hidden shadow-sm group bg-white border border-gray-200">
+                    <div className="w-full lg:w-[73%] relative aspect-[24/10] rounded-lg md:rounded-2xl overflow-hidden shadow-sm group bg-white border border-gray-200">
                         {/* Slides */}
                         {activeSlides.map((slide, idx) => (
                             <div
@@ -124,10 +124,10 @@ export default function Hero({ slides = [], banners = [] }) {
                     </div>
 
                     {/* ── RIGHT: SIDE PROMO BANNERS ── */}
-                    <div className="hidden lg:flex w-[27%] flex-col gap-4">
+                    <div className="flex lg:flex flex-row lg:flex-col w-full lg:w-[27%] gap-2 md:gap-4">
                         {banners.length >= 2 ? (
                             <>
-                                <Link href={banners[0].link || "#"} className="flex-1 relative rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
+                                <Link href={banners[0].link || "#"} className="flex-1 relative aspect-[16/9] lg:aspect-auto lg:flex-1 rounded-lg md:rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
                                     {banners[0].image && banners[0].image !== "/no-image.svg" ? (
                                         <Image
                                             src={banners[0].image}
@@ -137,16 +137,15 @@ export default function Hero({ slides = [], banners = [] }) {
                                             unoptimized
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 p-6 flex flex-col justify-center">
-                                            <span className="text-blue-100 text-xs font-bold uppercase tracking-wider mb-2">Clearance Sale</span>
-                                            <h3 className="text-white text-xl font-black leading-tight mb-2">Up to 50% Off<br />Accessories</h3>
-                                            <span className="mt-auto text-white text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">Shop Now <FiArrowRight /></span>
+                                        <div className="w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 p-4 md:p-6 flex flex-col justify-center">
+                                            <span className="text-blue-100 text-[10px] font-bold uppercase tracking-wider mb-1">Promo</span>
+                                            <h3 className="text-white text-sm md:text-xl font-black leading-tight">Flash Sale</h3>
                                         </div>
                                     )}
                                 </Link>
 
                                 {/* Banner 2 */}
-                                <Link href={banners[1].link || "#"} className="flex-1 relative rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
+                                <Link href={banners[1].link || "#"} className="flex-1 relative aspect-[16/9] lg:aspect-auto lg:flex-1 rounded-lg md:rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
                                     {banners[1].image && banners[1].image !== "/no-image.svg" ? (
                                         <Image
                                             src={banners[1].image}
@@ -156,16 +155,15 @@ export default function Hero({ slides = [], banners = [] }) {
                                             unoptimized
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-gradient-to-br from-red-500 to-rose-600 p-6 flex flex-col justify-center">
-                                            <span className="text-red-100 text-xs font-bold uppercase tracking-wider mb-2">Limited Offer</span>
-                                            <h3 className="text-white text-xl font-black leading-tight mb-2">Buy 1 Get 1<br />Free Cases</h3>
-                                            <span className="mt-auto text-white text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">Explore <FiArrowRight /></span>
+                                        <div className="w-full h-full bg-gradient-to-br from-red-500 to-rose-600 p-4 md:p-6 flex flex-col justify-center">
+                                            <span className="text-red-100 text-[10px] font-bold uppercase tracking-wider mb-1">New</span>
+                                            <h3 className="text-white text-sm md:text-xl font-black leading-tight">Arrivals</h3>
                                         </div>
                                     )}
                                 </Link>
                             </>
                         ) : (
-                            <div className="w-full h-full bg-gray-100 rounded-lg flex flex-col items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-300">
+                            <div className="hidden lg:flex w-full h-full bg-gray-100 rounded-lg flex flex-col items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-300">
                                 <span>Promo Banners</span>
                             </div>
                         )}
