@@ -9,13 +9,13 @@ export default function FeaturedProducts({ products = [] }) {
     const tabs = ['For You', 'Top Ranked', 'Best Sellers', 'Trending'];
 
     return (
-        <section className="w-full bg-white py-10 md:py-14">
-            <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <section className="w-full bg-white py-12 md:py-16">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                 {/* Section Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 mb-8 md:mb-10">
                     <div>
-                        <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">Discover More</h2>
-                        <p className="text-gray-400 text-xs md:text-sm mt-1">Curated picks you&#39;ll love</p>
+                        <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Discover More</h2>
+                        <p className="text-gray-400 text-sm md:text-base mt-1">Curated picks you&#39;ll love</p>
                     </div>
 
                     {/* Pill Toggles */}
@@ -24,7 +24,7 @@ export default function FeaturedProducts({ products = [] }) {
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${activeTab === tab
+                                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab
                                     ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
                                     : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                                     }`}
@@ -50,8 +50,8 @@ export default function FeaturedProducts({ products = [] }) {
                 </div>
 
                 {/* View More Button */}
-                <div className="mt-10 flex justify-center">
-                    <button className="group px-8 py-3 rounded-full bg-gray-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-blue-600 transition-all shadow-md flex items-center gap-2">
+                <div className="mt-12 flex justify-center">
+                    <button className="group px-10 py-4 rounded-full bg-gray-900 text-white font-bold text-sm uppercase tracking-wider hover:bg-blue-600 transition-all shadow-md flex items-center gap-2">
                         Load More <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </button>
                 </div>

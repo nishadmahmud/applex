@@ -31,7 +31,7 @@ export default async function BlogDetailPage({ params }) {
         <div className="min-h-screen bg-gray-50 pb-20">
             {/* Header / Breadcrumb */}
             <div className="bg-white border-b border-gray-100 py-6">
-                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                     <Link href="/blogs" className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors text-sm font-medium mb-6">
                         <FiArrowLeft /> Back to Blogs
                     </Link>
@@ -54,7 +54,7 @@ export default async function BlogDetailPage({ params }) {
             </div>
 
             {/* Content Area */}
-            <div className="max-w-7xl mx-auto px-4 md:px-8 mt-10">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 mt-10">
                 <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm">
                     {/* Hero Image */}
                     {blog.image && (

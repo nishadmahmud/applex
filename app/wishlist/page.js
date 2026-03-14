@@ -37,7 +37,7 @@ export default function WishlistPage() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-8 md:py-12">
                 {wishlist.length === 0 ? (
                     <div className="bg-white rounded-3xl p-12 md:p-20 text-center shadow-sm border border-gray-100 max-w-2xl mx-auto">
                         <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">

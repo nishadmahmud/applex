@@ -20,7 +20,7 @@ export default function AboutPage() {
                         priority
                     />
                 </div>
-                <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 text-center">
+                <div className="max-w-[1440px] mx-auto px-4 md:px-8 relative z-10 text-center">
                     <span className="inline-block px-4 py-1.5 bg-brand-purple/20 text-brand-purple text-xs font-bold rounded-full mb-4 border border-brand-purple/20">OUR STORY</span>
                     <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">About <span className="text-brand-purple">Applex</span></h1>
                     <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
@@ -29,7 +29,7 @@ export default function AboutPage() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24 space-y-24 md:space-y-32">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-16 md:py-24 space-y-24 md:space-y-32">
                 
                 {/* Who We Are Section */}
                 <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

@@ -63,7 +63,7 @@ export default function SpecialOffersPage() {
             </div>
 
             {/* Offers Grid */}
-            <div className="max-w-7xl mx-auto px-6 py-6 md:py-10">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-8 md:py-12">
                 {offers.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                         {offers.map((offer, index) => (
@@ -133,7 +133,7 @@ export default function SpecialOffersPage() {
                         <input
                             type="email"
                             placeholder="your@email.com"
-                            className="bg-white/10 backdrop-blur-md border border-white/20 px-8 py-4 rounded-2xl text-white placeholder:text-blue-200 focus:outline-none focus:ring-2 focus:ring-white/30 sm:w-80 font-bold"
+                            className="bg-white/10 backdrop-blur-md border border-white/20 px-8 py-4 rounded-2xl text-white text-base placeholder:text-blue-200 focus:outline-none focus:ring-2 focus:ring-white/30 sm:w-80 font-bold"
                         />
                         <button className="bg-white text-blue-600 px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
                             Subscribe Now

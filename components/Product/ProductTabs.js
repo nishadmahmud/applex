@@ -36,7 +36,7 @@ export default function ProductTabs({ description, specifications }) {
             </div>
 
             {/* Content Area */}
-            <div className="prose prose-sm md:prose-base max-w-none text-gray-600 leading-relaxed md:leading-loose">
+            <div className="prose prose-sm md:prose-base max-w-none text-gray-600 leading-relaxed md:leading-loose break-words overflow-x-hidden">
                 {activeTab === 'description' ? (
                     <div dangerouslySetInnerHTML={{ __html: description }} />
                 ) : (

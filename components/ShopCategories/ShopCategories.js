@@ -6,13 +6,13 @@ import { FiArrowRight, FiZap } from 'react-icons/fi';
 
 export default function ShopCategories({ categories = [], flashSaleProducts = [] }) {
     return (
-        <section className="w-full bg-white py-10 md:py-14">
-            <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <section className="w-full bg-gray-50 py-12 md:py-16">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8">
 
                 {/* Section Header */}
                 <div className="flex items-center justify-between mb-8 md:mb-10">
                     <div>
-                        <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">Shop by Brand</h2>
+                        <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">Shop by Category</h2>
                         <p className="text-gray-400 text-xs md:text-sm mt-1">Find your perfect device</p>
                     </div>
                     <Link href="/categories" className="text-blue-600 hover:text-blue-700 text-sm font-semibold flex items-center gap-1 transition-colors">

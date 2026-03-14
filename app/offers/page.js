@@ -55,7 +55,7 @@ export default function OffersPage() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 md:mt-10 space-y-12">
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 mt-6 md:mt-10 space-y-12">
                 {campaigns.length > 0 ? (
                     campaigns.map((campaign) => (
                         <div key={campaign.id} className="space-y-8">

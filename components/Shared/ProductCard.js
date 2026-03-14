@@ -79,16 +79,16 @@ export default function ProductCard({ product }) {
             </Link>
 
             {/* Info Container */}
-            <div className="p-3.5 md:p-4 flex flex-col grow">
+            <div className="p-4 md:p-5 flex flex-col grow">
                 <div className="flex flex-col gap-1 mb-2">
                     {product.brand && (
-                        <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">
+                        <span className="text-gray-400 text-[11px] font-bold uppercase tracking-wider">
                             {product.brand}
                         </span>
                     )}
 
                     <Link href={`/product/${slug}`}>
-                        <h3 className="text-[12px] md:text-[13px] font-semibold text-gray-800 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors">
+                        <h3 className="text-[13px] md:text-[15px] font-semibold text-gray-800 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors">
                             {product.name}
                         </h3>
                     </Link>
@@ -96,11 +96,11 @@ export default function ProductCard({ product }) {
 
                 <div className="mt-auto pt-2">
                     <div className="flex items-center flex-wrap gap-2 mb-3">
-                        <span className="text-[15px] md:text-[17px] font-black text-gray-900 leading-none">
+                        <span className="text-[17px] md:text-[19px] font-black text-gray-900 leading-none">
                             {product.price}
                         </span>
                         {product.oldPrice && (
-                            <span className="text-[11px] text-gray-400 line-through font-medium">
+                            <span className="text-[12px] text-gray-400 line-through font-medium">
                                 {product.oldPrice}
                             </span>
                         )}

@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function PromoBanners() {
     return (
         <section className="w-full bg-gray-50 py-10 md:py-14">
-            <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8">
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
 

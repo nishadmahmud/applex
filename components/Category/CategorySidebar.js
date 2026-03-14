@@ -110,7 +110,7 @@ export default function CategorySidebar({
                                                 placeholder={globalMinPrice.toString()}
                                                 value={selectedPrice.min}
                                                 onChange={(e) => setSelectedPrice({ ...selectedPrice, min: e.target.value })}
-                                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-brand-purple"
+                                                className="w-full px-3 py-2 text-base border border-gray-200 rounded-lg focus:outline-none focus:border-brand-purple"
                                             />
                                         </div>
                                         <span className="text-gray-400 font-medium">-</span>
@@ -120,7 +120,7 @@ export default function CategorySidebar({
                                                 placeholder={globalMaxPrice.toString()}
                                                 value={selectedPrice.max}
                                                 onChange={(e) => setSelectedPrice({ ...selectedPrice, max: e.target.value })}
-                                                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-brand-purple"
+                                                className="w-full px-3 py-2 text-base border border-gray-200 rounded-lg focus:outline-none focus:border-brand-purple"
                                             />
                                         </div>
                                     </div>

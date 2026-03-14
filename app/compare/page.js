@@ -133,7 +133,7 @@ export default function ComparePage() {
 
     return (
         <div className="w-full bg-gray-50 py-10 md:py-16">
-            <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-8">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 space-y-8">
                 {/* Heading + search */}
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                     <div>
@@ -154,7 +154,7 @@ export default function ComparePage() {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Search for products to compare..."
-                                className="flex-1 px-2 py-1 text-sm text-gray-900 outline-none border-none bg-transparent"
+                                className="flex-1 px-2 py-1 text-base text-gray-900 outline-none border-none bg-transparent"
                             />
                             <button
                                 type="submit"

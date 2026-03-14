@@ -197,7 +197,7 @@ export default function ProductDetailsPage() {
     return (
         <div className="bg-white min-h-screen pb-12">
             <div className="bg-white border-b border-gray-100 py-3 md:py-4 mb-6 md:mb-8">
-                <div className="max-w-7xl mx-auto px-4 md:px-6">
+                <div className="max-w-[1440px] mx-auto px-4 md:px-6">
                     <div className="text-[10px] md:text-[12px] text-gray-400 flex items-center gap-2 font-black uppercase tracking-widest">
                         <Link href="/" className="hover:text-blue-600 cursor-pointer transition-colors">Home</Link>
                         <span className="text-gray-300">/</span>
@@ -217,7 +217,7 @@ export default function ProductDetailsPage() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-6">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-6">
 
                 {isLoading ? (
                     <div className="py-32 flex flex-col items-center justify-center">

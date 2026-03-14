@@ -29,7 +29,7 @@ export default function CategoriesPage() {
         <div className="bg-gray-50 min-h-screen pb-20 md:pb-12">
             {/* Header */}
             <div className="bg-white border-b border-gray-200 py-8">
-                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                     <h1 className="text-2xl md:text-3xl font-black text-gray-900 flex items-center gap-3">
                         <FiGrid className="text-blue-600" /> All Categories
                     </h1>
@@ -37,7 +37,7 @@ export default function CategoriesPage() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-8">
                 {isLoading ? (
                     <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-3 md:gap-4">
                         {[...Array(14)].map((_, i) => (

@@ -50,19 +50,19 @@ export default function ContactPage() {
                         <form className="space-y-4">
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">Full Name</label>
-                                <input type="text" placeholder="Your name" className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-purple" />
+                                <input type="text" placeholder="Your name" className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base focus:outline-none focus:border-brand-purple" />
                             </div>
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">Email</label>
-                                <input type="email" placeholder="your@email.com" className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-purple" />
+                                <input type="email" placeholder="your@email.com" className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base focus:outline-none focus:border-brand-purple" />
                             </div>
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">Phone</label>
-                                <input type="tel" placeholder="+880 XXXX XXXXXX" className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-purple" />
+                                <input type="tel" placeholder="+880 XXXX XXXXXX" className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base focus:outline-none focus:border-brand-purple" />
                             </div>
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">Message</label>
-                                <textarea rows={4} placeholder="How can we help you?" className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-purple resize-none" />
+                                <textarea rows={4} placeholder="How can we help you?" className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base focus:outline-none focus:border-brand-purple resize-none" />
                             </div>
                             <button type="submit" className="w-full bg-brand-purple text-white font-bold py-3 rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-brand-purple/20">
                                 Send Message

@@ -58,7 +58,7 @@ export default function Hero({ slides = [], banners = [] }) {
 
     return (
         <div className="w-full bg-gray-50 pt-4 pb-4 md:pt-6 md:pb-6">
-            <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-4 md:space-y-5">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 space-y-4 md:space-y-6">
                 <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 h-full">
 
                     {/* ── LEFT: MAIN SLIDER ── */}
@@ -172,8 +172,8 @@ export default function Hero({ slides = [], banners = [] }) {
                 </div>
 
                 {/* Trust / USP strip */}
-                <div className="rounded-2xl border border-gray-100 bg-white/80 backdrop-blur-sm shadow-sm px-4 py-3 md:px-6 md:py-3">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-[11px] md:text-xs font-semibold text-gray-600">
+                <div className="rounded-2xl border border-gray-100 bg-white/80 backdrop-blur-sm shadow-sm px-4 py-4 md:px-8 md:py-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-[12px] md:text-[13px] font-semibold text-gray-600">
                         <div className="flex items-center gap-2">
                             <div className="h-7 w-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
                                 <FiShield className="w-3.5 h-3.5" />

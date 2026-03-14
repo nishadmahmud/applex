@@ -149,8 +149,8 @@ export default function Header({ categories = [] }) {
       <header className="w-full sticky top-0 z-50 flex flex-col">
 
         {/* ── ALERTS / MINI TOP BAR (Dark Bluish) ── */}
-        <div className="bg-[#111827] text-[11px] text-gray-300 py-1 border-b border-gray-800/50 hidden md:block">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-end gap-6 font-medium">
+        <div className="bg-[#111827] text-[12px] text-gray-300 py-1.5 border-b border-gray-800/50 hidden md:block">
+          <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex justify-end gap-6 font-medium">
             <Link href="/contact" className="hover:text-white transition-colors flex items-center gap-1.5">
               <FiHeadphones className="text-[#facc15]" /> Contact Us
             </Link>
@@ -167,8 +167,8 @@ export default function Header({ categories = [] }) {
         </div>
 
         {/* MAIN TOP BAR (Dark Bluish) */}
-        <div className="bg-[#111827] py-2 md:py-3">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between gap-6 md:gap-10">
+        <div className="bg-[#111827] py-3 md:py-4">
+          <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex items-center justify-between gap-6 md:gap-10">
 
             {/* Logo */}
             <div className="flex items-center flex-shrink-0 order-1 md:order-none">
@@ -176,9 +176,9 @@ export default function Header({ categories = [] }) {
                 <Image
                   src="/Applex Logo.svg"
                   alt="Applex Logo"
-                  width={300}
-                  height={100}
-                  className="h-20 md:h-22 w-auto object-contain brightness-0 invert"
+                  width={320}
+                  height={110}
+                  className="h-24 md:h-26 w-auto object-contain brightness-0 invert"
                   unoptimized
                   priority
                 />
@@ -193,7 +193,7 @@ export default function Header({ categories = [] }) {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search for products, brands, categories..."
-                  className="w-full pl-5 pr-2 py-1.5 text-[14px] text-gray-900 outline-none border-none bg-transparent"
+                  className="w-full pl-6 pr-2 py-2.5 text-base text-gray-900 outline-none border-none bg-transparent"
                 />
 
                 {searchQuery && (
@@ -298,7 +298,7 @@ export default function Header({ categories = [] }) {
 
         {/* BOTTOM BAR (Dark Category Strip) */}
         <div className="hidden md:block bg-[#111827] border-b border-gray-900/50 shadow-sm relative z-40">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center h-10">
+          <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex items-center h-12">
 
             {/* All Categories Dropdown Trigger */}
             <div className="flex items-center px-4 font-bold cursor-pointer transition-all gap-2 text-white border-r border-gray-800 pr-6 mr-6 hover:text-blue-400 group relative py-3">
@@ -348,7 +348,7 @@ export default function Header({ categories = [] }) {
                   <div key={cat.id || idx} className="relative group/nav py-3 h-full hidden lg:block">
                     <Link
                       href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="text-xs font-semibold text-gray-400 hover:text-white whitespace-nowrap transition-colors flex items-center gap-1"
+                      className="text-[13px] font-semibold text-gray-400 hover:text-white whitespace-nowrap transition-colors flex items-center gap-1"
                     >
                       {cat.name}
                     </Link>
@@ -376,10 +376,10 @@ export default function Header({ categories = [] }) {
 
             {/* Flash Sale & Offer on Far Right */}
             <div className="flex items-center gap-8 ml-auto">
-              <Link href="/special-offers" className="text-xs font-bold text-gray-200 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors">
+              <Link href="/special-offers" className="text-[13px] font-bold text-gray-200 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors">
                 <span className="text-yellow-400 text-base">⚡</span> Flash Deals
               </Link>
-              <Link href="/offers" className="text-xs font-bold text-gray-200 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors">
+              <Link href="/offers" className="text-[13px] font-bold text-gray-200 hover:text-white whitespace-nowrap flex items-center gap-1.5 transition-colors">
                 <span className="text-red-500 text-base">🎁</span> Offer
               </Link>
             </div>

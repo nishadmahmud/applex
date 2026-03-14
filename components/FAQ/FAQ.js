@@ -38,12 +38,12 @@ export default function FAQ() {
     };
 
     return (
-        <section className="w-full bg-blue-50/40 py-12 md:py-16">
-            <div className="max-w-3xl mx-auto px-4 md:px-8">
+        <section className="w-full bg-blue-50/40 py-16 md:py-20">
+            <div className="max-w-4xl mx-auto px-4 md:px-8">
                 {/* Section Header */}
-                <div className="text-center mb-8 md:mb-12">
-                    <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">Common Questions</h2>
-                    <p className="text-gray-400 text-sm mt-1">Everything you need to know</p>
+                <div className="text-center mb-10 md:mb-14">
+                    <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">Common Questions</h2>
+                    <p className="text-gray-400 text-base mt-2">Everything you need to know</p>
                 </div>
 
                 {/* Accordion */}
@@ -60,7 +60,7 @@ export default function FAQ() {
                                 onClick={() => toggle(idx)}
                                 className="w-full flex items-center justify-between px-5 md:px-6 py-4 md:py-5 text-left"
                             >
-                                <span className={`text-sm md:text-base font-semibold pr-4 transition-colors ${openIndex === idx ? 'text-blue-600' : 'text-gray-900'
+                                <span className={`text-base md:text-lg font-semibold pr-4 transition-colors ${openIndex === idx ? 'text-blue-600' : 'text-gray-900'
                                     }`}>
                                     {item.q}
                                 </span>
@@ -74,8 +74,8 @@ export default function FAQ() {
                                 className={`overflow-hidden transition-all duration-300 ${openIndex === idx ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
                                     }`}
                             >
-                                <div className="px-5 md:px-6 pb-4 md:pb-5">
-                                    <p className="text-sm text-gray-500 leading-relaxed">{item.a}</p>
+                                <div className="px-5 md:px-6 pb-5 md:pb-6">
+                                    <p className="text-base text-gray-500 leading-relaxed">{item.a}</p>
                                 </div>
                             </div>
                         </div>

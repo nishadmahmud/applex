@@ -39,7 +39,7 @@ export default function BlogPage() {
         <div className="min-h-screen bg-gray-50 pb-20">
             {/* Hero Section */}
             <div className="bg-blue-600 py-16 md:py-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h1 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">
                         Applex Insights
                     </h1>
@@ -50,14 +50,14 @@ export default function BlogPage() {
             </div>
 
             {/* Search and Filters */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
                 <div className="bg-white rounded-2xl shadow-xl shadow-blue-900/5 p-4 md:p-6 border border-gray-100">
                     <div className="relative max-w-xl mx-auto">
                         <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input 
                             type="text" 
                             placeholder="Search articles..."
-                            className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm"
+                            className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-base"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -66,7 +66,7 @@ export default function BlogPage() {
             </div>
 
             {/* Blog Grid */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-16">
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-16">
                 {loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[1, 2, 3, 4, 5, 6].map(i => (

@@ -319,7 +319,7 @@ export default function CheckoutPage() {
         <div className="min-h-screen bg-gray-50/50 pb-20">
             {/* Simple Premium Header */}
             <div className="bg-white border-b border-gray-100 py-6 md:py-10">
-                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div>
                             <h1 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Checkout</h1>
@@ -332,7 +332,7 @@ export default function CheckoutPage() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-8 mt-8 md:mt-12">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8 mt-8 md:mt-12">
                 {/* ═══ Progress Tracker ═══ */}
                 <div className="mb-10 bg-white rounded-3xl p-5 md:p-8 shadow-sm border border-gray-100">
                     <ol className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 relative">

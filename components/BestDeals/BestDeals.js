@@ -4,12 +4,12 @@ import { FiArrowRight, FiClock } from 'react-icons/fi';
 
 export default function BestDeals({ deals = [] }) {
     return (
-        <section className="w-full bg-blue-50/40 py-10 md:py-14">
-            <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <section className="w-full bg-blue-50/40 py-12 md:py-16">
+            <div className="max-w-[1440px] mx-auto px-4 md:px-8">
                 {/* Section Header */}
                 <div className="flex items-center justify-between mb-8 md:mb-10">
                     <div>
-                        <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">
+                        <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
                             Big Saves
                         </h2>
                         <div className="flex items-center gap-1.5 text-xs text-gray-400 font-medium mt-1">
@@ -43,7 +43,7 @@ export default function BestDeals({ deals = [] }) {
 
                             <div className="p-4 md:p-5 flex-1 flex flex-col">
                                 <Link href={deal.link || "#"} className="mb-2 block">
-                                    <h3 className="text-sm md:text-base font-bold text-gray-900 leading-tight group-hover:text-blue-600 transition-colors line-clamp-2">
+                                    <h3 className="text-[15px] md:text-[17px] font-bold text-gray-900 leading-tight group-hover:text-blue-600 transition-colors line-clamp-2">
                                         {deal.title}
                                     </h3>
                                 </Link>
@@ -55,11 +55,11 @@ export default function BestDeals({ deals = [] }) {
                                 <div className="mt-auto">
                                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-4">
                                         <div className="flex items-center flex-wrap gap-2 leading-none">
-                                            <div className="text-base md:text-xl font-black text-gray-900 leading-none">
+                                            <div className="text-lg md:text-2xl font-black text-gray-900 leading-none">
                                                 {deal.price}
                                             </div>
                                             {deal.oldPrice && (
-                                                <div className="text-[10px] md:text-[12px] text-gray-400 line-through font-medium">
+                                                <div className="text-[11px] md:text-[13px] text-gray-400 line-through font-medium">
                                                     {deal.oldPrice}
                                                 </div>
                                             )}

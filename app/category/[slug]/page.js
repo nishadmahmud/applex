@@ -286,8 +286,8 @@ export default function CategoryPage() {
     }, [filteredProducts, validCurrentPage, itemsPerPage]);
 
     return (
-        <div className="bg-gray-50 min-h-screen py-8 md:py-12">
-            <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="min-h-screen bg-gray-50 pb-16">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 md:py-8">
 
                 {/* Top Banner Image */}
                 <div className="w-full relative rounded-2xl md:rounded-3xl overflow-hidden mb-6 md:mb-8" style={{ aspectRatio: '21/5' }}>
