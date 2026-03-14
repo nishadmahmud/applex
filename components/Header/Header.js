@@ -221,24 +221,24 @@ export default function Header({ categories = [] }) {
 
               {/* Desktop Search Dropdown */}
               {isSearchOpen && (
-                <div className="absolute top-[calc(100%+8px)] left-0 md:left-1/2 md:-translate-x-1/2 w-full md:w-[1000px] max-w-[calc(100vw-32px)] bg-white border border-gray-200 rounded-lg shadow-2xl z-50 max-h-[70vh] flex flex-col overflow-hidden">
+                <div className="fixed md:absolute top-[80px] md:top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[calc(100vw-22px)] md:w-[1000px] max-w-[calc(100vw-32px)] bg-white border border-gray-200 rounded-2xl shadow-2xl z-50 max-h-[75vh] flex flex-col overflow-hidden">
                   {isSearching ? (
-                    <div className="p-8 flex justify-center items-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div></div>
+                    <div className="p-12 flex justify-center items-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div></div>
                   ) : searchError ? (
                     <div className="p-6 text-center text-red-500">{searchError}</div>
                   ) : searchResults.length === 0 ? (
                     <div className="p-8 text-center text-gray-500">No results found for &quot;{searchQuery}&quot;</div>
                   ) : (
-                    <div className="flex h-full max-h-[60vh]">
-                      <div className="w-1/3 md:w-64 bg-gray-50 border-r border-gray-100 p-4 md:p-6 overflow-y-auto">
-                        <div className="space-y-1.5">
-                          <button onClick={() => setActiveSearchCategory('all')} className={`w-full text-left px-4 py-2.5 rounded-md text-sm ${activeSearchCategory === 'all' ? 'bg-white shadow text-blue-600 font-bold' : 'text-gray-600 hover:bg-gray-100'}`}>All ({searchResults.length})</button>
+                    <div className="flex flex-col md:flex-row h-full max-h-[75vh]">
+                      <div className="w-full md:w-64 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-100 p-4 md:p-6 overflow-x-auto md:overflow-y-auto no-scrollbar">
+                        <div className="flex md:flex-col gap-1.5 md:space-y-1.5 min-w-max md:min-w-0">
+                          <button onClick={() => setActiveSearchCategory('all')} className={`whitespace-nowrap px-4 py-2 md:py-2.5 rounded-full md:rounded-md text-[13px] md:text-sm transition-all ${activeSearchCategory === 'all' ? 'bg-white shadow-md text-blue-600 font-bold' : 'text-gray-600 hover:bg-gray-100'}`}>All ({searchResults.length})</button>
                           {searchCategories.map(cat => (
-                            <button key={cat} onClick={() => setActiveSearchCategory(cat)} className={`w-full text-left px-4 py-2.5 rounded-md text-sm ${activeSearchCategory === cat ? 'bg-white shadow text-blue-600 font-bold' : 'text-gray-600 hover:bg-gray-100'}`}>{cat}</button>
+                            <button key={cat} onClick={() => setActiveSearchCategory(cat)} className={`whitespace-nowrap px-4 py-2 md:py-2.5 rounded-full md:rounded-md text-[13px] md:text-sm transition-all ${activeSearchCategory === cat ? 'bg-white shadow-md text-blue-600 font-bold' : 'text-gray-600 hover:bg-gray-100'}`}>{cat}</button>
                           ))}
                         </div>
                       </div>
-                      <div className="w-2/3 md:flex-1 p-4 md:p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 content-start">
+                      <div className="flex-1 p-3 md:p-8 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 content-start">
                         {filteredSearchResults.map(product => (
                           <Link
                             key={product.id}
