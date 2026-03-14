@@ -10,7 +10,7 @@ export default function FeaturedProducts({ products = [] }) {
 
     return (
         <section className="w-full bg-white py-12 md:py-16">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                 {/* Section Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 mb-8 md:mb-10">
                     <div>

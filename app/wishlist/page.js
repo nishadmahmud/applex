@@ -37,7 +37,7 @@ export default function WishlistPage() {
                 </div>
             </div>
 
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-8 md:py-12">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8 py-8 md:py-12">
                 {wishlist.length === 0 ? (
                     <div className="bg-white rounded-3xl p-12 md:p-20 text-center shadow-sm border border-gray-100 max-w-2xl mx-auto">
                         <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -47,8 +47,8 @@ export default function WishlistPage() {
                         <p className="text-gray-500 mb-8 max-w-sm mx-auto">
                             Add items you love to your wishlist and they will show up here.
                         </p>
-                        <Link 
-                            href="/" 
+                        <Link
+                            href="/"
                             className="inline-flex items-center gap-2 px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-95"
                         >
                             <FiShoppingBag /> Start Shopping
@@ -59,12 +59,12 @@ export default function WishlistPage() {
                         {wishlist.map((product) => (
                             <div key={product.id} className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex flex-col group h-full">
                                 {/* Image Container */}
-                                <Link 
+                                <Link
                                     href={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}-${product.id}`}
                                     className="relative aspect-square bg-gray-50 overflow-hidden shrink-0"
                                 >
-                                    <Image 
-                                        src={product.imageUrl || "/no-image.svg"} 
+                                    <Image
+                                        src={product.imageUrl || "/no-image.svg"}
                                         alt={product.name}
                                         fill
                                         className="object-contain p-6 group-hover:scale-110 transition-transform duration-500"
@@ -81,7 +81,7 @@ export default function WishlistPage() {
                                 <div className="p-5 flex flex-col flex-1">
                                     <div className="mb-2">
                                         <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">{product.brand}</p>
-                                        <Link 
+                                        <Link
                                             href={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}-${product.id}`}
                                             className="text-sm md:text-base font-bold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2 leading-snug"
                                         >
@@ -98,13 +98,13 @@ export default function WishlistPage() {
                                         </div>
 
                                         <div className="flex gap-2">
-                                            <button 
+                                            <button
                                                 onClick={() => handleAddToCart(product)}
                                                 className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-all active:scale-95"
                                             >
                                                 <FiShoppingCart className="w-4 h-4" /> Add to Cart
                                             </button>
-                                            <button 
+                                            <button
                                                 onClick={() => removeFromWishlist(product.id)}
                                                 className="w-10 h-10 flex items-center justify-center border border-gray-100 bg-gray-50 text-gray-400 hover:text-red-500 hover:bg-red-50 hover:border-red-100 rounded-xl transition-all active:scale-95"
                                                 title="Remove from wishlist"

@@ -47,7 +47,7 @@ export default function Testimonials() {
 
     return (
         <section className="w-full bg-gray-50 py-16 md:py-20 overflow-hidden">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                 {/* Section Header */}
                 <div className="text-center mb-8 md:mb-12">
                     <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">What Our Customers Say</h2>

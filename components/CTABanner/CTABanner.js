@@ -3,7 +3,7 @@ import { FiBell } from 'react-icons/fi';
 export default function CTABanner() {
     return (
         <section className="w-full bg-gray-50 py-16 md:py-20">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                 <div className="rounded-2xl bg-gray-900 overflow-hidden relative">
                     <div className="absolute top-0 right-0 w-72 h-72 bg-blue-500/10 rounded-full -translate-y-1/2 translate-x-1/3"></div>
                     <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400/5 rounded-full translate-y-1/3 -translate-x-1/4"></div>

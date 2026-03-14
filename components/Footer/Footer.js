@@ -10,7 +10,7 @@ export default function Footer() {
         <footer className="mt-auto flex flex-col pt-10">
             {/* ── TOP BADGE STRIP (Light) ── */}
             <div className="bg-white border-t border-gray-100">
-                <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-10">
+                <div className="max-w-[1550px] mx-auto px-4 md:px-8 py-10">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-gray-100">
                         {/* Badge 1 */}
                         <div className="flex items-center gap-5 md:justify-center py-4 md:py-0">
@@ -58,9 +58,9 @@ export default function Footer() {
 
             {/* ── MAIN CONTENT (Dark) ── */}
             <div className="bg-[#111827] text-gray-400">
-                <div className="max-w-[1440px] mx-auto px-4 md:px-8 pt-16 pb-12">
+                <div className="max-w-[1550px] mx-auto px-4 md:px-8 pt-16 pb-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
-                        
+
                         {/* Col 1: Brand & About (4 columns) */}
                         <div className="lg:col-span-4 flex flex-col gap-8">
                             <Link href="/" className="inline-block" aria-label="Home">
@@ -157,9 +157,9 @@ export default function Footer() {
                                 Sign up for get latest news and update about our products and offers.
                             </p>
                             <form className="relative mt-2" onSubmit={(e) => e.preventDefault()}>
-                                <input 
-                                    type="email" 
-                                    placeholder="Enter your email" 
+                                <input
+                                    type="email"
+                                    placeholder="Enter your email"
                                     className="w-full bg-gray-800/50 border border-gray-700 text-white px-5 py-4 rounded-2xl outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all text-base"
                                 />
                                 <button className="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2">
@@ -173,7 +173,7 @@ export default function Footer() {
 
                 {/* Secure Payment Footer - FULL WIDTH SINGLE ROW */}
                 <div className="border-t border-gray-800/50 py-10 bg-black/20">
-                    <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+                    <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                         <div className="flex flex-col items-center gap-6">
                             <span className="text-[11px] uppercase text-gray-500 font-black tracking-[0.3em]">Official Payment Partner</span>
                             <div className="w-full relative h-12 md:h-16">
@@ -191,7 +191,7 @@ export default function Footer() {
 
                 {/* Bottom Copyright Strip */}
                 <div className="bg-[#030712] border-t border-white/5">
-                    <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 flex flex-col md:flex-row items-center justify-center text-center">
+                    <div className="max-w-[1550px] mx-auto px-4 md:px-8 py-6 flex flex-col md:flex-row items-center justify-center text-center">
                         <p className="text-[13px] text-gray-500 font-medium">
                             &copy; {new Date().getFullYear()} <span className="text-gray-300 font-bold">Applex Ltd.</span> All rights reserved.
                         </p>

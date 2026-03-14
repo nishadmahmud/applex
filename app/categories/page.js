@@ -29,7 +29,7 @@ export default function CategoriesPage() {
         <div className="bg-gray-50 min-h-screen pb-20 md:pb-12">
             {/* Header */}
             <div className="bg-white border-b border-gray-200 py-8">
-                <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+                <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                     <h1 className="text-2xl md:text-3xl font-black text-gray-900 flex items-center gap-3">
                         <FiGrid className="text-blue-600" /> All Categories
                     </h1>
@@ -37,7 +37,7 @@ export default function CategoriesPage() {
                 </div>
             </div>
 
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-8">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8 py-8">
                 {isLoading ? (
                     <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-3 md:gap-4">
                         {[...Array(14)].map((_, i) => (
@@ -51,15 +51,15 @@ export default function CategoriesPage() {
                     <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-3 md:gap-4">
                         {categories.map((cat, index) => (
                             <div key={cat.id || `cat-${index}`} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden group flex flex-col">
-                                <Link 
+                                <Link
                                     href={`/category/${cat.slug || cat.name?.toLowerCase().replace(/\s+/g, '-')}`}
                                     className="flex flex-col items-center text-center p-4 hover:bg-gray-50 transition-colors h-full"
                                 >
                                     <div className="w-12 h-12 md:w-16 md:h-16 relative bg-blue-50 rounded-2xl overflow-hidden shrink-0 group-hover:scale-105 transition-transform mb-3">
-                                        <Image 
-                                            src={cat.image_url || cat.image_path || "/no-image.svg"} 
-                                            alt={cat.name || "Category"} 
-                                            fill 
+                                        <Image
+                                            src={cat.image_url || cat.image_path || "/no-image.svg"}
+                                            alt={cat.name || "Category"}
+                                            fill
                                             className="object-contain p-2"
                                             unoptimized
                                         />

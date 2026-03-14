@@ -58,7 +58,7 @@ export default function Hero({ slides = [], banners = [] }) {
 
     return (
         <div className="w-full bg-gray-50 pt-4 pb-4 md:pt-6 md:pb-6">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 space-y-4 md:space-y-6">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8 space-y-4 md:space-y-6">
                 <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 h-full">
 
                     {/* ── LEFT: MAIN SLIDER ── */}

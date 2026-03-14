@@ -31,7 +31,7 @@ export default function BlogPage() {
         fetchBlogs();
     }, []);
 
-    const filteredPosts = posts.filter(post => 
+    const filteredPosts = posts.filter(post =>
         post.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -39,7 +39,7 @@ export default function BlogPage() {
         <div className="min-h-screen bg-gray-50 pb-20">
             {/* Hero Section */}
             <div className="bg-blue-600 py-16 md:py-24">
-                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div className="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h1 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">
                         Applex Insights
                     </h1>
@@ -50,12 +50,12 @@ export default function BlogPage() {
             </div>
 
             {/* Search and Filters */}
-            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+            <div className="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
                 <div className="bg-white rounded-2xl shadow-xl shadow-blue-900/5 p-4 md:p-6 border border-gray-100">
                     <div className="relative max-w-xl mx-auto">
                         <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             placeholder="Search articles..."
                             className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-base"
                             value={searchQuery}
@@ -66,7 +66,7 @@ export default function BlogPage() {
             </div>
 
             {/* Blog Grid */}
-            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-16">
+            <div className="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-16">
                 {loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[1, 2, 3, 4, 5, 6].map(i => (
@@ -76,14 +76,14 @@ export default function BlogPage() {
                 ) : filteredPosts.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                         {filteredPosts.map((post) => (
-                            <Link 
-                                key={post.id} 
+                            <Link
+                                key={post.id}
                                 href={`/blogs/${post.id}`}
                                 className="group flex flex-col bg-white rounded-3xl border border-gray-100 overflow-hidden hover:border-blue-600/30 hover:shadow-2xl hover:shadow-blue-600/5 transition-all duration-500"
                             >
                                 <div className="aspect-[16/10] relative overflow-hidden bg-gray-100">
-                                    <Image 
-                                        src={post.image || "/no-image.svg"} 
+                                    <Image
+                                        src={post.image || "/no-image.svg"}
                                         alt={post.title}
                                         fill
                                         className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -105,7 +105,7 @@ export default function BlogPage() {
                     <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200">
                         <h3 className="text-xl font-bold text-gray-900">No matching articles found</h3>
                         <p className="text-gray-500 mt-2">Try searching with a different keyword.</p>
-                        <button 
+                        <button
                             onClick={() => setSearchQuery("")}
                             className="mt-6 text-blue-600 font-bold hover:underline"
                         >

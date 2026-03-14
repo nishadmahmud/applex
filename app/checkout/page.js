@@ -319,7 +319,7 @@ export default function CheckoutPage() {
         <div className="min-h-screen bg-gray-50/50 pb-20">
             {/* Simple Premium Header */}
             <div className="bg-white border-b border-gray-100 py-6 md:py-10">
-                <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+                <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div>
                             <h1 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">Checkout</h1>
@@ -332,7 +332,7 @@ export default function CheckoutPage() {
                 </div>
             </div>
 
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 mt-8 md:mt-12">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8 mt-8 md:mt-12">
                 {/* ═══ Progress Tracker ═══ */}
                 <div className="mb-10 bg-white rounded-3xl p-5 md:p-8 shadow-sm border border-gray-100">
                     <ol className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 relative">
@@ -377,10 +377,10 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="flex flex-col lg:grid lg:grid-cols-[1fr_400px] gap-8 xl:gap-12">
-                    
+
                     {/* ═══ Main Checkout Flow ═══ */}
                     <div className="space-y-8">
-                        
+
                         {/* Step 1: Shipping Details */}
                         <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
                             <div className="p-6 md:p-10">
@@ -535,7 +535,7 @@ export default function CheckoutPage() {
                     <div className="hidden lg:block">
                         <div className="bg-white rounded-[2.5rem] p-8 shadow-xl shadow-gray-200/50 border border-gray-100 sticky top-24">
                             <h3 className="text-xl font-black text-gray-900 uppercase tracking-tight mb-8">Order Summary</h3>
-                            
+
                             <div className="space-y-5 mb-10 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
                                 {cartItems.map((item, idx) => (
                                     <div key={idx} className="flex gap-4 group">
@@ -587,7 +587,7 @@ export default function CheckoutPage() {
                             <button type="submit" form="checkout-form" disabled={isSubmitting} className="w-full py-5 bg-gray-900 text-white rounded-[1.5rem] font-black uppercase tracking-widest hover:bg-purple-600 transition-all shadow-xl shadow-gray-900/20 active:scale-95 disabled:opacity-50">
                                 {isSubmitting ? "Processing..." : "Place Order"}
                             </button>
-                            
+
                             <div className="mt-6 flex flex-wrap justify-center gap-3 opacity-40 grayscale">
                                 <span className="text-[10px] font-black border border-gray-400 px-2 py-0.5 rounded tracking-tighter">PATHAO</span>
                                 <span className="text-[10px] font-black border border-gray-400 px-2 py-0.5 rounded tracking-tighter">STEADFAST</span>
@@ -597,7 +597,7 @@ export default function CheckoutPage() {
                     </div>
                 </div>
             </div>
-            
+
             {/* Mobile Footer Fix */}
             <div className="h-10 md:hidden"></div>
         </div>

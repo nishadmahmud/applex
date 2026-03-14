@@ -5,7 +5,7 @@ import ProductCard from '../Shared/ProductCard';
 export default function NewArrivals({ products = [] }) {
     return (
         <section className="w-full bg-white py-12 md:py-16">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                 {/* Section Header */}
                 <div className="flex items-center justify-between mb-8 md:mb-10">
                     <div>

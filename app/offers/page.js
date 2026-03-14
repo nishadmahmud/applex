@@ -55,15 +55,15 @@ export default function OffersPage() {
                 </div>
             </div>
 
-            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 mt-6 md:mt-10 space-y-12">
+            <div className="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8 mt-6 md:mt-10 space-y-12">
                 {campaigns.length > 0 ? (
                     campaigns.map((campaign) => (
                         <div key={campaign.id} className="space-y-8">
                             {/* Campaign Banner Card */}
                             <div className="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-blue-900/10 border border-white">
                                 <div className="aspect-[21/9] md:aspect-[25/7] relative">
-                                    <Image 
-                                        src={campaign.bg_image || "/no-image.svg"} 
+                                    <Image
+                                        src={campaign.bg_image || "/no-image.svg"}
                                         alt={campaign.name}
                                         fill
                                         className="object-cover"
@@ -84,8 +84,8 @@ export default function OffersPage() {
                                                 {campaign.description}
                                             </p>
                                             {campaign.button_text && (
-                                                <Link 
-                                                    href={campaign.link || "#"} 
+                                                <Link
+                                                    href={campaign.link || "#"}
                                                     className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-black rounded-2xl hover:bg-blue-50 transition-all shadow-xl shadow-black/20 group"
                                                 >
                                                     {campaign.button_text} <FiChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -107,14 +107,14 @@ export default function OffersPage() {
 
                                 <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
                                     {campaign.products?.map((product) => (
-                                        <Link 
-                                            key={product.id} 
+                                        <Link
+                                            key={product.id}
                                             href={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}-${product.id}`}
                                             className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:border-blue-600/30 hover:shadow-2xl hover:shadow-blue-600/5 transition-all flex flex-col"
                                         >
                                             <div className="aspect-square relative overflow-hidden bg-white p-4">
-                                                <Image 
-                                                    src={product.image_path || "/no-image.svg"} 
+                                                <Image
+                                                    src={product.image_path || "/no-image.svg"}
                                                     alt={product.name}
                                                     fill
                                                     className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
@@ -166,8 +166,8 @@ export default function OffersPage() {
                         <p className="text-gray-500 mt-3 font-medium max-w-md mx-auto">
                             Check back soon for exciting new offers, grand opening celebrations, and exclusive deals!
                         </p>
-                        <Link 
-                            href="/" 
+                        <Link
+                            href="/"
                             className="mt-8 inline-block px-8 py-3 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20"
                         >
                             Back to Home

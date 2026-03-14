@@ -32,7 +32,7 @@ export default function DiscountedParts() {
 
     return (
         <section className="w-full bg-white py-12 md:py-16">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                 <div className="text-center mb-5 md:mb-10">
                     <h2 className="text-lg md:text-3xl font-extrabold text-gray-900 tracking-tight uppercase">
                         <span className="text-brand-purple">MOST</span> DISCOUNTED

@@ -5,7 +5,7 @@ import { FiArrowLeft, FiCalendar, FiUser } from 'react-icons/fi';
 
 export default async function BlogDetailPage({ params }) {
     const { id } = await params;
-    
+
     let blog = null;
     try {
         const res = await getBlogs();
@@ -31,7 +31,7 @@ export default async function BlogDetailPage({ params }) {
         <div className="min-h-screen bg-gray-50 pb-20">
             {/* Header / Breadcrumb */}
             <div className="bg-white border-b border-gray-100 py-6">
-                <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+                <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                     <Link href="/blogs" className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors text-sm font-medium mb-6">
                         <FiArrowLeft /> Back to Blogs
                     </Link>
@@ -54,13 +54,13 @@ export default async function BlogDetailPage({ params }) {
             </div>
 
             {/* Content Area */}
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 mt-10">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8 mt-10">
                 <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm">
                     {/* Hero Image */}
                     {blog.image && (
                         <div className="aspect-[21/9] relative bg-gray-100">
-                            <Image 
-                                src={blog.image} 
+                            <Image
+                                src={blog.image}
                                 alt={blog.title}
                                 fill
                                 className="object-cover"
@@ -72,7 +72,7 @@ export default async function BlogDetailPage({ params }) {
 
                     {/* Blog Body */}
                     <div className="p-6 md:p-12 lg:p-16">
-                        <div 
+                        <div
                             className="prose prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed prose-headings:text-gray-900 prose-headings:font-black prose-img:rounded-2xl break-words overflow-x-hidden w-full"
                             dangerouslySetInnerHTML={{ __html: blog.description }}
                         />

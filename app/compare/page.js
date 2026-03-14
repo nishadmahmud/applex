@@ -133,7 +133,7 @@ export default function ComparePage() {
 
     return (
         <div className="w-full bg-gray-50 py-10 md:py-16">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 space-y-8">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8 space-y-8">
                 {/* Heading + search */}
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                     <div>
@@ -318,7 +318,7 @@ export default function ComparePage() {
                                                 </div>
                                                 {items.map((product) => (
                                                     <div
-                                        key={product.id}
+                                                        key={product.id}
                                                         className="px-4 py-4 border-b border-l border-gray-100 flex flex-col items-center justify-center relative"
                                                     >
                                                         <button

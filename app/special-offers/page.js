@@ -63,14 +63,14 @@ export default function SpecialOffersPage() {
             </div>
 
             {/* Offers Grid */}
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-8 md:py-12">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8 py-8 md:py-12">
                 {offers.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                         {offers.map((offer, index) => (
                             <div key={offer.id} className="group bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl hover:border-blue-500/20 transition-all duration-500 flex flex-col h-full">
                                 <div className={`h-56 relative bg-gradient-to-br ${getGradientColor(index)}`}>
-                                    <Image 
-                                        src={offer.image || "/no-image.svg"} 
+                                    <Image
+                                        src={offer.image || "/no-image.svg"}
                                         alt={offer.title}
                                         fill
                                         className="object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"

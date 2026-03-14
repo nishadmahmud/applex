@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -26,6 +26,18 @@ export default function Header({ categories = [] }) {
   const { count: compareCount } = useCompare();
   const { wishlistCount } = useWishlist();
   const router = useRouter();
+
+  const searchContainerRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const defaultCategories = [
     { name: "iPhone", slug: "iphone" },
@@ -149,8 +161,8 @@ export default function Header({ categories = [] }) {
       <header className="w-full sticky top-0 z-50 flex flex-col">
 
         {/* ── ALERTS / MINI TOP BAR (Dark Bluish) ── */}
-        <div className="bg-[#111827] text-[12px] text-gray-300 py-1.5 border-b border-gray-800/50 hidden md:block">
-          <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex justify-end gap-6 font-medium">
+        <div className="bg-[#111827] text-[13px] text-gray-300 py-1 border-b border-gray-800/50 hidden md:block">
+          <div className="max-w-[1550px] mx-auto px-4 md:px-8 flex justify-end gap-6 font-medium">
             <Link href="/contact" className="hover:text-white transition-colors flex items-center gap-1.5">
               <FiHeadphones className="text-[#facc15]" /> Contact Us
             </Link>
@@ -167,12 +179,12 @@ export default function Header({ categories = [] }) {
         </div>
 
         {/* MAIN TOP BAR (Dark Bluish) */}
-        <div className="bg-[#111827] py-3 md:py-4">
-          <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex items-center justify-between gap-6 md:gap-10">
+        <div className="bg-[#111827] py-2">
+          <div className="max-w-[1550px] mx-auto px-4 md:px-8 flex items-center justify-between gap-6 md:gap-10">
 
             {/* Logo */}
             <div className="flex items-center flex-shrink-0 order-1 md:order-none">
-              <Link href="/" aria-label="Applex Home" className="relative z-50 -mt-2 -mb-1 md:-mt-9 md:-mb-2 transition-transform hover:scale-105 duration-300">
+              <Link href="/" aria-label="Applex Home" className="relative z-50 -mt-4 -mb-3 md:-mt-10 md:-mb-8 transition-transform hover:scale-105 duration-300">
                 <Image
                   src="/Applex Logo.svg"
                   alt="Applex Logo"
@@ -186,14 +198,14 @@ export default function Header({ categories = [] }) {
             </div>
 
             {/* Main Search Bar (Middle on Mobile) */}
-            <div className="flex-1 max-w-2xl relative order-2 mx-1 md:mx-0 md:order-none">
+            <div ref={searchContainerRef} className="flex-1 max-w-2xl relative order-2 mx-1 md:mx-0 md:order-none">
               <form onSubmit={handleSearchSubmit} className="flex relative w-full bg-white rounded-full items-center p-1 overflow-hidden shadow-inner">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search for products, brands, categories..."
-                  className="w-full pl-6 pr-2 py-2.5 text-base text-gray-900 outline-none border-none bg-transparent"
+                  className="w-full pl-5 pr-2 py-1.5 text-base text-gray-900 outline-none border-none bg-transparent"
                 />
 
                 {searchQuery && (
@@ -202,14 +214,14 @@ export default function Header({ categories = [] }) {
                   </button>
                 )}
 
-                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white rounded-full w-9 h-9 md:w-14 flex items-center justify-center font-bold transition-colors shadow-sm ml-1 flex-shrink-0">
+                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white rounded-full w-8 h-8 md:w-12 md:h-9 flex items-center justify-center font-bold transition-colors shadow-sm ml-1 flex-shrink-0">
                   <FiSearch className="w-4 h-4" />
                 </button>
               </form>
 
               {/* Desktop Search Dropdown */}
               {isSearchOpen && (
-                <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white border border-gray-200 rounded-lg shadow-2xl z-50 max-h-[60vh] flex flex-col overflow-hidden">
+                <div className="absolute top-[calc(100%+8px)] left-0 md:left-1/2 md:-translate-x-1/2 w-full md:w-[1000px] max-w-[calc(100vw-32px)] bg-white border border-gray-200 rounded-lg shadow-2xl z-50 max-h-[70vh] flex flex-col overflow-hidden">
                   {isSearching ? (
                     <div className="p-8 flex justify-center items-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div></div>
                   ) : searchError ? (
@@ -217,31 +229,31 @@ export default function Header({ categories = [] }) {
                   ) : searchResults.length === 0 ? (
                     <div className="p-8 text-center text-gray-500">No results found for &quot;{searchQuery}&quot;</div>
                   ) : (
-                    <div className="flex h-full max-h-[50vh]">
-                      <div className="w-1/3 bg-gray-50 border-r border-gray-100 p-4 overflow-y-auto">
-                        <div className="space-y-1">
-                          <button onClick={() => setActiveSearchCategory('all')} className={`w-full text-left px-3 py-2 rounded text-[13px] ${activeSearchCategory === 'all' ? 'bg-white shadow text-blue-600 font-bold' : 'text-gray-600 hover:bg-gray-100'}`}>All ({searchResults.length})</button>
+                    <div className="flex h-full max-h-[60vh]">
+                      <div className="w-1/3 md:w-64 bg-gray-50 border-r border-gray-100 p-4 md:p-6 overflow-y-auto">
+                        <div className="space-y-1.5">
+                          <button onClick={() => setActiveSearchCategory('all')} className={`w-full text-left px-4 py-2.5 rounded-md text-sm ${activeSearchCategory === 'all' ? 'bg-white shadow text-blue-600 font-bold' : 'text-gray-600 hover:bg-gray-100'}`}>All ({searchResults.length})</button>
                           {searchCategories.map(cat => (
-                            <button key={cat} onClick={() => setActiveSearchCategory(cat)} className={`w-full text-left px-3 py-2 rounded text-[13px] ${activeSearchCategory === cat ? 'bg-white shadow text-blue-600 font-bold' : 'text-gray-600 hover:bg-gray-100'}`}>{cat}</button>
+                            <button key={cat} onClick={() => setActiveSearchCategory(cat)} className={`w-full text-left px-4 py-2.5 rounded-md text-sm ${activeSearchCategory === cat ? 'bg-white shadow text-blue-600 font-bold' : 'text-gray-600 hover:bg-gray-100'}`}>{cat}</button>
                           ))}
                         </div>
                       </div>
-                      <div className="w-2/3 p-4 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="w-2/3 md:flex-1 p-4 md:p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 content-start">
                         {filteredSearchResults.map(product => (
                           <Link
                             key={product.id}
                             href={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}-${product.id}`}
                             onClick={closeSearchModal}
-                            className="group flex flex-row items-center gap-3 p-2 rounded hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-colors"
+                            className="group flex flex-row items-center gap-4 p-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all shadow-sm shadow-transparent hover:shadow-gray-200/50"
                           >
-                            <div className="w-12 h-12 relative bg-white border border-gray-100 rounded shrink-0">
-                              <Image src={product.imageUrl} alt={product.name} fill className="object-contain p-1" unoptimized />
+                            <div className="w-16 h-16 md:w-20 md:h-20 relative bg-white border border-gray-100 rounded-lg shrink-0 overflow-hidden">
+                              <Image src={product.imageUrl} alt={product.name} fill className="object-contain p-2 hover:scale-110 transition-transform duration-300" unoptimized />
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <h4 className="text-[12px] text-gray-800 truncate group-hover:text-blue-600">
+                            <div className="flex-1 min-w-0 flex flex-col gap-1">
+                              <h4 className="text-sm font-semibold text-gray-800 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors">
                                 {product.name}
                               </h4>
-                              <p className="text-[12px] font-bold text-gray-900">{product.price}</p>
+                              <p className="text-base font-extrabold text-gray-900">{product.price}</p>
                             </div>
                           </Link>
                         ))}
@@ -258,7 +270,7 @@ export default function Header({ categories = [] }) {
                 <div className="w-7 h-7 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 group-hover:bg-gray-700 transition-colors">
                   <FiUser className="w-3.5 h-3.5" />
                 </div>
-                <div className="hidden lg:flex flex-col text-[11px]">
+                <div className="hidden lg:flex flex-col text-[13px]">
                   <span className="font-bold leading-none">{user ? 'My Profile' : 'Join / Sign in'}</span>
                   <span className="text-gray-400 mt-0.5">My Account</span>
                 </div>
@@ -284,7 +296,7 @@ export default function Header({ categories = [] }) {
                     </span>
                   )}
                 </div>
-                <span className="text-[12px] font-bold hidden xl:block">Cart</span>
+                <span className="text-[14px] font-bold hidden xl:block">Cart</span>
               </button>
 
               {/* Mobile Menu Button (Hamburger at far right) */}
@@ -298,13 +310,13 @@ export default function Header({ categories = [] }) {
 
         {/* BOTTOM BAR (Dark Category Strip) */}
         <div className="hidden md:block bg-[#111827] border-b border-gray-900/50 shadow-sm relative z-40">
-          <div className="max-w-[1440px] mx-auto px-4 md:px-8 flex items-center h-12">
+          <div className="max-w-[1550px] mx-auto px-4 md:px-8 flex items-center h-10">
 
             {/* All Categories Dropdown Trigger */}
-            <div className="flex items-center px-4 font-bold cursor-pointer transition-all gap-2 text-white border-r border-gray-800 pr-6 mr-6 hover:text-blue-400 group relative py-3">
+            <div className="flex items-center px-4 font-bold cursor-pointer transition-all gap-2 text-white border-r border-gray-800 pr-6 mr-6 hover:text-blue-400 group relative py-2">
               <FiMenu size={18} className="group-hover:text-blue-400" />
               <span className="text-xs tracking-wider uppercase">ALL CATEGORIES</span>
-              
+
               {/* All Categories Dropdown */}
               <div className="absolute top-full left-0 w-64 bg-white border border-gray-100 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 rounded-b-lg py-2 flex flex-col">
                 <div className="max-h-[70vh] overflow-y-auto overflow-x-hidden">
@@ -319,15 +331,15 @@ export default function Header({ categories = [] }) {
                           <FiChevronRight size={14} className="text-gray-400" />
                         )}
                       </Link>
-                      
+
                       {/* Subcategories Flyout */}
                       {cat.sub_category && cat.sub_category.length > 0 && (
                         <div className="absolute top-0 left-full w-56 bg-white border border-gray-100 shadow-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-200 z-[100] rounded-lg py-2 flex flex-col pt-0">
                           <div className="absolute -left-2 top-0 bottom-0 w-2 bg-transparent"></div> {/* Invisible bridge to prevent hover loss */}
                           {cat.sub_category.map(sub => (
-                            <Link 
-                              key={sub.id} 
-                              href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`} 
+                            <Link
+                              key={sub.id}
+                              href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`}
                               className="px-5 py-2.5 text-[13px] font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
                             >
                               {sub.name}
@@ -345,7 +357,7 @@ export default function Header({ categories = [] }) {
             <nav className="flex-1 flex items-center overflow-x-auto no-scrollbar scroll-smooth pr-6">
               <div className="flex items-center gap-6 md:gap-8 min-w-max">
                 {displayCategories.map((cat, idx) => (
-                  <div key={cat.id || idx} className="relative group/nav py-3 h-full hidden lg:block">
+                  <div key={cat.id || idx} className="relative group/nav py-2 h-full hidden lg:block">
                     <Link
                       href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
                       className="text-[13px] font-semibold text-gray-400 hover:text-white whitespace-nowrap transition-colors flex items-center gap-1"
@@ -358,9 +370,9 @@ export default function Header({ categories = [] }) {
                         <div className="bg-white border border-gray-100 shadow-xl rounded-b-lg py-2 flex flex-col relative">
                           <div className="absolute -top-4 left-0 right-0 h-4 bg-transparent"></div>
                           {cat.sub_category.map(sub => (
-                            <Link 
-                              key={sub.id} 
-                              href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`} 
+                            <Link
+                              key={sub.id}
+                              href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`}
                               className="px-4 py-2.5 text-[13px] font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors whitespace-normal"
                             >
                               {sub.name}
@@ -440,9 +452,8 @@ export default function Header({ categories = [] }) {
                         >
                           <FiChevronRight
                             size={16}
-                            className={`transform transition-transform ${
-                              expandedMobileCategory === (cat.id || idx) ? "rotate-90" : ""
-                            }`}
+                            className={`transform transition-transform ${expandedMobileCategory === (cat.id || idx) ? "rotate-90" : ""
+                              }`}
                           />
                         </button>
                       ) : (

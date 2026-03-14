@@ -10,7 +10,7 @@ export default function HowItWorks() {
 
     return (
         <section className="w-full bg-white py-16 md:py-20 relative overflow-hidden">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 relative z-10">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8 relative z-10">
                 <div className="text-center mb-8 md:mb-16">
                     <h2 className="text-xl md:text-4xl font-extrabold text-gray-900 mb-2 md:mb-4 tracking-tight">
                         How <span className="text-brand-purple">Applex</span> Works

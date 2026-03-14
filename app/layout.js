@@ -3,6 +3,7 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import MobileBottomNav from "../components/MobileBottomNav/MobileBottomNav";
 import Providers from "../components/Providers";
+import HomePopup from "../components/HomePopup";
 import { getCategoriesFromServer } from "../lib/api";
 import "./globals.css";
 
@@ -70,6 +71,7 @@ export default async function RootLayout({ children }) {
         className={`${inter.variable} font-sans antialiased bg-gray-50 text-gray-900 pb-16 md:pb-0`}
       >
         <Providers>
+          <HomePopup />
           <Header categories={categories} />
           <main className="min-h-screen flex flex-col">
             {children}

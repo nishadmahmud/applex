@@ -10,7 +10,7 @@ export default function TrustStats() {
 
     return (
         <section className="w-full bg-white border-b border-gray-100">
-            <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-5 md:py-6">
+            <div className="max-w-[1550px] mx-auto px-4 md:px-8 py-5 md:py-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     {pillars.map((item, idx) => {
                         const Icon = item.icon;
