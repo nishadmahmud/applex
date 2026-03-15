@@ -7,54 +7,18 @@ import { FiChevronLeft, FiChevronRight, FiArrowRight, FiShield, FiTruck, FiRefre
 
 export default function Hero({ slides = [], banners = [] }) {
     const [currentSlide, setCurrentSlide] = useState(0);
-
-    const DUMMY_SLIDES = [
-        {
-            id: 1,
-            title: "iPhone 16 Pro Max",
-            subtitle: "Titanium. So strong. So light. So Pro.",
-            image: "https://www.apple.com/v/iphone-16-pro/c/images/overview/welcome/hero__d71kikngtoyu_large.jpg",
-            bgColor: "bg-gray-50",
-            textColor: "text-gray-900",
-            cta: "Buy Now",
-            link: "/product/iphone-16-pro-max",
-            badge: "New Arrival",
-        },
-        {
-            id: 2,
-            title: "Galaxy S25 Ultra",
-            subtitle: "Galaxy AI is here. Welcome to the era of mobile AI.",
-            image: "https://images.samsung.com/is/image/samsung/assets/us/smartphones/galaxy-s24-ultra/buy/S24Ultra-Color-Titanium_Gray_PC_0527_Final.jpg",
-            bgColor: "bg-gray-100",
-            textColor: "text-gray-900",
-            cta: "Pre-order",
-            link: "/product/galaxy-s25-ultra",
-            badge: "Pre-order Now",
-        },
-        {
-            id: 3,
-            title: "Google Pixel 9 Pro",
-            subtitle: "The most powerful Pixel yet.",
-            image: "https://lh3.googleusercontent.com/x0RDEv_D3PzWp8sEYoIurqF5b_oW-_Xw7P_Jm_9uXjA27U7C7oE44D316N8Q12E9Qe374_4W5N4v2Oq_I7E=w1000",
-            bgColor: "bg-gray-50",
-            textColor: "text-gray-900",
-            cta: "Explore",
-            link: "/category/google-pixel",
-            badge: "Bestseller",
-        }
-    ];
-
-    const activeSlides = slides.length > 0 ? slides : DUMMY_SLIDES;
+    const activeSlides = Array.isArray(slides) ? slides : [];
 
     useEffect(() => {
+        if (activeSlides.length === 0) return;
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
         }, 5000);
         return () => clearInterval(timer);
     }, [activeSlides.length]);
 
-    const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
-    const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
+    const prevSlide = () => activeSlides.length && setCurrentSlide((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
+    const nextSlide = () => activeSlides.length && setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
 
     return (
         <div className="w-full bg-gray-50 pt-4 pb-4 md:pt-6 md:pb-6">
@@ -63,6 +27,12 @@ export default function Hero({ slides = [], banners = [] }) {
 
                     {/* ── LEFT: MAIN SLIDER ── */}
                     <div className="w-full lg:w-[73%] relative aspect-[16/7.5] md:aspect-[24/10] rounded-lg md:rounded-2xl overflow-hidden shadow-sm group bg-white border border-gray-200">
+                        {/* No slides from API */}
+                        {activeSlides.length === 0 && (
+                            <div className="absolute inset-0 bg-gray-100 flex flex-col items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-200">
+                                <span>Hero slides will appear here</span>
+                            </div>
+                        )}
                         {/* Slides */}
                         {activeSlides.map((slide, idx) => (
                             <div
@@ -93,34 +63,40 @@ export default function Hero({ slides = [], banners = [] }) {
                             </div>
                         ))}
 
-                        {/* Carousel Dots */}
-                        <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
-                            {activeSlides.map((_, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => setCurrentSlide(idx)}
-                                    className="group py-2 px-1"
-                                    aria-label={`Go to slide ${idx + 1}`}
-                                >
-                                    <div className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentSlide ? 'w-6 bg-blue-600' : 'w-2 bg-gray-300 hover:bg-gray-400'
-                                        }`} />
-                                </button>
-                            ))}
-                        </div>
+                        {/* Carousel Dots - only when we have slides */}
+                        {activeSlides.length > 0 && (
+                            <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
+                                {activeSlides.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setCurrentSlide(idx)}
+                                        className="group py-2 px-1"
+                                        aria-label={`Go to slide ${idx + 1}`}
+                                    >
+                                        <div className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentSlide ? 'w-6 bg-blue-600' : 'w-2 bg-gray-300 hover:bg-gray-400'
+                                            }`} />
+                                    </button>
+                                ))}
+                            </div>
+                        )}
 
                         {/* Left/Right Arrows */}
-                        <button
-                            onClick={prevSlide}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
-                        >
-                            <FiChevronLeft size={20} />
-                        </button>
-                        <button
-                            onClick={nextSlide}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
-                        >
-                            <FiChevronRight size={20} />
-                        </button>
+                        {activeSlides.length > 0 && (
+                            <>
+                                <button
+                                    onClick={prevSlide}
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
+                                >
+                                    <FiChevronLeft size={20} />
+                                </button>
+                                <button
+                                    onClick={nextSlide}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-blue-600 transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
+                                >
+                                    <FiChevronRight size={20} />
+                                </button>
+                            </>
+                        )}
                     </div>
 
                     {/* ── RIGHT: SIDE PROMO BANNERS ── */}

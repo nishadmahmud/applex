@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX, FiChevronRight, FiHeart, FiHeadphones, FiTruck, FiFileText, FiCopy, FiZap, FiInfo } from 'react-icons/fi';
+import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX, FiChevronRight, FiHeart, FiHeadphones, FiTruck, FiFileText, FiCopy, FiZap, FiInfo, FiGrid } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { useCompare } from '../../context/CompareContext';
@@ -299,9 +299,14 @@ export default function Header({ categories = [] }) {
                 <span className="text-[14px] font-bold hidden xl:block">Cart</span>
               </button>
 
-              {/* Mobile Menu Button (Hamburger at far right) */}
-              <button onClick={() => setIsSidebarOpen(true)} className="md:hidden p-1 text-white flex-shrink-0" aria-label="Menu">
-                <FiMenu className="w-6 h-6" />
+              {/* Mobile Menu Button (Custom icon at far right) */}
+              <button
+                onClick={() => setIsSidebarOpen(true)}
+                className="md:hidden p-1 text-white flex-shrink-0"
+                aria-label="Menu"
+              >
+                {/* Use a grid-style icon instead of traditional hamburger */}
+                <FiGrid className="w-6 h-6" />
               </button>
             </div>
           </div>
