@@ -30,7 +30,7 @@ function mapProduct(p) {
         price: `৳ ${discountedPrice.toLocaleString('en-IN')}`,
         oldPrice: hasDiscount ? `৳ ${originalPrice.toLocaleString('en-IN')}` : null,
         discount,
-        imageUrl: p.image_path || p.image_path1 || p.image_path2 || p.image_url || '/no-image.svg',
+        imageUrl: (p.image_path || p.image_path1 || p.image_path2 || p.image_url || '/no-image.svg')?.toString().trim(),
         brand: p.brand_name || '',
         stock: p.current_stock || 0,
         rawPrice: discountedPrice,
@@ -98,7 +98,7 @@ export default function CategoryPage() {
                             // Use banner from API with fallbacks
                             const apiBanner = found.banner || found.banner_image || found.image_path || found.image_url;
                             if (apiBanner) {
-                                setBannerImage(apiBanner);
+                                setBannerImage(typeof apiBanner === 'string' ? apiBanner.trim() : apiBanner);
                             }
                         }
                     }

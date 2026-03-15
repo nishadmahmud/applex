@@ -89,9 +89,9 @@ export default function ProductDetailsPage() {
                     : null;
 
                 const images =
-                    (Array.isArray(p.images) && p.images.length > 0 && p.images) ||
-                    (Array.isArray(p.imei_image) && p.imei_image.filter(Boolean)) ||
-                    (p.image_path ? [p.image_path] : []) ||
+                    (Array.isArray(p.images) && p.images.length > 0 && p.images.map(img => typeof img === 'string' ? img.trim() : img)) ||
+                    (Array.isArray(p.imei_image) && p.imei_image.filter(Boolean).map(img => typeof img === 'string' ? img.trim() : img)) ||
+                    (p.image_path ? [p.image_path.trim()] : []) ||
                     ['/no-image.svg'];
 
                 // Pass the raw imeis array for dynamic variant logic
@@ -154,7 +154,7 @@ export default function ProductDetailsPage() {
                                 price: `৳ ${rpPrice.toLocaleString('en-IN')}`,
                                 oldPrice: null,
                                 discount: null,
-                                imageUrl: rp.image_path || rp.image_path1 || rp.image_path2 || '/no-image.svg',
+                                imageUrl: (rp.image_path || rp.image_path1 || rp.image_path2 || '/no-image.svg')?.toString().trim(),
                             };
                         });
                         setRelatedProducts(mappedRelated.slice(0, 8));

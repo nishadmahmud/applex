@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FiChevronLeft, FiChevronRight, FiArrowRight, FiShield, FiTruck, FiRefreshCcw, FiCreditCard } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiArrowRight, FiShield, FiTruck, FiRefreshCcw, FiCreditCard, FiHeadphones } from 'react-icons/fi';
 
 export default function Hero({ slides = [], banners = [] }) {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -62,7 +62,7 @@ export default function Hero({ slides = [], banners = [] }) {
                 <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 h-full">
 
                     {/* ── LEFT: MAIN SLIDER ── */}
-                    <div className="w-full lg:w-[73%] relative aspect-[24/10] rounded-lg md:rounded-2xl overflow-hidden shadow-sm group bg-white border border-gray-200">
+                    <div className="w-full lg:w-[73%] relative aspect-[16/7.5] md:aspect-[24/10] rounded-lg md:rounded-2xl overflow-hidden shadow-sm group bg-white border border-gray-200">
                         {/* Slides */}
                         {activeSlides.map((slide, idx) => (
                             <div
@@ -127,7 +127,7 @@ export default function Hero({ slides = [], banners = [] }) {
                     <div className="flex lg:flex flex-row lg:flex-col w-full lg:w-[27%] gap-2 md:gap-4">
                         {banners.length >= 2 ? (
                             <>
-                                <Link href={banners[0].link || "#"} className="flex-1 relative aspect-[16/9] lg:aspect-auto lg:flex-1 rounded-lg md:rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
+                                <Link href={banners[0].link || "#"} className="flex-1 relative aspect-[4/3] lg:aspect-auto lg:flex-1 rounded-lg md:rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
                                     {banners[0].image && banners[0].image !== "/no-image.svg" ? (
                                         <Image
                                             src={banners[0].image}
@@ -145,7 +145,7 @@ export default function Hero({ slides = [], banners = [] }) {
                                 </Link>
 
                                 {/* Banner 2 */}
-                                <Link href={banners[1].link || "#"} className="flex-1 relative aspect-[16/9] lg:aspect-auto lg:flex-1 rounded-lg md:rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
+                                <Link href={banners[1].link || "#"} className="flex-1 relative aspect-[4/3] lg:aspect-auto lg:flex-1 rounded-lg md:rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-200 block">
                                     {banners[1].image && banners[1].image !== "/no-image.svg" ? (
                                         <Image
                                             src={banners[1].image}
@@ -172,31 +172,43 @@ export default function Hero({ slides = [], banners = [] }) {
                 </div>
 
                 {/* Trust / USP strip */}
-                <div className="rounded-2xl border border-gray-100 bg-white/80 backdrop-blur-sm shadow-sm px-4 py-4 md:px-8 md:py-4">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-[12px] md:text-[13px] font-semibold text-gray-600">
-                        <div className="flex items-center gap-2">
-                            <div className="h-7 w-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
-                                <FiShield className="w-3.5 h-3.5" />
+                <div className="rounded-2xl border border-gray-100 bg-white shadow-xl shadow-gray-100/50 p-3 md:p-6 translate-y-2 md:translate-y-0">
+                    <div className="grid grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
+                        <div className="flex flex-col items-center justify-center text-center gap-1.5 group cursor-default">
+                            <div className="h-8 w-8 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-blue-200">
+                                <FiShield className="w-4 h-4 md:w-6 md:h-6" />
                             </div>
-                            <span>100% genuine products</span>
+                            <span className="text-[11px] md:text-[12px] font-bold text-gray-700 uppercase tracking-tight">Genuine Products</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <div className="h-7 w-7 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
-                                <FiTruck className="w-3.5 h-3.5" />
+                        <div className="flex flex-col items-center justify-center text-center gap-1.5 group cursor-default">
+                            <div className="h-8 w-8 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 transition-all duration-300 group-hover:bg-emerald-600 group-hover:text-white group-hover:-rotate-6 group-hover:shadow-lg group-hover:shadow-emerald-200">
+                                <FiTruck className="w-4 h-4 md:w-6 md:h-6" />
                             </div>
-                            <span>Fast, safe delivery</span>
+                            <span className="text-[11px] md:text-[12px] font-bold text-gray-700 uppercase tracking-tight">Fast Delivery</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <div className="h-7 w-7 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
-                                <FiRefreshCcw className="w-3.5 h-3.5" />
+                        <div className="flex flex-col items-center justify-center text-center gap-1.5 group cursor-default">
+                            <div className="h-8 w-8 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 transition-all duration-300 group-hover:bg-amber-600 group-hover:text-white group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-amber-200">
+                                <FiRefreshCcw className="w-4 h-4 md:w-6 md:h-6" />
                             </div>
-                            <span>Easy warranty support</span>
+                            <span className="text-[11px] md:text-[12px] font-bold text-gray-700 uppercase tracking-tight">Easy Warranty</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <div className="h-7 w-7 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
-                                <FiCreditCard className="w-3.5 h-3.5" />
+                        <div className="flex flex-col items-center justify-center text-center gap-1.5 group cursor-default">
+                            <div className="h-8 w-8 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 transition-all duration-300 group-hover:bg-purple-600 group-hover:text-white group-hover:-rotate-6 group-hover:shadow-lg group-hover:shadow-purple-200">
+                                <FiCreditCard className="w-4 h-4 md:w-6 md:h-6" />
                             </div>
-                            <span>Secure payment options</span>
+                            <span className="text-[11px] md:text-[12px] font-bold text-gray-700 uppercase tracking-tight">Secure Payment</span>
+                        </div>
+                        <div className="flex flex-col items-center justify-center text-center gap-1.5 group cursor-default">
+                            <div className="h-8 w-8 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-rose-50 flex items-center justify-center text-rose-600 transition-all duration-300 group-hover:bg-rose-600 group-hover:text-white group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-rose-200">
+                                <FiRefreshCcw className="w-4 h-4 md:w-6 md:h-6" />
+                            </div>
+                            <span className="text-[11px] md:text-[12px] font-bold text-gray-700 uppercase tracking-tight">7-Day Return</span>
+                        </div>
+                        <div className="flex flex-col items-center justify-center text-center gap-1.5 group cursor-default">
+                            <div className="h-8 w-8 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 transition-all duration-300 group-hover:bg-indigo-600 group-hover:text-white group-hover:-rotate-6 group-hover:shadow-lg group-hover:shadow-indigo-200">
+                                <FiHeadphones className="w-4 h-4 md:w-6 md:h-6" />
+                            </div>
+                            <span className="text-[11px] md:text-[12px] font-bold text-gray-700 uppercase tracking-tight">24/7 Support</span>
                         </div>
                     </div>
                 </div>

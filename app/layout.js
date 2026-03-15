@@ -59,7 +59,11 @@ export default async function RootLayout({ children }) {
     const data = res?.data || (Array.isArray(res) ? res : null);
     const catList = Array.isArray(data) ? data : (Array.isArray(data?.data) ? data.data : null);
     if (catList && catList.length > 0) {
-      categories = catList;
+      categories = catList.map(cat => ({
+        ...cat,
+        name: cat.category_name || cat.name || "Unknown",
+        image: (cat.image_path || cat.image_url || cat.image || "/no-image.svg").toString().trim()
+      }));
     }
   } catch (error) {
     console.error("Failed to fetch categories:", error);

@@ -60,7 +60,7 @@ export default function CategoryIndexPage() {
                                 {/* Category Icon/Image Area */}
                                 <div className="w-24 h-24 md:w-32 md:h-32 mb-6 relative z-10 p-4 bg-gray-50 rounded-2xl group-hover:scale-110 transition-transform duration-500 ease-out">
                                     <Image
-                                        src={cat.image_path || cat.image_url || '/no-image.svg'}
+                                        src={(cat.image_path || cat.image_url || '/no-image.svg')?.toString().trim()}
                                         alt={cat.name}
                                         fill
                                         unoptimized

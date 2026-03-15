@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export default function ProductGallery({ images = [] }) {
-    const imageArray = images && images.length > 0 ? images : ['/no-image.svg'];
+    const imageArray = images && images.length > 0 
+        ? images.map(img => typeof img === 'string' ? img.trim() : img) 
+        : ['/no-image.svg'];
     const [mainImage, setMainImage] = useState(imageArray[0]);
 
     // When images prop changes (e.g., variant color selected), reset to first image

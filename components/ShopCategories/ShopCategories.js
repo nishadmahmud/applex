@@ -15,18 +15,18 @@ export default function ShopCategories({ categories = [], flashSaleProducts = []
                         <h2 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">Shop by Category</h2>
                         <p className="text-gray-400 text-xs md:text-sm mt-1">Find your perfect device</p>
                     </div>
-                    <Link href="/categories" className="text-blue-600 hover:text-blue-700 text-sm font-semibold flex items-center gap-1 transition-colors">
+                    <Link href="/categories" className="hidden md:flex text-blue-600 hover:text-blue-700 text-sm font-semibold items-center gap-1 transition-colors">
                         View All <FiArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
 
                 {/* Brand Grid */}
-                <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 md:gap-8 mb-12 md:mb-16">
+                <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-4 gap-y-6 md:gap-8 mb-8 md:mb-16">
                     {categories.map((cat, idx) => (
                         <Link
                             key={cat.id ? `cat-${cat.id}-${idx}` : `cat-fallback-${idx}`}
                             href={`/category/${cat.slug || cat.name?.toLowerCase().replace(/\s+/g, '-') || 'unknown'}`}
-                            className="group flex flex-col items-center gap-3 transition-transform hover:-translate-y-1 duration-300"
+                            className={`${idx >= 8 ? 'hidden md:flex' : 'flex'} flex-col items-center gap-3 transition-transform hover:-translate-y-1 duration-300`}
                         >
                             <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center group-hover:border-blue-400 group-hover:shadow-lg group-hover:shadow-blue-500/10 transition-all duration-300">
                                 <Image
@@ -43,6 +43,16 @@ export default function ShopCategories({ categories = [], flashSaleProducts = []
                             </span>
                         </Link>
                     ))}
+                </div>
+
+                {/* Mobile-only View All Button */}
+                <div className="flex md:hidden justify-center mb-10 -mt-2">
+                    <Link 
+                        href="/categories" 
+                        className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-white border border-gray-200 rounded-xl text-blue-600 font-bold text-sm shadow-sm hover:bg-gray-50 transition-all"
+                    >
+                        View All Categories <FiArrowRight className="w-4 h-4" />
+                    </Link>
                 </div>
 
                 {/* Flash Sale Strip */}

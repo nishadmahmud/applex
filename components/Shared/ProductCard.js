@@ -40,7 +40,7 @@ export default function ProductCard({ product }) {
             {/* Image Container */}
             <Link href={`/product/${slug}`} className="block relative aspect-square overflow-hidden bg-gray-50 p-4">
                 <Image
-                    src={product.imageUrl || product.image || "/no-image.svg"}
+                    src={(product.imageUrl || product.image || "/no-image.svg")?.toString().trim()}
                     alt={product.name}
                     fill
                     className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"

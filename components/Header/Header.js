@@ -113,7 +113,7 @@ export default function Header({ categories = [] }) {
           price: `৳ ${price.toLocaleString('en-IN')}`,
           oldPrice: hasDiscount ? `৳ ${basePrice.toLocaleString('en-IN')}` : null,
           discount: discountLabel,
-          imageUrl,
+          imageUrl: imageUrl?.toString().trim(),
           brand: p.brands?.name || '',
           categoryName: p.category?.name || 'Others',
           raw: p,
@@ -180,7 +180,7 @@ export default function Header({ categories = [] }) {
 
         {/* MAIN TOP BAR (Dark Bluish) */}
         <div className="bg-[#111827] py-2">
-          <div className="max-w-[1550px] mx-auto px-4 md:px-8 flex items-center justify-between gap-6 md:gap-10">
+          <div className="max-w-[1550px] mx-auto px-2 md:px-8 flex items-center justify-between gap-1.5 md:gap-10">
 
             {/* Logo */}
             <div className="flex items-center flex-shrink-0 order-1 md:order-none">
@@ -198,7 +198,7 @@ export default function Header({ categories = [] }) {
             </div>
 
             {/* Main Search Bar (Middle on Mobile) */}
-            <div ref={searchContainerRef} className="flex-1 max-w-2xl relative order-2 mx-1 md:mx-0 md:order-none">
+            <div ref={searchContainerRef} className="flex-1 max-w-2xl relative order-2 md:order-none">
               <form onSubmit={handleSearchSubmit} className="flex relative w-full bg-white rounded-full items-center p-1 overflow-hidden shadow-inner">
                 <input
                   type="text"
@@ -221,7 +221,7 @@ export default function Header({ categories = [] }) {
 
               {/* Desktop Search Dropdown */}
               {isSearchOpen && (
-                <div className="fixed md:absolute top-[80px] md:top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[calc(100vw-22px)] md:w-[1000px] max-w-[calc(100vw-32px)] bg-white border border-gray-200 rounded-2xl shadow-2xl z-50 max-h-[75vh] flex flex-col overflow-hidden">
+                <div className="fixed md:absolute top-[80px] md:top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[calc(100vw-10px)] md:w-[1000px] max-w-[calc(100vw-10px)] bg-white border border-gray-200 rounded-2xl shadow-2xl z-50 max-h-[75vh] flex flex-col overflow-hidden">
                   {isSearching ? (
                     <div className="p-12 flex justify-center items-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div></div>
                   ) : searchError ? (
@@ -300,7 +300,7 @@ export default function Header({ categories = [] }) {
               </button>
 
               {/* Mobile Menu Button (Hamburger at far right) */}
-              <button onClick={() => setIsSidebarOpen(true)} className="md:hidden p-1 text-white flex-shrink-0 ml-1" aria-label="Menu">
+              <button onClick={() => setIsSidebarOpen(true)} className="md:hidden p-1 text-white flex-shrink-0" aria-label="Menu">
                 <FiMenu className="w-6 h-6" />
               </button>
             </div>
@@ -434,13 +434,23 @@ export default function Header({ categories = [] }) {
               <div className="border border-gray-100 rounded-lg overflow-hidden">
                 {displayCategories.map((cat, idx) => (
                   <div key={cat.id || idx} className="border-b border-gray-100 last:border-0">
-                    <div className="flex items-center justify-between px-4 py-3 text-[14px] text-gray-700 font-medium hover:bg-gray-50 hover:text-blue-600 transition-colors">
+                    <div className="flex items-center justify-between px-4 py-2 text-[14px] text-gray-700 font-medium hover:bg-gray-50 hover:text-blue-600 transition-colors">
                       <Link
                         href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
                         onClick={closeSidebar}
-                        className="flex-1"
+                        className="flex-1 flex items-center gap-3"
                       >
-                        {cat.name}
+                        <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                          <Image
+                            src={(cat.image || cat.image_path || cat.image_url || "/no-image.svg").toString().trim()}
+                            alt={cat.name || cat.category_name || 'Category'}
+                            width={40}
+                            height={40}
+                            className="w-full h-full object-contain"
+                            unoptimized
+                          />
+                        </div>
+                        <span className="flex-1">{cat.name || cat.category_name}</span>
                       </Link>
                       {cat.sub_category && cat.sub_category.length > 0 ? (
                         <button

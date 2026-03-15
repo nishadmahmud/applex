@@ -62,11 +62,15 @@ export default async function Home() {
       : null;
 
     // Prioritize image_path or image_paths[0] for real products, fallback to image_url (which might be a placeholder)
-    const imageUrl =
+    let imageUrl =
       p.image_path ||
       (Array.isArray(p.image_paths) && p.image_paths.length > 0 ? p.image_paths[0] : null) ||
       p.image_url ||
       '/no-image.svg';
+
+    if (typeof imageUrl === 'string') {
+      imageUrl = imageUrl.trim();
+    }
 
     const mapped = {
       id: p.id,
@@ -92,35 +96,42 @@ export default async function Home() {
     return mapped;
   };
 
-  const mapCategoryData = (c) => ({
-    ...c,
-    image: c.image_url || c.image_path || c.image || '/no-image.svg',
-  });
+  const mapCategoryData = (c) => {
+    const rawImage = c.image_url || c.image_path || c.image || '/no-image.svg';
+    return {
+      ...c,
+      image: typeof rawImage === 'string' ? rawImage.trim() : rawImage,
+    };
+  };
 
   const mapSliderData = (s) => {
     if (Array.isArray(s.image_path) && s.image_path.length > 0) {
       return s.image_path.map((imgUrl, idx) => ({
         id: `${s.id}-${idx}`,
-        image: imgUrl || '/no-image.svg',
+        image: typeof imgUrl === 'string' ? imgUrl.trim() : (imgUrl || '/no-image.svg'),
         title: s.title || s.name || 'Featured Item',
         subtitle: s.subtitle || s.description || 'Discover our top picks',
         link: s.link || '#',
       }));
     }
+    const rawImage = s.image_url || s.image_path || s.image || '/no-image.svg';
     return [{
       id: s.id,
-      image: s.image_url || s.image_path || s.image || '/no-image.svg',
+      image: typeof rawImage === 'string' ? rawImage.trim() : rawImage,
       title: s.title || s.name || 'Featured Item',
       subtitle: s.subtitle || s.description || 'Discover our top picks',
       link: s.link || '#',
     }];
   };
 
-  const mapBannerData = (b) => ({
-    ...b,
-    image: b.image_url || b.image_path || b.image || '/no-image.svg',
-    link: b.link || '#',
-  });
+  const mapBannerData = (b) => {
+    const rawImage = b.image_url || b.image_path || b.image || '/no-image.svg';
+    return {
+      ...b,
+      image: typeof rawImage === 'string' ? rawImage.trim() : rawImage,
+      link: b.link || '#',
+    };
+  };
 
   const extractDataArray = (res, specificKey) => {
     if (!res) return null;
@@ -151,11 +162,14 @@ export default async function Home() {
   const apiBestDeals = rawBestDeals ? rawBestDeals.map(mapProductData) : null;
 
   const blogsDataArray = Array.isArray(blogsRes?.data) ? blogsRes.data : (blogsRes?.data?.data || []);
-  const apiBlogs = blogsDataArray.length > 0 ? blogsDataArray.map(b => ({
-    id: b.id,
-    title: b.title,
-    image: b.image || "/no-image.svg",
-  })) : [];
+  const apiBlogs = blogsDataArray.length > 0 ? blogsDataArray.map(b => {
+    const rawImage = b.image || "/no-image.svg";
+    return {
+      id: b.id,
+      title: b.title,
+      image: typeof rawImage === 'string' ? rawImage.trim() : rawImage,
+    };
+  }) : [];
 
   // ═══════════════════════════════════════════
   // DUMMY DATA FALLBACKS

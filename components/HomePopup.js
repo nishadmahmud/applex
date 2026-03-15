@@ -26,7 +26,11 @@ export default function HomePopup() {
             const data = await getPopupBanners();
             
             if (isMounted && data.success && data.data && data.data.length > 0) {
-              setPopupData(data.data[0]);
+              const popup = data.data[0];
+              if (popup.image && typeof popup.image === 'string') {
+                popup.image = popup.image.trim();
+              }
+              setPopupData(popup);
               setIsOpen(true);
               // Save timestamp when it's shown
               localStorage.setItem("popup_last_shown", now.toString());
@@ -73,14 +77,14 @@ export default function HomePopup() {
             <img
               src={popupData.image}
               alt={popupData.title || "Promotional Popup"}
-              className="w-full h-auto max-h-[85vh] object-contain rounded-xl md:rounded-2xl shadow-2xl mx-auto"
+              className="w-full h-auto max-h-[85vh] object-contain drop-shadow-2xl mx-auto"
             />
           </Link>
         ) : (
           <img
             src={popupData.image}
             alt={popupData.title || "Promotional Popup"}
-            className="w-full h-auto max-h-[85vh] object-contain rounded-xl md:rounded-2xl shadow-2xl block mx-auto relative z-10"
+            className="w-full h-auto max-h-[85vh] object-contain drop-shadow-2xl block mx-auto relative z-10"
           />
         )}
       </div>
