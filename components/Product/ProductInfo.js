@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { FiShare2, FiMinus, FiPlus, FiCheck } from 'react-icons/fi';
 import { FaStar } from 'react-icons/fa';
 import { useCart } from '../../context/CartContext';
+import toast from 'react-hot-toast';
 
 export default function ProductInfo({ product, onVariantImageChange }) {
     const { addToCart } = useCart();
@@ -180,6 +181,17 @@ export default function ProductInfo({ product, onVariantImageChange }) {
         );
     };
 
+    const handleShare = () => {
+        if (typeof window !== 'undefined') {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                toast.success('Link copied to clipboard!');
+            }).catch(() => {
+                toast.error('Failed to copy link.');
+            });
+        }
+    };
+
     return (
         <div className="flex flex-col">
             {/* Header: Brand, Title, Reviews, Share */}
@@ -214,7 +226,10 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                     </div>
                 </div>
 
-                <button className="p-3 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all border border-gray-100 shadow-sm">
+                <button 
+                    onClick={handleShare}
+                    className="p-3 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all border border-gray-100 shadow-sm"
+                >
                     <FiShare2 size={20} />
                 </button>
             </div>
@@ -369,9 +384,12 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                     <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">Standard Delivery</span>
                     <p className="text-sm font-bold text-gray-900">Reach you within <span className="text-blue-600 underline underline-offset-4 decoration-blue-600/30">0-3 business days</span></p>
                 </div>
-                <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
+                <button 
+                    onClick={handleShare}
+                    className="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-sm hover:text-blue-600 transition-colors"
+                >
                     <FiShare2 className="text-blue-600" />
-                </div>
+                </button>
             </div>
 
             {/* Add to Cart / Buy Now */}

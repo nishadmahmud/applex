@@ -1,7 +1,8 @@
 import { getProductById } from '../../../lib/api';
 
 export async function generateMetadata({ params }) {
-    const slug = typeof params.slug === 'string' ? params.slug : params.slug?.[0] || '';
+    const awaitedParams = await params;
+    const slug = typeof awaitedParams.slug === 'string' ? awaitedParams.slug : awaitedParams.slug?.[0] || '';
 
     let productId = null;
     if (slug) {
