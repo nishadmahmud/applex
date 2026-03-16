@@ -57,8 +57,35 @@ export default function Footer() {
             </div>
 
             {/* ── MAIN CONTENT (Dark) ── */}
-            <div className="bg-[#111827] text-gray-400">
-                <div className="max-w-[1550px] mx-auto px-4 md:px-8 pt-16 pb-12">
+            <div className="relative bg-[#111827] text-gray-400 overflow-hidden">
+
+                {/* ── Wave + logo BEHIND everything, anchored to bottom ── */}
+                <div className="pointer-events-none absolute inset-0 z-0">
+                    <svg
+                        className="absolute bottom-[100px] md:bottom-[120px] left-0 w-[200%] h-[55%] animate-wave"
+                        viewBox="0 0 2400 300"
+                        preserveAspectRatio="none"
+                    >
+                        <path d="M0,60 C200,10 400,120 600,40 C800,0 1000,100 1200,30 C1400,0 1600,90 1800,20 C2000,0 2200,70 2400,10 L2400,300 L0,300 Z" fill="#0d1525" />
+                        <path d="M0,100 C200,40 400,155 600,80 C800,15 1000,135 1200,60 C1400,10 1600,120 1800,50 C2000,10 2200,100 2400,40 L2400,300 L0,300 Z" fill="#0a1120" />
+                        <path d="M0,140 C200,80 400,190 600,120 C800,50 1000,170 1200,100 C1400,40 1600,155 1800,85 C2000,35 2200,130 2400,70 L2400,300 L0,300 Z" fill="#080e1a" />
+                    </svg>
+                    <div className="absolute bottom-[55%] left-1/2 z-10 animate-wave-ride">
+                        <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-[#111827]/80 border border-blue-500/15 flex items-center justify-center">
+                            <Image
+                                src="/Applex Logo.svg"
+                                alt="Applex Logo"
+                                width={140}
+                                height={140}
+                                className="w-12 md:w-20 h-auto object-contain brightness-0 invert opacity-40"
+                                unoptimized
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* ── Actual footer content ON TOP ── */}
+                <div className="relative z-10 max-w-[1550px] mx-auto px-4 md:px-8 pt-16 pb-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
 
                         {/* Col 1: Brand & About (4 columns) */}
@@ -171,8 +198,8 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Secure Payment Footer - FULL WIDTH SINGLE ROW */}
-                <div className="border-t border-gray-800/50 py-10 bg-black/20">
+                {/* Secure Payment Footer */}
+                <div className="relative z-10 border-t border-gray-800/50 pt-10 pb-10">
                     <div className="max-w-[1550px] mx-auto px-4 md:px-8">
                         <div className="flex flex-col items-center gap-6">
                             <span className="text-[11px] uppercase text-gray-500 font-black tracking-[0.3em]">Official Payment Partner</span>
@@ -198,6 +225,28 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
+
+            <style jsx>{`
+                @keyframes waveScroll {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+                @keyframes waveRide {
+                    0% { transform: translate(-50%, 0); }
+                    16.6% { transform: translate(-50%, 30px); }
+                    33.3% { transform: translate(-50%, -25px); }
+                    50% { transform: translate(-50%, 28px); }
+                    66.6% { transform: translate(-50%, -22px); }
+                    83.3% { transform: translate(-50%, 26px); }
+                    100% { transform: translate(-50%, 0); }
+                }
+                .animate-wave {
+                    animation: waveScroll 18s linear infinite;
+                }
+                .animate-wave-ride {
+                    animation: waveRide 18s ease-in-out infinite;
+                }
+            `}</style>
         </footer>
     );
 }
