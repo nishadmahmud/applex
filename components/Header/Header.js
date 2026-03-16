@@ -69,6 +69,9 @@ export default function Header({ categories = [] }) {
 
   const [hoverCategory, setHoverCategory] = useState(null);
   const [activeSubcategoryId, setActiveSubcategoryId] = useState(null);
+  const [allMenuCategory, setAllMenuCategory] = useState(null);
+  const [allMenuSubcategoryId, setAllMenuSubcategoryId] = useState(null);
+  const allMenuTimeoutRef = useRef(null);
 
   const openMegaMenu = (cat) => {
     if (hoverTimeoutRef.current) {
@@ -87,6 +90,24 @@ export default function Header({ categories = [] }) {
     hoverTimeoutRef.current = setTimeout(() => {
       setHoverCategory(null);
       setActiveSubcategoryId(null);
+    }, 180);
+  };
+
+  const openAllMenu = (cat) => {
+    if (allMenuTimeoutRef.current) {
+      clearTimeout(allMenuTimeoutRef.current);
+      allMenuTimeoutRef.current = null;
+    }
+    setAllMenuCategory(cat);
+    const firstSub = Array.isArray(cat?.sub_category) && cat.sub_category.length > 0 ? cat.sub_category[0] : null;
+    setAllMenuSubcategoryId(firstSub?.id ?? null);
+  };
+
+  const scheduleCloseAllMenu = () => {
+    if (allMenuTimeoutRef.current) clearTimeout(allMenuTimeoutRef.current);
+    allMenuTimeoutRef.current = setTimeout(() => {
+      setAllMenuCategory(null);
+      setAllMenuSubcategoryId(null);
     }, 180);
   };
 
@@ -182,10 +203,10 @@ export default function Header({ categories = [] }) {
   return (
     <>
       {/* ── MARKETPLACE HEADER ── */}
-      <header className="w-full sticky top-0 z-50 flex flex-col">
+      <header className="w-full sticky top-0 z-50 flex flex-col bg-gradient-to-b from-black via-slate-950/95 to-slate-900/95 backdrop-blur-xl">
 
         {/* ── ALERTS / MINI TOP BAR (Dark Bluish) ── */}
-        <div className="bg-[#111827] text-[13px] text-gray-300 py-1 border-b border-gray-800/50 hidden md:block">
+        <div className="text-[13px] text-gray-300 py-1 border-b border-white/5 hidden md:block">
           <div className="max-w-[1550px] mx-auto px-4 md:px-8 flex justify-end gap-6 font-medium">
             <Link href="/contact" className="hover:text-white transition-colors flex items-center gap-1.5">
               <FiHeadphones className="text-[#facc15]" /> Contact Us
@@ -202,8 +223,8 @@ export default function Header({ categories = [] }) {
           </div>
         </div>
 
-        {/* MAIN TOP BAR (Dark Bluish) */}
-        <div className="bg-[#111827] py-2">
+        {/* MAIN TOP BAR (Glass / Liquid) */}
+        <div className="py-2">
           <div className="max-w-[1550px] mx-auto px-2 md:px-8 flex items-center justify-between gap-1.5 md:gap-10">
 
             {/* Logo */}
@@ -337,47 +358,144 @@ export default function Header({ categories = [] }) {
 
         </div>
 
-        {/* BOTTOM BAR (Dark Category Strip) */}
-        <div className="hidden md:block bg-[#111827] border-b border-gray-900/50 shadow-sm relative z-40">
+        {/* BOTTOM BAR (Glass Category Strip) */}
+        <div className="hidden md:block border-b border-white/5 shadow-sm relative z-40 bg-white/5 backdrop-blur-2xl">
           <div className="max-w-[1550px] mx-auto px-4 md:px-8 flex items-center h-10">
 
             {/* All Categories Dropdown Trigger */}
-            <div className="flex items-center px-4 font-bold cursor-pointer transition-all gap-2 text-white border-r border-gray-800 pr-6 mr-6 hover:text-blue-400 group relative py-2">
+            <div
+              className="flex items-center px-4 font-bold cursor-pointer transition-all gap-2 text-white border-r border-gray-800 pr-6 mr-6 hover:text-blue-400 group relative py-2"
+              onMouseEnter={() => openAllMenu(displayCategories?.[0] ?? null)}
+              onMouseLeave={scheduleCloseAllMenu}
+            >
               <FiMenu size={18} className="group-hover:text-blue-400" />
               <span className="text-xs tracking-wider uppercase">ALL CATEGORIES</span>
 
               {/* All Categories Dropdown */}
-              <div className="absolute top-full left-0 w-64 bg-white border border-gray-100 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 rounded-b-lg py-2 flex flex-col">
-                <div className="max-h-[70vh] overflow-y-auto overflow-x-hidden">
-                  {displayCategories.map((cat, idx) => (
-                    <div key={cat.id || idx} className="group/item relative">
-                      <Link
-                        href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="flex items-center justify-between px-5 py-3 text-[13px] font-semibold text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
-                      >
-                        {cat.name}
-                        {cat.sub_category && cat.sub_category.length > 0 && (
-                          <FiChevronRight size={14} className="text-gray-400" />
-                        )}
-                      </Link>
+              <div
+                className={`absolute top-full left-0 mt-2 w-[980px] bg-white border border-gray-100 shadow-2xl rounded-2xl z-50 ${
+                  allMenuCategory ? 'opacity-100 visible' : 'opacity-0 invisible'
+                } transition-all duration-150 animate-mega-menu`}
+                onMouseEnter={() => {
+                  if (allMenuTimeoutRef.current) {
+                    clearTimeout(allMenuTimeoutRef.current);
+                    allMenuTimeoutRef.current = null;
+                  }
+                }}
+                onMouseLeave={scheduleCloseAllMenu}
+              >
+                <div className="p-5 flex gap-5">
+                  {/* Left: category names as cards */}
+                  <div className="w-64 pr-4 border-r border-gray-100 max-h-[70vh] overflow-y-auto">
+                    <div className="flex flex-col gap-2">
+                      {displayCategories.map((cat, idx) => {
+                        const isActive = (allMenuCategory?.id || allMenuCategory?.category_id || allMenuCategory?.name) === (cat.id || cat.category_id || cat.name);
+                        return (
+                          <button
+                            key={cat.id || idx}
+                            type="button"
+                            onMouseEnter={() => openAllMenu(cat)}
+                            className={`w-full text-left px-3 py-2.5 rounded-xl border shadow-sm transition-all fade-line ${
+                              isActive
+                                ? 'bg-blue-50 border-blue-500 text-blue-700'
+                                : 'bg-white border-gray-100 text-gray-800 hover:bg-gray-50 hover:border-blue-200'
+                            }`}
+                            style={{ animationDelay: `${idx * 20}ms` }}
+                          >
+                            <div className="flex items-center justify-between gap-3">
+                              <span className="text-[13px] font-bold">{cat.name}</span>
+                              {cat.sub_category && cat.sub_category.length > 0 && (
+                                <FiChevronRight size={14} className={`${isActive ? 'text-blue-600' : 'text-gray-300'}`} />
+                              )}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
 
-                      {/* Subcategories Flyout */}
-                      {cat.sub_category && cat.sub_category.length > 0 && (
-                        <div className="absolute top-0 left-full w-56 bg-white border border-gray-100 shadow-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-200 z-[100] rounded-lg py-2 flex flex-col pt-0">
-                          <div className="absolute -left-2 top-0 bottom-0 w-2 bg-transparent"></div> {/* Invisible bridge to prevent hover loss */}
-                          {cat.sub_category.map(sub => (
-                            <Link
+                  {/* Right: subcategory + child categories */}
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-3">
+                      <Link
+                        href={`/category/${allMenuCategory?.slug || allMenuCategory?.name?.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="text-sm font-extrabold text-gray-900 hover:text-blue-600 transition-colors"
+                      >
+                        {allMenuCategory?.name}
+                      </Link>
+                      <Link
+                        href={`/category/${allMenuCategory?.slug || allMenuCategory?.name?.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="text-[12px] font-bold text-blue-600 hover:underline"
+                      >
+                        View all
+                      </Link>
+                    </div>
+
+                    <div className="flex gap-5">
+                      <div className="w-64 flex-shrink-0 flex flex-col gap-2 max-h-[62vh] overflow-y-auto pr-2">
+                        {(allMenuCategory?.sub_category || []).map((sub, sIdx) => {
+                          const isActive = allMenuSubcategoryId === sub.id;
+                          return (
+                            <button
                               key={sub.id}
-                              href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`}
-                              className="px-5 py-2.5 text-[13px] font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                              type="button"
+                              onMouseEnter={() => setAllMenuSubcategoryId(sub.id)}
+                              className={`w-full text-left px-3 py-2 rounded-xl text-[13px] font-semibold transition-all border fade-line ${
+                                isActive
+                                  ? 'bg-gray-900 text-white border-gray-900 shadow-sm'
+                                  : 'bg-gray-50 border-gray-100 text-gray-800 hover:bg-gray-100 hover:border-blue-200'
+                              }`}
+                              style={{ animationDelay: `${60 + sIdx * 18}ms` }}
                             >
                               {sub.name}
-                            </Link>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div className="flex-1 grid grid-cols-2 lg:grid-cols-3 gap-3 max-h-[62vh] overflow-y-auto pr-1">
+                        {(allMenuCategory?.sub_category || [])
+                          .filter((sub) => sub.id === allMenuSubcategoryId)
+                          .map((sub) => (
+                            <div key={sub.id} className="bg-gray-50 rounded-2xl border border-gray-100 p-4">
+                              <Link
+                                href={`/category/${allMenuCategory?.slug || allMenuCategory?.name?.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}${sub.id ? `?subcategory_id=${sub.id}` : ''}`}
+                                className="text-[13px] font-extrabold text-gray-900 hover:text-blue-600 transition-colors"
+                              >
+                                {sub.name}
+                              </Link>
+
+                              {sub.child_categories && sub.child_categories.length > 0 ? (
+                                <div className="mt-3 flex flex-col gap-1.5">
+                                  {sub.child_categories.slice(0, 18).map((child, cIdx) => (
+                                    <Link
+                                      key={child.id}
+                                      href={`/category/${allMenuCategory?.slug || allMenuCategory?.name?.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}${child.id ? `?child_id=${child.id}` : ''}`}
+                                      className="text-[12px] text-gray-600 hover:text-blue-600 fade-line"
+                                      style={{ animationDelay: `${120 + cIdx * 14}ms` }}
+                                    >
+                                      {child.name}
+                                    </Link>
+                                  ))}
+                                  {sub.child_categories.length > 18 && (
+                                    <Link
+                                      href={`/category/${allMenuCategory?.slug || allMenuCategory?.name?.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}${sub.id ? `?subcategory_id=${sub.id}` : ''}`}
+                                      className="text-[12px] font-bold text-blue-600 hover:underline mt-1"
+                                    >
+                                      View all
+                                    </Link>
+                                  )}
+                                </div>
+                              ) : (
+                                <div className="mt-3 text-[12px] text-gray-500">
+                                  No sub-items.
+                                </div>
+                              )}
+                            </div>
                           ))}
-                        </div>
-                      )}
+                      </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
             </div>

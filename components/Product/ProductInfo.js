@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import { FiShare2, FiMinus, FiPlus, FiCheck } from 'react-icons/fi';
+import { FaFacebook, FaTiktok, FaYoutube } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import { useCart } from '../../context/CartContext';
 import toast from 'react-hot-toast';
@@ -216,10 +218,24 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                         <div className="bg-blue-600 text-white text-[9px] font-black px-2 py-1 rounded-md uppercase tracking-widest shadow-sm">
                             In Stock
                         </div>
-                        {product.brands?.name && (
-                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">
-                                {product.brands.name}
-                            </span>
+                        {product.brand?.id && product.brand?.name && (
+                            <Link
+                                href={`/brand/${product.brand.id}`}
+                                className="inline-flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] hover:text-blue-600 transition-colors"
+                                title={`View all ${product.brand.name} products`}
+                            >
+                                {product.brand.image ? (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                        src={product.brand.image}
+                                        alt={product.brand.name}
+                                        className="w-5 h-5 rounded-full object-contain bg-white border border-gray-100"
+                                    />
+                                ) : (
+                                    <span className="w-5 h-5 rounded-full bg-gray-100 border border-gray-200" />
+                                )}
+                                <span>{product.brand.name}</span>
+                            </Link>
                         )}
                     </div>
 
@@ -449,6 +465,43 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                 >
                     Buy Now
                 </button>
+            </div>
+
+            {/* Social links */}
+            <div className="mt-6 pt-6 border-t border-gray-100 flex items-center justify-between gap-4">
+                <div>
+                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.22em]">Social</p>
+                    <p className="text-sm font-bold text-gray-900">Follow Applex</p>
+                </div>
+                <div className="flex items-center gap-3">
+                    <a
+                        href="https://web.facebook.com/Applex.bd"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white transition-all duration-200 shadow-sm"
+                        aria-label="Applex Facebook"
+                    >
+                        <FaFacebook size={18} />
+                    </a>
+                    <a
+                        href="https://www.tiktok.com/@applexofficialbd"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-black hover:text-white transition-all duration-200 shadow-sm"
+                        aria-label="Applex TikTok"
+                    >
+                        <FaTiktok size={18} />
+                    </a>
+                    <a
+                        href="https://www.youtube.com/@user-lh5pe6ug2b"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-[#ff0000] hover:text-white transition-all duration-200 shadow-sm"
+                        aria-label="Applex YouTube"
+                    >
+                        <FaYoutube size={18} />
+                    </a>
+                </div>
             </div>
         </div>
     );

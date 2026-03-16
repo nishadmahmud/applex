@@ -71,13 +71,13 @@ export default function Footer() {
                         <path d="M0,140 C200,80 400,190 600,120 C800,50 1000,170 1200,100 C1400,40 1600,155 1800,85 C2000,35 2200,130 2400,70 L2400,300 L0,300 Z" fill="#080e1a" />
                     </svg>
                     <div className="absolute bottom-[55%] left-1/2 z-10 animate-wave-ride">
-                        <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-[#111827]/80 border border-blue-500/15 flex items-center justify-center">
+                        <div className="w-28 h-28 md:w-48 md:h-48 rounded-full bg-[#111827]/80 border border-blue-500/15 flex items-center justify-center">
                             <Image
                                 src="/Applex Logo.svg"
                                 alt="Applex Logo"
                                 width={140}
                                 height={140}
-                                className="w-12 md:w-20 h-auto object-contain brightness-0 invert opacity-40"
+                                className="w-24 md:w-48 h-auto object-contain brightness-0 invert opacity-40"
                                 unoptimized
                             />
                         </div>
@@ -232,19 +232,17 @@ export default function Footer() {
                     100% { transform: translateX(-50%); }
                 }
                 @keyframes waveRide {
-                    0% { transform: translate(-50%, 0); }
-                    16.6% { transform: translate(-50%, 30px); }
-                    33.3% { transform: translate(-50%, -25px); }
-                    50% { transform: translate(-50%, 28px); }
-                    66.6% { transform: translate(-50%, -22px); }
-                    83.3% { transform: translate(-50%, 26px); }
-                    100% { transform: translate(-50%, 0); }
+                    0% { transform: translate(-50%, 20px); }
+                    25% { transform: translate(-50%, -16px); }
+                    50% { transform: translate(-50%, 22px); }
+                    75% { transform: translate(-50%, -14px); }
+                    100% { transform: translate(-50%, 20px); }
                 }
                 .animate-wave {
-                    animation: waveScroll 18s linear infinite;
+                    animation: waveScroll 22s linear infinite;
                 }
                 .animate-wave-ride {
-                    animation: waveRide 18s ease-in-out infinite;
+                    animation: waveRide 22s linear infinite;
                 }
             `}</style>
         </footer>

@@ -113,6 +113,11 @@ export default function ProductDetailsPage() {
                 const mappedProduct = {
                     id: p.id,
                     name: p.name,
+                    brand: {
+                        id: p.brand_id ?? null,
+                        name: p.brand_name || p.brands?.name || null,
+                        image: p.brand_image || p.brands?.image || null,
+                    },
                     price: `৳ ${price.toLocaleString('en-IN')}`,
                     rawPrice: price,
                     originalPrice,

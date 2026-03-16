@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FiSearch } from 'react-icons/fi';
 import { getCategoriesFromServer, getCategoryWiseProducts } from '../../../lib/api';
 import CategorySidebar from '../../../components/Category/CategorySidebar';
 import ProductGrid from '../../../components/Category/ProductGrid';
@@ -69,6 +70,7 @@ export default function CategoryPage() {
     const [selectedRegion, setSelectedRegion] = useState([]);
     const [selectedColor, setSelectedColor] = useState([]);
     const [selectedAvailability, setSelectedAvailability] = useState('All');
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         let isMounted = true;
@@ -251,6 +253,12 @@ export default function CategoryPage() {
     // Apply Filters front-end across the ENTIRE product dataset
     const filteredProducts = useMemo(() => {
         return allProducts.filter(p => {
+            if (searchQuery.trim()) {
+                const q = searchQuery.trim().toLowerCase();
+                const name = (p.name || '').toLowerCase();
+                const brand = (p.brand || '').toLowerCase();
+                if (!name.includes(q) && !brand.includes(q)) return false;
+            }
             if (selectedBrands.length > 0 && selectedBrands[0] !== 'All') {
                 if (!selectedBrands.includes(p.brand)) return false;
             }
@@ -272,7 +280,7 @@ export default function CategoryPage() {
 
             return true;
         });
-    }, [allProducts, selectedBrands, selectedPrice, selectedStorage, selectedRegion, selectedColor, selectedAvailability]);
+    }, [allProducts, searchQuery, selectedBrands, selectedPrice, selectedStorage, selectedRegion, selectedColor, selectedAvailability]);
 
     // Frontend pagination limits
     const itemsPerPage = 20;
@@ -313,6 +321,28 @@ export default function CategoryPage() {
                     <span className="hover:text-brand-purple transition-colors cursor-pointer">Categories</span>
                     <span>/</span>
                     <span className="text-brand-purple font-bold capitalize">{categoryName}</span>
+                </div>
+
+                {/* Search */}
+                <div className="mb-6 md:mb-8">
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight mb-3">
+                        Find the {categoryName} you&apos;re looking for.
+                    </h2>
+                    <div className="w-full relative">
+                        <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder={`Search ${categoryName.toLowerCase()}...`}
+                            className="w-full h-12 md:h-14 rounded-2xl border border-gray-300 bg-white pl-11 pr-4 text-sm md:text-base outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-shadow"
+                        />
+                    </div>
+                    {searchQuery.trim() && (
+                        <div className="mt-2 text-xs md:text-sm text-gray-500 font-medium">
+                            Showing results for <span className="font-bold text-gray-900">&quot;{searchQuery.trim()}&quot;</span>
+                        </div>
+                    )}
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-0 lg:gap-8 pt-2 lg:pt-0">
