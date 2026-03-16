@@ -162,6 +162,40 @@ body {
   animation: bounce-slow 2s infinite;
 }
 
+/* Header mega menu animations */
+@keyframes mega-menu-fade-down {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-mega-menu {
+  animation: mega-menu-fade-down 0.16s ease-out;
+}
+
+@keyframes fade-line-up {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-line {
+  animation: fade-line-up 0.22s ease-out forwards;
+  opacity: 0;
+}
+
 /* ── Glassmorphism ── */
 .glass {
   background: rgba(255, 255, 255, 0.9);

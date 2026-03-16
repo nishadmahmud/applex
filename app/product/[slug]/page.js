@@ -97,14 +97,18 @@ export default function ProductDetailsPage() {
                 // Pass the raw imeis array for dynamic variant logic
                 const rawImeis = Array.isArray(p.imeis) ? p.imeis.filter(i => i.in_stock === 1) : [];
 
-                const specs = `
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li><strong>Brand:</strong> ${p.brand_name || p.brands?.name || 'N/A'}</li>
-                        <li><strong>Base price:</strong> ৳ ${originalPrice.toLocaleString('en-IN')}</li>
-                        <li><strong>Status:</strong> ${p.status || 'N/A'}</li>
-                        <li><strong>Current stock:</strong> ${p.current_stock ?? 'N/A'}</li>
-                    </ul>
-                `;
+                // Use structured specifications array directly from API (filtering out brand row)
+                const apiSpecifications = Array.isArray(p.specifications)
+                    ? p.specifications.filter(
+                        (s) =>
+                            s &&
+                            typeof s.name === 'string' &&
+                            s.name.trim().length > 0 &&
+                            s.description &&
+                            String(s.description).trim().length > 0 &&
+                            s.name.toLowerCase() !== 'brand'
+                    )
+                    : [];
 
                 const mappedProduct = {
                     id: p.id,
@@ -122,7 +126,7 @@ export default function ProductDetailsPage() {
                     images,
                     rawImeis,
                     description: p.description || '',
-                    specifications: specs,
+                    specifications: apiSpecifications,
                     category: {
                         id: p.category_id || p.category?.id,
                         name: p.category_name || p.category?.name,

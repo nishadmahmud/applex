@@ -28,6 +28,7 @@ export default function Header({ categories = [] }) {
   const router = useRouter();
 
   const searchContainerRef = useRef(null);
+  const hoverTimeoutRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -64,6 +65,29 @@ export default function Header({ categories = [] }) {
   const [expandedMobileCategory, setExpandedMobileCategory] = useState(null);
   const toggleMobileCategory = (catId) => {
     setExpandedMobileCategory(prev => prev === catId ? null : catId);
+  };
+
+  const [hoverCategory, setHoverCategory] = useState(null);
+  const [activeSubcategoryId, setActiveSubcategoryId] = useState(null);
+
+  const openMegaMenu = (cat) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setHoverCategory(cat);
+    const firstSub = Array.isArray(cat?.sub_category) && cat.sub_category.length > 0 ? cat.sub_category[0] : null;
+    setActiveSubcategoryId(firstSub?.id ?? null);
+  };
+
+  const scheduleCloseMegaMenu = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoverCategory(null);
+      setActiveSubcategoryId(null);
+    }, 180);
   };
 
   // ── Search Logic ──
@@ -362,30 +386,17 @@ export default function Header({ categories = [] }) {
             <nav className="flex-1 flex items-center overflow-x-auto no-scrollbar scroll-smooth pr-6">
               <div className="flex items-center gap-6 md:gap-8 min-w-max">
                 {displayCategories.map((cat, idx) => (
-                  <div key={cat.id || idx} className="relative group/nav py-2 h-full hidden lg:block">
+                  <div
+                    key={cat.id || idx}
+                    className="relative py-2 h-full hidden lg:block"
+                    onMouseEnter={() => openMegaMenu(cat)}
+                  >
                     <Link
                       href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}`}
                       className="text-[13px] font-semibold text-gray-400 hover:text-white whitespace-nowrap transition-colors flex items-center gap-1"
                     >
                       {cat.name}
                     </Link>
-                    {/* Subcategories Dropdown */}
-                    {cat.sub_category && cat.sub_category.length > 0 && (
-                      <div className="absolute top-full left-0 w-48 pt-0 opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all z-50">
-                        <div className="bg-white border border-gray-100 shadow-xl rounded-b-lg py-2 flex flex-col relative">
-                          <div className="absolute -top-4 left-0 right-0 h-4 bg-transparent"></div>
-                          {cat.sub_category.map(sub => (
-                            <Link
-                              key={sub.id}
-                              href={`/category/${cat.slug || cat.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}`}
-                              className="px-4 py-2.5 text-[13px] font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors whitespace-normal"
-                            >
-                              {sub.name}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 ))}
               </div>
@@ -401,6 +412,91 @@ export default function Header({ categories = [] }) {
               </Link>
             </div>
           </div>
+
+          {/* Full-width mega menu under header */}
+          {hoverCategory && hoverCategory.sub_category && hoverCategory.sub_category.length > 0 && (
+            <div
+              className="absolute left-0 right-0 top-full bg-transparent hidden lg:block"
+              onMouseEnter={() => {
+                if (hoverTimeoutRef.current) {
+                  clearTimeout(hoverTimeoutRef.current);
+                  hoverTimeoutRef.current = null;
+                }
+              }}
+              onMouseLeave={scheduleCloseMegaMenu}
+            >
+              <div className="max-w-[1550px] mx-auto px-4 md:px-8 pt-3 pb-5">
+                <div className="bg-white border border-gray-100 shadow-2xl rounded-2xl py-5 px-6 animate-mega-menu">
+                  <div className="flex gap-6">
+                    {/* Left side: subcategory list as vertical rounded boxes */}
+                    <div className="w-64 flex-shrink-0 flex flex-col gap-1.5 pr-4 border-r border-gray-100">
+                      {hoverCategory.sub_category.map((sub, index) => {
+                        const isActive = activeSubcategoryId === sub.id;
+                        return (
+                          <button
+                            key={sub.id}
+                            type="button"
+                            onMouseEnter={() => setActiveSubcategoryId(sub.id)}
+                            className={`w-full text-left px-3 py-2 rounded-xl text-[13px] font-semibold transition-all border fade-line ${
+                              isActive
+                                ? 'bg-blue-50 border-blue-500 text-blue-700 shadow-sm'
+                                : 'bg-gray-50 border-gray-100 text-gray-800 hover:bg-gray-100 hover:border-blue-200'
+                            }`}
+                            style={{ animationDelay: `${index * 35}ms` }}
+                          >
+                            {sub.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Right side: child categories for active subcategory */}
+                    <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-4 max-h-[360px] overflow-y-auto pr-1">
+                      {hoverCategory.sub_category
+                        .filter((sub) => sub.id === activeSubcategoryId)
+                        .map((sub) => (
+                          <div
+                            key={sub.id}
+                            className="space-y-2 bg-gray-50 rounded-xl p-3 border border-gray-100"
+                          >
+                            <p className="text-[13px] font-semibold text-gray-900">
+                              {sub.name}
+                            </p>
+
+                            {sub.child_categories && sub.child_categories.length > 0 && (
+                              <div className="flex flex-col gap-1.5 mt-1.5">
+                                {sub.child_categories.slice(0, 12).map((child, idx) => (
+                                  <Link
+                                    key={child.id}
+                                    href={`/category/${hoverCategory.slug || hoverCategory.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}${
+                                      child.id ? `?child_id=${child.id}` : ''
+                                    }`}
+                                    className="text-[12px] text-gray-600 hover:text-blue-600 whitespace-nowrap fade-line"
+                                    style={{ animationDelay: `${90 + idx * 25}ms` }}
+                                  >
+                                    {child.name}
+                                  </Link>
+                                ))}
+                                {sub.child_categories.length > 12 && (
+                                  <Link
+                                    href={`/category/${hoverCategory.slug || hoverCategory.name.toLowerCase().replace(/\s+/g, '-')}/${sub.slug || sub.name.toLowerCase().replace(/\s+/g, '-')}${
+                                      sub.id ? `?subcategory_id=${sub.id}` : ''
+                                    }`}
+                                    className="text-[12px] font-semibold text-blue-600 hover:underline"
+                                  >
+                                    View all
+                                  </Link>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
