@@ -108,12 +108,15 @@ export default function ProductCard({ product }) {
                     
                     {/* Deterministic Sold Percentage to avoid hydration mismatch */}
                     {(() => {
-                        const soldPercentage = Math.floor((((parseInt(String(product.id).replace(/\D/g, '')) || 0) * 7 + 65) % 31) + 65);
+                        const idNum = parseInt(String(product.id).replace(/\D/g, '')) || 0;
+                        const soldPercentage = Math.floor(((idNum * 7 + 65) % 31) + 65);
+                        const isHot = soldPercentage > 80;
+                        
                         return (
                             <div className="mb-4">
                                 <div className="flex justify-between items-center text-[9px] font-bold text-gray-400 uppercase tracking-tight mb-1.5">
                                     <span>Sold: {soldPercentage}%</span>
-                                    <span className="text-blue-600 font-extrabold">Hot</span>
+                                    {isHot && <span className="text-blue-600 font-extrabold animate-pulse">Hot</span>}
                                 </div>
                                 <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
                                     <div 

@@ -5,6 +5,7 @@ import { FiShare2, FiMinus, FiPlus, FiCheck } from 'react-icons/fi';
 import { FaStar } from 'react-icons/fa';
 import { useCart } from '../../context/CartContext';
 import toast from 'react-hot-toast';
+import ProductExtras from './ProductExtras';
 
 export default function ProductInfo({ product, onVariantImageChange }) {
     const { addToCart } = useCart();
@@ -38,6 +39,19 @@ export default function ProductInfo({ product, onVariantImageChange }) {
     const [selectedColor, setSelectedColor] = useState(allColors[0]?.name || null);
     const [selectedStorage, setSelectedStorage] = useState(null);
     const [selectedRegion, setSelectedRegion] = useState(null);
+
+    // Applex Care Plan state
+    const [selectedCarePlans, setSelectedCarePlans] = useState([]);
+
+    const toggleCarePlan = (plan) => {
+        setSelectedCarePlans(prev => {
+            const exists = prev.find(p => p.id === plan.id);
+            if (exists) {
+                return prev.filter(p => p.id !== plan.id);
+            }
+            return [...prev, plan];
+        });
+    };
 
     // When color is selected, auto-select the first available storage and region for that color
     useEffect(() => {
@@ -174,7 +188,8 @@ export default function ProductInfo({ product, onVariantImageChange }) {
         addToCart(
             { 
                 ...product, 
-                imageUrl: currentImageUrl 
+                imageUrl: currentImageUrl,
+                carePlans: selectedCarePlans 
             }, 
             quantity, 
             Object.keys(variants).length > 0 ? variants : null
@@ -377,6 +392,16 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                     )}
                 </div>
             )}
+
+            {/* Product Extras: Applex Care, EMI, Specs, Delivery */}
+            <div className="mb-10">
+                <ProductExtras 
+                    product={product} 
+                    currentPrice={matchedImei?.sale_price || product.rawPrice}
+                    selectedCarePlans={selectedCarePlans}
+                    toggleCarePlan={toggleCarePlan}
+                />
+            </div>
 
             {/* Delivery Est */}
             <div className="mb-10 p-5 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-between">

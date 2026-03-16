@@ -12,9 +12,6 @@ export default function BestDeals({ deals = [] }) {
                         <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
                             Big Saves
                         </h2>
-                        <div className="flex items-center gap-1.5 text-xs text-gray-400 font-medium mt-1">
-                            <FiClock className="w-3 h-3" /> Ends in: <span className="text-red-500 font-bold">12h 45m</span>
-                        </div>
                     </div>
                     <Link href="/special-offers" className="text-blue-600 hover:text-blue-700 text-sm font-semibold flex items-center gap-1 transition-colors">
                         View All <FiArrowRight className="w-4 h-4" />
@@ -72,16 +69,26 @@ export default function BestDeals({ deals = [] }) {
 
                                     {/* Sold Progress Bar - Always Visible */}
                                     <div className="pt-3 border-t border-gray-100">
-                                        <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase mb-1.5">
-                                            <span>Sold: {Math.floor(((deal.id || 0) * 7 + 65) % 35 + 60)}%</span>
-                                            <span className="text-blue-600 font-extrabold">Hot</span>
-                                        </div>
-                                        <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
-                                            <div
-                                                className="bg-blue-600 h-full rounded-full transition-all duration-1000"
-                                                style={{ width: `${Math.floor(((deal.id || 0) * 7 + 65) % 35 + 60)}%` }}
-                                            ></div>
-                                        </div>
+                                        {(() => {
+                                            const idNum = Number(deal.id) || 0;
+                                            const soldPercentage = Math.floor(((idNum * 7 + 65) % 35) + 60);
+                                            const isHot = soldPercentage > 80;
+
+                                            return (
+                                                <>
+                                                    <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase mb-1.5">
+                                                        <span>Sold: {soldPercentage}%</span>
+                                                        {isHot && <span className="text-blue-600 font-extrabold animate-pulse">Hot</span>}
+                                                    </div>
+                                                    <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                                                        <div
+                                                            className="bg-blue-600 h-full rounded-full transition-all duration-1000"
+                                                            style={{ width: `${soldPercentage}%` }}
+                                                        ></div>
+                                                    </div>
+                                                </>
+                                            );
+                                        })()}
                                     </div>
                                 </div>
                             </div>

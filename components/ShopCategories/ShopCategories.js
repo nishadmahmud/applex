@@ -122,15 +122,28 @@ export default function ShopCategories({ categories = [], flashSaleProducts = []
                                                     <span className="text-[10px] text-gray-400 line-through">{product.oldPrice}</span>
                                                 )}
                                             </div>
-                                            <div className="space-y-1">
-                                                <div className="flex justify-between items-center text-[9px] font-medium text-gray-400 uppercase">
-                                                    <span>Sold: {Math.floor((idx * 13) % 30) + 5}</span>
-                                                    <span className="text-red-500 font-bold">Only {Math.floor((idx * 7) % 10) + 2} Left</span>
-                                                </div>
-                                                <div className="w-full bg-gray-100 rounded-full h-1 overflow-hidden">
-                                                    <div className="bg-red-500 h-1 rounded-full" style={{ width: `${Math.floor((idx * 17) % 40) + 50}%` }}></div>
-                                                </div>
-                                            </div>
+                                            {(() => {
+                                                const idNum = Number(product.id) || 0;
+                                                const soldPercentage = Math.floor(((idNum * 13 + 45) % 30) + 65);
+                                                const isHot = soldPercentage > 80;
+                                                const leftCount = Math.floor(((idNum * 7) % 5) + 2);
+
+                                                return (
+                                                    <div className="space-y-1">
+                                                        <div className="flex justify-between items-center text-[9px] font-medium text-gray-400 uppercase">
+                                                            <span>Sold: {soldPercentage}%</span>
+                                                            {isHot ? (
+                                                                <span className="text-red-500 font-bold animate-pulse">Hot: {leftCount} Left</span>
+                                                            ) : (
+                                                                <span className="text-gray-400">{leftCount} Left</span>
+                                                            )}
+                                                        </div>
+                                                        <div className="w-full bg-gray-100 rounded-full h-1 overflow-hidden">
+                                                            <div className="bg-red-500 h-1 rounded-full" style={{ width: `${soldPercentage}%` }}></div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })()}
                                         </div>
                                     </Link>
                                 ))}

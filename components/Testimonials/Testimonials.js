@@ -79,33 +79,35 @@ export default function Testimonials() {
                 </div>
 
                 {/* Mobile Carousel */}
-                <div className="md:hidden">
-                    <div className="rounded-2xl bg-white border border-gray-100 p-5 flex flex-col gap-4 shadow-sm">
-                        <div className="flex gap-0.5">
-                            {[...Array(5)].map((_, i) => (
-                                <FiStar
-                                    key={i}
-                                    className={`w-4 h-4 ${i < reviews[activeIndex].rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`}
-                                />
-                            ))}
+                {reviews.length > 0 && (
+                    <div className="md:hidden">
+                        <div className="rounded-2xl bg-white border border-gray-100 p-5 flex flex-col gap-4 shadow-sm">
+                            <div className="flex gap-0.5">
+                                {[...Array(5)].map((_, i) => (
+                                    <FiStar
+                                        key={i}
+                                        className={`w-4 h-4 ${i < reviews[activeIndex].rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`}
+                                    />
+                                ))}
+                            </div>
+                            <p className="text-sm text-gray-600 leading-relaxed">&ldquo;{reviews[activeIndex].review}&rdquo;</p>
+                            <div className="border-t border-gray-100 pt-3">
+                                <p className="text-sm font-bold text-gray-900">{reviews[activeIndex].name}</p>
+                                <p className="text-xs text-blue-600 font-semibold">{reviews[activeIndex].product}</p>
+                            </div>
                         </div>
-                        <p className="text-sm text-gray-600 leading-relaxed">&ldquo;{reviews[activeIndex].review}&rdquo;</p>
-                        <div className="border-t border-gray-100 pt-3">
-                            <p className="text-sm font-bold text-gray-900">{reviews[activeIndex].name}</p>
-                            <p className="text-xs text-blue-600 font-semibold">{reviews[activeIndex].product}</p>
-                        </div>
-                    </div>
 
-                    <div className="flex items-center justify-center gap-3 mt-4">
-                        <button onClick={prev} className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-blue-300 hover:text-blue-600 transition-colors shadow-sm">
-                            <FiChevronLeft size={18} />
-                        </button>
-                        <span className="text-xs text-gray-400 font-medium">{activeIndex + 1} / {reviews.length}</span>
-                        <button onClick={next} className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-blue-300 hover:text-blue-600 transition-colors shadow-sm">
-                            <FiChevronRight size={18} />
-                        </button>
+                        <div className="flex items-center justify-center gap-3 mt-4">
+                            <button onClick={prev} className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-blue-300 hover:text-blue-600 transition-colors shadow-sm">
+                                <FiChevronLeft size={18} />
+                            </button>
+                            <span className="text-xs text-gray-400 font-medium">{activeIndex + 1} / {reviews.length}</span>
+                            <button onClick={next} className="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-blue-300 hover:text-blue-600 transition-colors shadow-sm">
+                                <FiChevronRight size={18} />
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </section>
     );
