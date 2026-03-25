@@ -2,15 +2,18 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
-import { FiShare2, FiMinus, FiPlus, FiCheck } from 'react-icons/fi';
+import { FiShare2, FiMinus, FiPlus, FiCheck, FiHeart } from 'react-icons/fi';
 import { FaFacebook, FaTiktok, FaYoutube } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import { useCart } from '../../context/CartContext';
+import { useWishlist } from '../../context/WishlistContext';
 import toast from 'react-hot-toast';
 import ProductExtras from './ProductExtras';
 
 export default function ProductInfo({ product, onVariantImageChange }) {
     const { addToCart } = useCart();
+    const { toggleWishlist, isInWishlist } = useWishlist();
+    const isWishlisted = product ? isInWishlist(product.id) : false;
     const [quantity, setQuantity] = useState(1);
 
     const imeis = product.rawImeis || [];
@@ -426,10 +429,14 @@ export default function ProductInfo({ product, onVariantImageChange }) {
                     <p className="text-sm font-bold text-gray-900">Reach you within <span className="text-blue-600 underline underline-offset-4 decoration-blue-600/30">0-3 business days</span></p>
                 </div>
                 <button 
-                    onClick={handleShare}
-                    className="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-sm hover:text-blue-600 transition-colors"
+                    onClick={() => toggleWishlist(product)}
+                    className="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-sm hover:text-red-500 transition-colors"
+                    title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
                 >
-                    <FiShare2 className="text-blue-600" />
+                    <FiHeart 
+                        className={`transition-all ${isWishlisted ? 'text-red-500 fill-red-500 scale-110' : 'text-gray-400'}`} 
+                        size={20} 
+                    />
                 </button>
             </div>
 
